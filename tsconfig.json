@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "compilerOptions": {
     "sourceMap": true,
@@ -28,4 +29,36 @@
 
   
   }
+=======
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "outDir": "./dist/",
+    "noImplicitAny": false,
+    "module": "es6",
+    "target": "es5",
+    //"jsx": "react",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    
+    //"allowSyntheticDefaultImports": true,
+    
+    // "rootDir": "src",
+    // "outDir": "dist",
+    // "target": "es2015",
+    // "module": "es2015",
+    // "moduleResolution": "node",
+    // "noImplicitAny": true,
+    // "noImplicitReturns": true,
+    // "noImplicitThis": true,
+    // "allowSyntheticDefaultImports": true,
+    // "removeComments": true,
+    // "sourceMap": true,
+    
+
+
+  
+  }
+>>>>>>> 69bfe54caaf822a89d6593376bfcd2295c7b570e
 }

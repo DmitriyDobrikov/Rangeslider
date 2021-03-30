@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "name": "range-slider-plugin",
   "version": "1.0.0",
@@ -34,3 +35,41 @@
   "author": "",
   "license": "ISC"
 }
+=======
+{
+  "name": "range-slider-plugin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@types/jqueryui": "^1.12.14",
+    "eslint-loader": "^4.0.2",
+    "jquery": "^3.6.0",
+    "webpack-jquery-ui": "^2.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.8",
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/preset-env": "^7.13.9",
+    "@types/jest": "^26.0.20",
+    "@types/jquery": "^3.5.5",
+    "@types/webpack-env": "^1.16.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.2.2",
+    "babel-preset-env": "^1.7.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.2.0",
+    "ts-loader": "^8.0.17",
+    "typescript": "^4.2.2",
+    "webpack": "^5.24.2",
+    "webpack-cli": "^4.5.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "author": "",
+  "license": "ISC"
+}
+>>>>>>> 69bfe54caaf822a89d6593376bfcd2295c7b570e
