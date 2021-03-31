@@ -45,9 +45,9 @@ export class Handler {
         this.handlerCurrentPosinion.style.top = "-20px"
         this.handlerCurrentPosinion.style.left = "-24px"
         this.handlerCurrentPosinion.style.background = "none"
-        this.handlerCurrentPosinion.style.width = "60px"
+        this.handlerCurrentPosinion.style.width = "40px"
         this.handlerCurrentPosinion.style.textAlign = "center"
-        this.handlerCurrentPosinion.style.fontSize = "12px"
+        this.handlerCurrentPosinion.style.fontSize = "10px"
 
         this.handler.style.position = 'absolute'
     }

@@ -40,16 +40,30 @@ $.fn.examplePlugin = function ( selectSliderParams : SliderParams = defaultSlide
 
 
 
+
  
   let sliderScaleView = new View(selectSliderParams.sliderViewParams)
   contr.HandlerCurrentsPositionTextContent(mod, sliderScaleView)
   contr.getHandlerCurrentsPosition(mod, sliderScaleView)
-  contr.setCurrentValue(sliderScaleView)
+  contr.setCurrentValue(mod, sliderScaleView)
   //let sliderScaleView1 = new View()
   let sliderScalePlugin = sliderScaleView.scaleVaeInView
- // let sliderHandlerPlugin = sliderScaleView.thumb
-  
 
+  
+ // let sliderHandlerPlugin = sliderScaleView.thumb
+  this.i = document.createElement('button')
+  this.j = true
+  let self = this
+  this.i.onclick = function() {
+   
+    if (mod.isRange == true) {
+      mod.isRange = false
+    } else {
+      mod.isRange = true
+    }
+    contr.qwe(sliderScaleView, mod.isRange)
+  }
+ 
 
   // let i = sliderScaleView.sliderScale
   // let j = sliderScaleView.sliderHandler
@@ -71,7 +85,7 @@ $.fn.examplePlugin = function ( selectSliderParams : SliderParams = defaultSlide
 
 
   this.append(sliderScalePlugin)
-  
+  this.append(this.i)
   //sliderScaleView.viewSliderMove(i, j)
 
   // i.onclick = function() {

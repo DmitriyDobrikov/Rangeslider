@@ -42,45 +42,72 @@ export class View {
     scaleHandler1
     positionLabel1
 
+
+    thumbMax
+    thumbMin
+
+    positionLabelMax
+    positionLabelMin
+
+    isRange = false
+
+
+
     constructor (viewParams: ViewType = defaultView, ) {
 
         
       
         this.sliderScale = new Scale(viewParams.scaleView) 
         this.scaleHandler = new Handler(viewParams.handlerView) 
-        this.scaleHandler1 = new Handler(viewParams.handlerView) 
+        //this.scaleHandler1 = new Handler(viewParams.handlerView) 
         this.scaleVaeInView = this.sliderScale.scale
         this.thumb = this.scaleHandler.handler
-        this.thumb1 = this.scaleHandler1.handler
+        
         this.handlerFullRadius = this.scaleHandler.handlerStyleData.handlerWidth
 
+
+        this.thumbMax = new Handler(viewParams.handlerView).handler 
+        this.thumbMin = new Handler(viewParams.handlerView).handler 
+
         this.positionLabel = this.scaleHandler.handlerCurrentPosinion
-        this.positionLabel1 = this.scaleHandler1.handlerCurrentPosinion
+        this.positionLabelMax = new Handler(viewParams.handlerView).handlerCurrentPosinion
+        this.positionLabelMin = new Handler(viewParams.handlerView).handlerCurrentPosinion
 
         this.scaleVaeInView.append(this.positionLabel)
-        this.scaleVaeInView.append(this.positionLabel1)
-        this.scaleVaeInView.append(this.thumb1) 
+        this.scaleVaeInView.append(this.positionLabelMax)
+        this.scaleVaeInView.append(this.positionLabelMin)
+        this.scaleVaeInView.append(this.thumbMax) 
+        this.scaleVaeInView.append(this.thumbMin) 
         this.scaleVaeInView.append(this.thumb) 
-        //this.scaleVaeInView.append(this.thumb1) 
 
         const that = this
 
-        // this.scaleVaeInView.onclick = function (event) {
-        //     const self = that
-        //     self.scaleOncklickMethod(event)
-        // }
-         
+
+        this.scaleVaeInView.onclick = function (event) {
+            const self = that
+            self.scaleOncklickMethod(event)
+        }
         this.thumb.onmousedown = function(event) {
             const self = that
             self.scaleHandlerMoveMethod(event, self.thumb)
         };
 
-        this.thumb1.onmousedown = function(event) {
+        this.thumbMax.onmousedown = function(event) {
             const self = that
-            self.scaleHandlerMoveMethod(event, self.thumb1)
+            self.scaleHandlerMoveMethod(event, self.thumbMax)
+        };
+        this.thumbMin.onmousedown = function(event) {
+            const self = that
+            self.scaleHandlerMoveMethod(event, self.thumbMin)
         };
 
         this.thumb.ondragstart = function() {
+            return false;
+        };
+        this.thumbMin.ondragstart = function() {
+            return false;
+        };
+        this.thumbMax.ondragstart = function() {
             return false;
         };
 
@@ -91,13 +118,12 @@ export class View {
 
         this.rangeValue = this.maxValue * 1
 
-        this.l = parseFloat(this.thumb.style.left)
-        this.r = parseFloat(this.thumb1.style.left)
+        
 
     }
 
 
-    i
+    
 
 
 
@@ -141,22 +167,29 @@ export class View {
         // защита от выхода из границ
 
         // перемещает бегунов к ближайшему к клику значению
-        if((this.positionHandler * this.correctValue)%this.stepView < this.stepView) {
-            this.positionLabel.textContent = (this.nearValue(this.positionHandler * this.correctValue)  + this.minValue).toFixed(this.stepViewSimbols)
-            this.positionLabel1.textContent = (this.nearValue(this.positionHandler * this.correctValue)  + this.minValue).toFixed(this.stepViewSimbols)
-
-            this.positionHandler = (this.nearValue(this.positionHandler * this.correctValue))/this.correctValue
-        }
+        this.movePositionToNearestValue()
         // перемещает бегунов к ближайшему к клику значению
+        
+        //this.setThumbLabelTextContentPosition()
 
-        this.thumb.style.left = this.positionHandler + 'px'
-        //this.thumb1.style.left = this.positionHandler + 20 + 'px'///////////////////
-        this.scaleVaeInView.style.background = `linear-gradient(to right, ${this.viewParamsData.scaleView.scaleProgress} 0%, ${this.viewParamsData.scaleView.scaleProgress} ${this.positionHandler/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%, #EEEEEE ${this.positionHandler/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100}%, #EEEEEE 100%)`         
+        //this.thumb.style.left = this.positionHandler + 'px'
+        if(Math.abs(this.positionHandler - parseInt(this.thumbMin.style.left)) > Math.abs(this.positionHandler - parseInt(this.thumbMax.style.left))) {
+            this.thumbMax.style.left = this.positionHandler + 'px'
+            this.scaleprogressColor(this.thumbMax)
+        } else {          
+            this.thumbMin.style.left = this.positionHandler + 'px'
+            this.scaleprogressColor(this.thumbMin)
+        }
+        if (this.thumb.style.display != "none") {
+            this.thumb.style.left = this.positionHandler + 'px'
+            this.scaleprogressColor(this.thumb)
+        }
+        this.movePositionToNearestValue()
+        this.setThumbLabelTextContentPosition()
+        // console.log()
+        //this.movePositionToNearestValue()
+        //this.scaleVaeInView.style.background = `linear-gradient(to right, ${this.viewParamsData.scaleView.scaleProgress} 0%, ${this.viewParamsData.scaleView.scaleProgress} ${this.positionHandler/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%, #EEEEEE ${this.positionHandler/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100}%, #EEEEEE 100%)`         
     }
-
-
-
-
 
 
 
@@ -168,75 +201,44 @@ export class View {
         document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('mouseup', onMouseUp);
 
-        
-
         function onMouseMove(event) {
            
-            
             self.positionHandler = event.clientX  - self.scaleVaeInView.getBoundingClientRect().left - parseInt(self.handlerFullRadius)/2;
 
-            //self.positionHandler1 = event.clientX  - self.scaleVaeInView.getBoundingClientRect().left - parseInt(self.handlerFullRadius)/2;
-
-
+            // показывает количество знаков после запятой
             self.getStepViewSimbols(self.stepView)
 
+            // защита от выхода из границ
             self.stayHandlerInBorder()
             
+            // перемещает бегунок к ближайшему значению. Если аргумент true перемещает с движением мыши иначе - скачками, устанавливает текстовое значения поля над бегунком 
+            self.movePositionToNearestValue(true) 
 
-
-
-
-            if((self.positionHandler * self.correctValue)%self.stepView < self.stepView) {
-                self.positionLabel.textContent = (self.nearValue(self.positionHandler * self.correctValue)  + self.minValue).toFixed(self.stepViewSimbols)
-            }
-
-
-            if(handlerName == self.thumb1 && self.positionHandler < (parseFloat(self.thumb.style.left) + self.stepView/self.correctValue)) {
-                self.positionHandler = (parseFloat(self.thumb.style.left) + self.stepView/self.correctValue)
-                //console.log(self.positionHandler)
-            } 
-            if(handlerName == self.thumb && self.positionHandler > (parseFloat(self.thumb1.style.left) - self.stepView/self.correctValue)) {
-                self.positionHandler = parseFloat(self.thumb1.style.left)  - self.stepView/self.correctValue
-                //console.log(self.positionHandler)
-            } 
-            // else if(self.positionHandler < parseFloat(self.thumb.style.left)) {
-            //     self.positionHandler = parseFloat(self.thumb.style.left)
-            // }
-
-            handlerName.style.left = self.positionHandler + "px"
-
-
-
-            
-            self.r = parseFloat(self.thumb1.style.left)
-
-            self.l = parseFloat(self.thumb.style.left)
-
+            // не позволяет меньшему значению быть >= большего и наоборот
+            self.twoHandlersBorderMove(handlerName)
             
             handlerName.style.left = self.positionHandler + 'px';
-            self.positionLabel.style.left = self.thumb.style.left 
-            self.positionLabel1.style.left = self.thumb1.style.left 
-           
 
-            self.positionLabel.textContent = (self.nearValue(parseInt(self.thumb.style.left) * self.correctValue)  + self.minValue).toFixed(self.stepViewSimbols)
-            self.positionLabel1.textContent = (self.nearValue(parseInt(self.thumb1.style.left) * self.correctValue)  + self.minValue).toFixed(self.stepViewSimbols)
-            self.scaleprogressColor()         
+            // двигает текст над бегунком
+            self.setThumbLabelTextContentPosition()
+  
+            //окрашивает шкалу в зависимости от типа хэндлера
+            self.scaleprogressColor(handlerName)
         }
 
         function onMouseUp() {
             self.positionHandler = (self.nearValue(self.positionHandler * self.correctValue))/self.correctValue
             handlerName.style.left = self.positionHandler + "px"
-            self.scaleprogressColor()
-
-
+            self.scaleprogressColor(handlerName)
+            self.setThumbLabelTextContentPosition()
+            
             document.removeEventListener('mouseup', onMouseUp);
             document.removeEventListener('mousemove', onMouseMove);
         }
-        
     };
 
 
-
+    // показывает количество знаков после запятой
     getStepViewSimbols(value) {
         if(Math.floor(value) != value) {
             return this.stepViewSimbols = this.stepValueAfterDot(value)
@@ -244,11 +246,9 @@ export class View {
             return this.stepViewSimbols = 0 
         }
     }
+    // показывает количество знаков после запятой
 
-    l
-    r
-
-
+    // защита от выхода из границ
     stayHandlerInBorder() {
         if (this.positionHandler < - this.positionHandler) {
             this.positionHandler = 0
@@ -257,44 +257,24 @@ export class View {
         if (this.positionHandler > this.rightEdge) {
             this.positionHandler = this.rightEdge
         }
-     
-        
-        // if(this.r - this.l <= 10) {
-        //     this.positionHandler = this.l
-        //     //this.thumb1.style.left = this.positionHandler + "px"
-        // }
-
-        // else if(this.positionHandler >= this.r) {
-        //     this.positionHandler = this.r
-        //     //this.thumb1.style.left = this.positionHandler + "px"
-        // }
-        //console.log(this.positionHandler)
     }
+    // защита от выхода из границ
 
-
-
-
-
-    scaleprogressColor() {
-        
-        if(this.r > this.l){
+    //окрашивает шкалу в зависимости от типа хэндлера
+    scaleprogressColor(handlerType) {
+        if(handlerType == this.thumbMax || handlerType == this.thumbMin){
             this.scaleVaeInView.style.background = `linear-gradient(to right, 
             ${this.viewParamsData.scaleView.scaleBackground} 0%, 
-            ${this.viewParamsData.scaleView.scaleBackground} ${parseInt(this.thumb.style.left)/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%,
-            ${this.viewParamsData.scaleView.scaleProgress} ${parseInt(this.thumb.style.left)/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%,
-            ${this.viewParamsData.scaleView.scaleProgress} ${parseInt(this.thumb1.style.left)/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%,
-            ${this.viewParamsData.scaleView.scaleBackground} ${parseInt(this.thumb1.style.left)/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%,
+            ${this.viewParamsData.scaleView.scaleBackground} ${parseInt(this.thumbMin.style.left)/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%,
+            ${this.viewParamsData.scaleView.scaleProgress} ${parseInt(this.thumbMin.style.left)/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%,
+            ${this.viewParamsData.scaleView.scaleProgress} ${parseInt(this.thumbMax.style.left)/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%,
+            ${this.viewParamsData.scaleView.scaleBackground} ${parseInt(this.thumbMax.style.left)/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%,
             ${this.viewParamsData.scaleView.scaleBackground} 100%`  
         } else {
-            this.scaleVaeInView.style.background = `linear-gradient(to right, 
-            ${this.viewParamsData.scaleView.scaleBackground} 0%, 
-            ${this.viewParamsData.scaleView.scaleBackground} ${parseInt(this.thumb1.style.left)/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%,
-            ${this.viewParamsData.scaleView.scaleProgress} ${parseInt(this.thumb1.style.left)/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%,
-            ${this.viewParamsData.scaleView.scaleProgress} ${parseInt(this.thumb.style.left)/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%,
-            ${this.viewParamsData.scaleView.scaleBackground} ${parseInt(this.thumb.style.left)/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%,
-            ${this.viewParamsData.scaleView.scaleBackground} 100%`  
-        }      
+            this.scaleVaeInView.style.background = `linear-gradient(to right, ${this.viewParamsData.scaleView.scaleProgress} 0%, ${this.viewParamsData.scaleView.scaleProgress} ${parseInt(this.thumb.style.left)/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%, #EEEEEE ${this.positionHandler/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%, #EEEEEE 100%)`
+        }
     }
+    //окрашивает шкалу в зависимости от типа хэндлера
 
 
     valuesOnScale
@@ -310,7 +290,7 @@ export class View {
     maxV
     minV
 
-
+    // добавление линий деления шкалы слайдера в вид
     scaleLinesAdd() {
         
         this.valuesOnScale = ((this.maxV - this.minV)/this.stepView).toFixed(0)
@@ -335,8 +315,6 @@ export class View {
                 numberValue.textContent = String(this.maxV)
             }
 
-
-            //numberValue.textContent = String(((this.margerScaleRange )*this.correctValue).toFixed(this.stepViewSimbols))
             line.style.left = this.margerScaleRange + "px"
             this.margerScaleRange += ((this.stepValueLines) / this.correctValue)
             this.markerSkaleView.append(line) 
@@ -344,13 +322,31 @@ export class View {
         }      
 
     }
+    // добавление линий деления шкалы слайдера в вид
 
+    // не позволяет меньшему значению быть >= большего и наоборот
+    twoHandlersBorderMove(handler) {
+        if(handler == this.thumbMax && this.positionHandler < (parseFloat(this.thumbMin.style.left) + this.stepView/this.correctValue)) {
+            this.positionHandler = (parseFloat(this.thumbMin.style.left) + this.stepView/this.correctValue)
+        } 
+        if(handler == this.thumbMin && this.positionHandler > (parseFloat(this.thumbMax.style.left) - this.stepView/this.correctValue)) {
+            this.positionHandler = parseFloat(this.thumbMax.style.left)  - this.stepView/this.correctValue
+        } 
+    }
+    // не позволяет меньшему значению быть >= большего и наоборот
 
+    // перемещает бегунок к ближайшему значению. Если аргумент true перемещает с движением мыши иначе - скачками, устанавливает текстовое значения поля над бегунком 
+    movePositionToNearestValue(slowMover: boolean = false) {
+        if((this.positionHandler * this.correctValue)%this.stepView < this.stepView) {
+            this.positionLabel.textContent = (this.nearValue(this.positionHandler * this.correctValue)  + this.minValue).toFixed(this.stepViewSimbols)
+            this.positionLabelMax.textContent = (this.nearValue(parseInt(this.thumbMax.style.left) * this.correctValue)  + this.minValue).toFixed(this.stepViewSimbols)
+            this.positionLabelMin.textContent = (this.nearValue(parseInt(this.thumbMin.style.left) * this.correctValue)  + this.minValue).toFixed(this.stepViewSimbols)
+            if(!slowMover)this.positionHandler = (this.nearValue(this.positionHandler * this.correctValue))/this.correctValue
+        }
+    }
+    // перемещает бегунок к ближайшему значению. Если аргумент true перемещает с движением мыши иначе - скачками, устанавливает текстовое значения поля над бегунком 
 
-
-
-
-
+    // включает/отключает отображение делений шкалы
     scaleLinesTrigger(y) {
         for(let x = 0; x < this.stepPositionRangeOnScale + 1; x += this.stepView) {
             if(y) {
@@ -360,8 +356,10 @@ export class View {
             }
         }
     }
+    // включает/отключает отображение делений шкалы
 
 
+    // включает/отключает отображение значений деления шкалы
     scaleValuesTrigger(y) {
         for(let x = 0; x < this.stepPositionRangeOnScale + 1; x += this.stepView) {
             if(y) {
@@ -371,11 +369,12 @@ export class View {
             }
         }
     }
+    // включает/отключает отображение значений деления шкалы
 
     stepPositionRangeOnScale
 
 
-
+    //вычисление количества делений шкалы и шага размещения линий и значений(в единицах деления шкалы)
     scaleLinesAndLabelsStep() {       
         if( this.valuesOnScale <= 10) {
             this.stepValueLines = this.stepView
@@ -393,6 +392,52 @@ export class View {
             }
         }
     }
+    //вычисление количества делений шкалы и шага размещения линий и значений(в единицах деления шкалы)
+
+
+    // переключение вида количества бегунков
+    isRangeSwitch(isRange: boolean) {
+        if(isRange) {
+            this.thumb.style.display = "none"
+            this.positionLabel.style.display = "none"
+            this.thumbMax.style.display = "block"
+            this.thumbMin.style.display = "block"
+            this.positionLabelMax.style.display = "block"
+            this.positionLabelMin.style.display = "block"
+            this.thumbMax.style.left = parseInt(this.sliderScale.scaleStyleData.scaleWidth) - parseInt(this.handlerFullRadius) + "px"
+            this.thumbMin.style.left = 0 + 'px'
+            this.scaleVaeInView.style.background = `linear-gradient(to right, 
+            ${this.viewParamsData.scaleView.scaleBackground} 0%, 
+            ${this.viewParamsData.scaleView.scaleBackground} ${parseInt(this.thumbMin.style.left)/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%,
+            ${this.viewParamsData.scaleView.scaleProgress} ${parseInt(this.thumbMin.style.left)/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%,
+            ${this.viewParamsData.scaleView.scaleProgress} ${parseInt(this.thumbMax.style.left)/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%,
+            ${this.viewParamsData.scaleView.scaleBackground} ${parseInt(this.thumbMax.style.left)/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%,
+            ${this.viewParamsData.scaleView.scaleBackground} 100%`  
+            this.positionLabelMax.style.left = parseInt(this.thumbMax.style.left) - 19 + parseInt(this.handlerFullRadius)/2 + "px"
+            this.positionLabelMin.style.left = parseInt(this.thumbMin.style.left) - 19 + parseInt(this.handlerFullRadius)/2 + "px"
+            this.positionLabelMin.textContent = this.minValue
+            this.positionLabelMax.textContent = this.maxValue
+        } else {
+            this.thumb.style.display = "block"
+            this.positionLabel.style.display = "block"
+            this.thumbMax.style.display = "none"
+            this.thumbMin.style.display = "none"
+            this.positionLabelMax.style.display = "none"
+            this.positionLabelMin.style.display = "none"
+            this.scaleVaeInView.style.background = `linear-gradient(to right, ${this.viewParamsData.scaleView.scaleProgress} 0%, ${this.viewParamsData.scaleView.scaleProgress} ${parseInt(this.thumb.style.left)/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%, #EEEEEE ${parseInt(this.thumb.style.left)/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%, #EEEEEE 100%)`
+            this.positionLabel.style.left = parseInt(this.thumb.style.left) - 19 + parseInt(this.handlerFullRadius)/2 + "px"
+            this.positionLabelMax.textContent = (this.nearValue((this.maxValue + this.minValue)/2)).toFixed(this.stepViewSimbols)
+        }
+    }
+    // переключение вида количества бегунков
+
+    // двигает текст над бегунком
+    setThumbLabelTextContentPosition() {
+        this.positionLabel.style.left = this.positionHandler - 19 + parseInt(this.handlerFullRadius)/2 + "px"
+        this.positionLabelMax.style.left = parseInt(this.thumbMax.style.left) - 19 + parseInt(this.handlerFullRadius)/2 + "px"
+        this.positionLabelMin.style.left = parseInt(this.thumbMin.style.left) - 19 + parseInt(this.handlerFullRadius)/2 + "px"
+    }
+    // двигает текст над бегунком
 
 
 }

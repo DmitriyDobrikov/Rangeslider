@@ -32,38 +32,30 @@ export class Controller {
         
         view.sliderScale.maxVal.textContent = model.max
         view.sliderScale.minVal.textContent = model.min
-        //view.selectCurrentValues = model.current
-        
+  
     }
 
-    setCurrentValue(view) {
+    setCurrentValue(model, view) {
         //view.getStepViewSimbols(view.step.veiw)
         view.selectCurrentValues = (view.nearValue((view.maxValue + view.minValue)/2)).toFixed(view.stepViewSimbols)
-        
+        //view.isRangeSwitch(true)
+       
         view.thumb.style.left = view.selectCurrentValues/view.correctValue + 'px'
-        view.thumb1.style.left = view.selectCurrentValues/view.correctValue + 90 + 'px'
+        view.positionLabel.style.left = view.selectCurrentValues/view.correctValue + 'px'
 
-
-        //view.thumb.style.left = String(view.selectCurrentValues/view.correctValue) + 'px'
+        console.log(view.positionLabelMax.style.left, view.positionLabelMin.style.left)
         view.positionLabel.textContent = view.selectCurrentValues
-        
-        view.scaleVaeInView.style.background = `linear-gradient(to right, 
-        ${view.viewParamsData.scaleView.scaleBackground} 0%, 
-        ${view.viewParamsData.scaleView.scaleBackground} ${parseInt(view.thumb.style.left)/parseInt(view.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%,
-        ${view.viewParamsData.scaleView.scaleProgress} ${parseInt(view.thumb.style.left)/parseInt(view.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%,
-        ${view.viewParamsData.scaleView.scaleProgress} ${parseInt(view.thumb1.style.left)/parseInt(view.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%,
-        ${view.viewParamsData.scaleView.scaleBackground} ${parseInt(view.thumb1.style.left)/parseInt(view.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%,
-        ${view.viewParamsData.scaleView.scaleBackground} 100%`   
-
+        // view.positionLabelMax.textContent = view.selectCurrentValues
+        // view.positionLabelMin.textContent = view.selectCurrentValues
         
         view.scaleLinesAdd()
 
-        // view.scaleLinesTrigger(false)
-        // view.scaleValuesTrigger(false)
+        view.isRangeSwitch(model.isRange)
+    }
 
-        // view.scaleValuesTrigger(true)
-        // view.scaleLinesTrigger(true)
 
+    qwe(view, param) {
+        view.isRangeSwitch(param)
     }
     
 }

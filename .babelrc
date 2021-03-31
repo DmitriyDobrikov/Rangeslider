@@ -1,10 +1,8 @@
-<<<<<<< HEAD
+//<<<<<<< HEAD
 {
     "presets": ["@babel/preset-env"],
     "plugins": ["@babel/plugin-proposal-class-properties"]
-=======
-{
-    "presets": ["@babel/preset-env"],
-    "plugins": ["@babel/plugin-proposal-class-properties"]
->>>>>>> 69bfe54caaf822a89d6593376bfcd2295c7b570e
+//=======
+
+//>>>>>>> 69bfe54caaf822a89d6593376bfcd2295c7b570e
   }

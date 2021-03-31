@@ -18,7 +18,7 @@ type ModelType = {
     minCurrentDoubleHeandler: 25,
     maxCurrentDoubleHeandler: 75,
     ivVertical: false,
-    isRange: false,
+    isRange: true,
     step: 1,
     
 }
