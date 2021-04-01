@@ -52,17 +52,41 @@ $.fn.examplePlugin = function ( selectSliderParams : SliderParams = defaultSlide
   
  // let sliderHandlerPlugin = sliderScaleView.thumb
   this.i = document.createElement('button')
+  this.vert = document.createElement('button')
+  this.vert.style.background = "red"
+  
   this.j = true
   let self = this
+  this.vert.onclick = function() {
+    sliderScaleView.isVerticalIdentifier = !sliderScaleView.isVerticalIdentifier
+    sliderScaleView.verticalControl()
+  }
   this.i.onclick = function() {
+    mod.isRange = !mod.isRange 
    
-    if (mod.isRange == true) {
-      mod.isRange = false
-    } else {
-      mod.isRange = true
-    }
+    // if (mod.isRange == true) {
+    //   mod.isRange = false
+    // } else {
+    //   mod.isRange = true
+    // }
     contr.qwe(sliderScaleView, mod.isRange)
   }
+//   function findSize(el, size) {
+//     /* size must be 'width' or ' height' */
+//     return window.getComputedStyle
+//         ? getComputedStyle(el,null).getPropertyValue(size)
+//         : el['client'+size.substr(0,1).toUpperCase() + size.substr(1)] + 'px';
+// }
+// findSize(el, 'width');
+// findSize(el, 'height');
+//sliderScaleView.isVerticalIdentifier = false
+console.log(sliderScaleView.isVerticalIdentifier)
+
+  //this.qq =  this.i.offsetWidth
+  // let r 
+  // window.onload = function(){r = i.clientWidth}
+  
+  // console.log(r)
  
 
   // let i = sliderScaleView.sliderScale
@@ -77,15 +101,12 @@ $.fn.examplePlugin = function ( selectSliderParams : SliderParams = defaultSlide
   // let t = sliderScale.scale
 
 
-  //contr.getHandlerCurrentsPosition (mod, sliderScaleView)
-
-  //console.log(sliderScaleView.correctValue)
-
 
 
 
   this.append(sliderScalePlugin)
   this.append(this.i)
+  this.append(this.vert)
   //sliderScaleView.viewSliderMove(i, j)
 
   // i.onclick = function() {
@@ -93,7 +114,10 @@ $.fn.examplePlugin = function ( selectSliderParams : SliderParams = defaultSlide
   // }
   // alert(sliderScaleView.maxValue)
 
-
+  // let r 
+  // window.onload = function(){r = i.clientWidth}
+  
+  //console.log(sliderScaleView.scaleVaeInView.clientWidth)
   return this
   
 };

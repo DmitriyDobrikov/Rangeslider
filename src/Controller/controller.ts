@@ -40,15 +40,17 @@ export class Controller {
         view.selectCurrentValues = (view.nearValue((view.maxValue + view.minValue)/2)).toFixed(view.stepViewSimbols)
         //view.isRangeSwitch(true)
        
-        view.thumb.style.left = view.selectCurrentValues/view.correctValue + 'px'
-        view.positionLabel.style.left = view.selectCurrentValues/view.correctValue + 'px'
+        // view.thumb.style.left = view.selectCurrentValues/view.correctValue + 'px'
+        // view.positionLabel.style.left = view.selectCurrentValues/view.correctValue + 'px'
 
-        console.log(view.positionLabelMax.style.left, view.positionLabelMin.style.left)
+        //console.log(view.positionLabelMax.style.left, view.positionLabelMin.style.left)
         view.positionLabel.textContent = view.selectCurrentValues
         // view.positionLabelMax.textContent = view.selectCurrentValues
         // view.positionLabelMin.textContent = view.selectCurrentValues
         
         view.scaleLinesAdd()
+        view.scaleLinesTrigger(false)
+        view.scaleValuesTrigger(false)
 
         view.isRangeSwitch(model.isRange)
     }
@@ -56,6 +58,11 @@ export class Controller {
 
     qwe(view, param) {
         view.isRangeSwitch(param)
+    }
+    r
+
+    verticalMethod(view, param) {
+        view.isVerticalIdentifier = false
     }
     
 }

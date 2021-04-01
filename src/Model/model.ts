@@ -8,7 +8,7 @@ export class Model {
     current
     minCurrentDoubleHeandler
     maxCurrentDoubleHeandler
-    ivVertical
+    isVertical
     isRange
     step
 
@@ -37,7 +37,7 @@ export class Model {
         this.current = this.modelData.current
         this.minCurrentDoubleHeandler = this.modelData.minCurrentDoubleHeandler
         this.maxCurrentDoubleHeandler = this.modelData.maxCurrentDoubleHeandler
-        this.ivVertical = this.modelData.ivVertical
+        this.isVertical = this.modelData.ivVertical
         this.isRange = this.modelData.isRange
         this.step = this.modelData.step 
 
