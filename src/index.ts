@@ -58,7 +58,7 @@ $.fn.examplePlugin = function ( selectSliderParams : SliderParams = defaultSlide
   this.j = true
   let self = this
   this.vert.onclick = function() {
-    sliderScaleView.isVerticalIdentifier = !sliderScaleView.isVerticalIdentifier
+    //sliderScaleView.isVerticalIdentifier = !sliderScaleView.isVerticalIdentifier
     sliderScaleView.verticalControl()
   }
   this.i.onclick = function() {
