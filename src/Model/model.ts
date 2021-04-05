@@ -34,7 +34,7 @@ export class Model {
         // if(madelParam.current == undefined) {
         //     this.current = madelParam.current
         // }
-        this.current = this.modelData.current
+        //this.current = this.modelData.current
         this.minCurrentDoubleHeandler = this.modelData.minCurrentDoubleHeandler
         this.maxCurrentDoubleHeandler = this.modelData.maxCurrentDoubleHeandler
         this.isVertical = this.modelData.ivVertical

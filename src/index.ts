@@ -29,9 +29,9 @@ $.fn.examplePlugin = function ( selectSliderParams : SliderParams = defaultSlide
 
 
 
-  let contr = new Controller()
+  let controller = new Controller(selectSliderParams)
 
-  let mod = new Model(selectSliderParams.sliderModelParams)
+  //let mod = new Model(selectSliderParams.sliderModelParams)
 
 
 //   function qwe (model, view) {
@@ -43,11 +43,13 @@ $.fn.examplePlugin = function ( selectSliderParams : SliderParams = defaultSlide
 
  
   let sliderScaleView = new View(selectSliderParams.sliderViewParams)
-  contr.HandlerCurrentsPositionTextContent(mod, sliderScaleView)
-  contr.getHandlerCurrentsPosition(mod, sliderScaleView)
-  contr.setCurrentValue(mod, sliderScaleView)
+
+
+  // contr.HandlerCurrentsPositionTextContent(mod, sliderScaleView)
+  // contr.getHandlerCurrentsPosition(mod, sliderScaleView)
+  // contr.setCurrentValue(mod, sliderScaleView)
   //let sliderScaleView1 = new View()
-  let sliderScalePlugin = sliderScaleView.scaleVaeInView
+  let sliderScalePlugin = controller.view.scaleVaeInView
 
   
  // let sliderHandlerPlugin = sliderScaleView.thumb
@@ -58,73 +60,26 @@ $.fn.examplePlugin = function ( selectSliderParams : SliderParams = defaultSlide
   this.j = true
   let self = this
   this.vert.onclick = function() {
-    //sliderScaleView.isVerticalIdentifier = !sliderScaleView.isVerticalIdentifier
-    sliderScaleView.verticalControl()
+    controller.view.verticalControl()
   }
   this.i.onclick = function() {
-    mod.isRange = !mod.isRange 
+    controller.model.isRange = !controller.model.isRange 
    
-    // if (mod.isRange == true) {
-    //   mod.isRange = false
-    // } else {
-    //   mod.isRange = true
-    // }
-    contr.qwe(sliderScaleView, mod.isRange)
+    controller.qwe(controller.model.isRange )
   }
-//   function findSize(el, size) {
-//     /* size must be 'width' or ' height' */
-//     return window.getComputedStyle
-//         ? getComputedStyle(el,null).getPropertyValue(size)
-//         : el['client'+size.substr(0,1).toUpperCase() + size.substr(1)] + 'px';
-// }
-// findSize(el, 'width');
-// findSize(el, 'height');
-//sliderScaleView.isVerticalIdentifier = false
-console.log(sliderScaleView.isVerticalIdentifier)
-
-  //this.qq =  this.i.offsetWidth
-  // let r 
-  // window.onload = function(){r = i.clientWidth}
-  
-  // console.log(r)
- 
-
-  // let i = sliderScaleView.sliderScale
-  // let j = sliderScaleView.sliderHandler
-  //let sliderHandlerView = new View().sliderHandler
-  // let t = new View()
-  // sliderScaleView.viewSliderMove(i, j)
-  //sliderScale.scaleConstruct()
-  //let t = sliderScaleView.sliderScale
-  
-  // let self = this
-  // let t = sliderScale.scale
-
-
-
 
 
   this.append(sliderScalePlugin)
   this.append(this.i)
   this.append(this.vert)
-  //sliderScaleView.viewSliderMove(i, j)
 
-  // i.onclick = function() {
-  //   console.log(sliderScaleView.controller)
-  // }
-  // alert(sliderScaleView.maxValue)
-
-  // let r 
-  // window.onload = function(){r = i.clientWidth}
-  
-  //console.log(sliderScaleView.scaleVaeInView.clientWidth)
   return this
   
 };
 
 $('#rootq').examplePlugin(
 
-  //   {
+  {
     
     
   // //   sliderViewParams: {
@@ -139,11 +94,12 @@ $('#rootq').examplePlugin(
   // //   },
   
 
-  //   sliderModelParams: {
-  //     min: 110,
-  //     max: 120,
-  //   },
-  // }
+    sliderModelParams: {
+      min: 110,
+      max: 120,
+      //current: 103,
+    },
+  }
 
 
 );

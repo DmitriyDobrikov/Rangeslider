@@ -15,8 +15,8 @@ export class ScaleValues {
     constructor() {
 
         this.scaleMarkerValue.style.position = "absolute"
-        this.scaleMarkerValue.style.width = "1px"
-        this.scaleMarkerValue.style.height = "10px"
+        this.scaleMarkerValue.style.width = "10px"
+        this.scaleMarkerValue.style.height = "1px"
         this.scaleMarkerValue.style.background = "black"
         //this.scaleMarkerValue.style.top = 0 + "px"
 

@@ -66,13 +66,11 @@ export class View {
       
         this.sliderScale = new Scale(viewParams.scaleView) 
         this.scaleHandler = new Handler(viewParams.handlerView) 
-        //this.scaleHandler1 = new Handler(viewParams.handlerView) 
         this.scaleVaeInView = this.sliderScale.scale
         this.thumb = this.scaleHandler.handler
         this.scaleVaeInView.style.width
         
         this.handlerFullRadius = this.scaleHandler.handlerStyleData.handlerWidth
-        //this.q = this.scaleHandler.handler.clientWidth
 
         this.thumbMax = new Handler(viewParams.handlerView).handler 
         this.thumbMin = new Handler(viewParams.handlerView).handler 
@@ -91,11 +89,11 @@ export class View {
 
         const that = this
 
+        this.scaleVaeInView.onclick = function (event) {
+            const self = that
+            self.scaleOncklickMethod(event)
+        }
 
-        // this.scaleVaeInView.onclick = function (event) {
-        //     const self = that
-        //     self.scaleOncklickMethod(event)
-        // }
         this.thumb.onmousedown = function(event) {
             const self = that
             self.scaleHandlerMoveMethod(event, self.thumb)
@@ -174,16 +172,20 @@ export class View {
         event.preventDefault();
 
 
+        
 
-        //alert(this.scaleVaeInView.style.width)
-        
-        
+
+
         // показывает количество знаков после запятой
         this.getStepViewSimbols(this.stepView)
         // показывает количество знаков после запятой
 
         // позиция бегунка
-        this.positionHandler = event.clientX  - this.scaleVaeInView.getBoundingClientRect().left - parseInt(this.handlerFullRadius)/2;
+        if(this.isVerticalIdentifier){
+            this.positionHandler = event.clientY  - this.scaleVaeInView.getBoundingClientRect().top - parseInt(this.handlerFullRadius)/2;
+        } else {
+            this.positionHandler =  event.clientX  - this.scaleVaeInView.getBoundingClientRect().left - parseInt(this.handlerFullRadius)/2;
+        }
         // позиция бегунка
 
         // защита от выхода из границ
@@ -193,27 +195,44 @@ export class View {
         // перемещает бегунов к ближайшему к клику значению
         this.movePositionToNearestValue()
         // перемещает бегунов к ближайшему к клику значению
-        
-        //this.setThumbLabelTextContentPosition()
 
-        //this.thumb.style.left = this.positionHandler + 'px'
-        if(Math.abs(this.positionHandler - parseInt(this.thumbMin.style.left)) > Math.abs(this.positionHandler - parseInt(this.thumbMax.style.left))) {
-            this.thumbMax.style.left = this.positionHandler + 'px'
-            this.scaleprogressColor(this.thumbMax)
-        } else {          
-            this.thumbMin.style.left = this.positionHandler + 'px'
+        //this.twoHandlersBorderMove(this.thumbMin)
+
+        if(this.isVerticalIdentifier) {
+            if(Math.abs(this.positionHandler - parseInt(this.thumbMin.style.top)) > Math.abs(this.positionHandler - parseInt(this.thumbMax.style.top))) {
+                this.thumbMax.style.top = this.positionHandler + 'px'
+            } else {          
+                this.thumbMin.style.top = this.positionHandler + 'px'
+            }
             this.scaleprogressColor(this.thumbMin)
+
+            if (this.thumb.style.display != "none") {
+                this.thumb.style.top = this.positionHandler + 'px'
+                this.scaleprogressColor(this.thumb)
+            }
+        } else {
+            if(Math.abs(this.positionHandler - this.verticalOrHorizontalPosition(this.thumbMin)) > Math.abs(this.positionHandler - this.verticalOrHorizontalPosition(this.thumbMax))) {
+                this.thumbMax.style.left = this.positionHandler + 'px'
+            } else {          
+                this.thumbMin.style.left = this.positionHandler + 'px'
+            }
+            this.scaleprogressColor(this.thumbMin)
+            if (this.thumb.style.display != "none") {
+                this.thumb.style.left = this.positionHandler + 'px'
+                this.scaleprogressColor(this.thumb)
+            }
         }
-        if (this.thumb.style.display != "none") {
-            this.thumb.style.left = this.positionHandler + 'px'
-            this.scaleprogressColor(this.thumb)
-        }
+
+
+
+
+
+
+
         this.movePositionToNearestValue()
         this.setThumbLabelTextContentPosition()
-        // console.log()
-        //this.movePositionToNearestValue()
-        //this.scaleVaeInView.style.background = `linear-gradient(to right, ${this.viewParamsData.scaleView.scaleProgress} 0%, ${this.viewParamsData.scaleView.scaleProgress} ${this.positionHandler/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%, #EEEEEE ${this.positionHandler/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100}%, #EEEEEE 100%)`         
-    }
+        console.log(this.positionHandler, this.thumbMin.style.top, this.thumbMax.style.top)
+        }
 
 
 
@@ -227,15 +246,11 @@ export class View {
 
         function onMouseMove(event) {
            
-           
-            //self.positionHandler =  event.clientX  - self.scaleVaeInView.getBoundingClientRect().left - parseInt(self.handlerFullRadius)/2;
             if(self.isVerticalIdentifier){
                 self.positionHandler = event.clientY  - self.scaleVaeInView.getBoundingClientRect().top - parseInt(self.handlerFullRadius)/2;
             } else {
                 self.positionHandler =  event.clientX  - self.scaleVaeInView.getBoundingClientRect().left - parseInt(self.handlerFullRadius)/2;
-
             }
-            //console.log(parseInt(self.x) , (event.clientX  - self.scaleVaeInView.getBoundingClientRect().left - parseInt(self.handlerFullRadius)/2))
             // показывает количество знаков после запятой
             
             self.getStepViewSimbols(self.stepView)
@@ -271,22 +286,14 @@ export class View {
 
         function onMouseUp() {
             self.positionHandler = (self.nearValue(self.positionHandler * self.correctValue))/self.correctValue
-            //handlerName.style.left = self.positionHandler + "px"
-
-            
-
+          
             if(self.isVerticalIdentifier){
-                //handlerName.style.left = self.q;
                 handlerName.style.top = self.positionHandler + 'px';
                 handlerName.style.left = -4 + "px"
             } else {
-                //handlerName.style.top = self.q;
                 handlerName.style.left = self.positionHandler + 'px';
                 handlerName.style.top = -4 + "px"
             }
-
-
-
 
             self.scaleprogressColor(handlerName)
             self.setThumbLabelTextContentPosition()
@@ -323,7 +330,7 @@ export class View {
 
     //окрашивает шкалу в зависимости от типа хэндлера
     scaleprogressColor(handlerType) {
-        if(handlerType == this.thumbMax || handlerType == this.thumbMin || this.isRange == true){
+        if(handlerType == this.thumbMin || handlerType == this.thumbMax){
             !this.isVerticalIdentifier?
             this.scaleVaeInView.style.background = `linear-gradient(to right, 
             ${this.viewParamsData.scaleView.scaleBackground} 0%, 
@@ -370,8 +377,14 @@ export class View {
         
         this.markerSkaleView = new ScaleValues().marker
         this.markerValueSkaleView = new ScaleValues().valueMarker
-        this.markerSkaleView.style.top = parseInt(this.handlerFullRadius)*0.75 + "px"
-        this.markerValueSkaleView.style.top = parseInt(this.handlerFullRadius)*1.75 + "px"
+
+        if(this.isVerticalIdentifier) {
+            this.markerSkaleView.style.left = -parseInt(this.handlerFullRadius) - parseInt(this.y) + "px"
+            this.markerValueSkaleView.style.left = -parseInt(this.handlerFullRadius)*3.75 + "px"
+        } else {
+            this.markerSkaleView.style.top = parseInt(this.handlerFullRadius)*0.75 + "px"
+            this.markerValueSkaleView.style.top = parseInt(this.handlerFullRadius)*1.75 + "px"
+        }
         this.scaleVaeInView.append(this.markerSkaleView)
         this.scaleVaeInView.append(this.markerValueSkaleView)
 
@@ -379,19 +392,42 @@ export class View {
 
         for(let i = 0; i < this.stepPositionRangeOnScale + 1; i += 1 ) {
             let line = new ScaleValues().scaleMarkerValue  
-            let numberValue = new ScaleValues().scaleValues
-            numberValue.style.left = this.margerScaleRange - 15 + "px";
-            if(((this.margerScaleRange - parseInt(this.handlerFullRadius)/2)*this.correctValue).toFixed(this.stepViewSimbols) < this.maxV){
-                numberValue.textContent = String((this.minV +(this.margerScaleRange - parseInt(this.handlerFullRadius)/2 )*this.correctValue).toFixed(this.stepViewSimbols))
+            if(this.isVerticalIdentifier) {
+                line.style.width = "10px"
+                line.style.height = "1px"
             } else {
+                line.style.width = "1px"
+                line.style.height = "10px"
+            }
+
+            let numberValue = new ScaleValues().scaleValues
+            if(this.isVerticalIdentifier) {
+                numberValue.style.top = this.margerScaleRange - parseInt(this.handlerFullRadius)/2 + "px";
+            } else {
+                //numberValue.style.left = this.margerScaleRange - parseInt(this.handlerFullRadius)/2 + "px";
+                numberValue.style.left = this.margerScaleRange - 15 + "px";
+            }
+
+            if(((this.margerScaleRange - parseInt(this.handlerFullRadius)/2)*this.correctValue).toFixed(this.stepViewSimbols) < this.maxV){
+                this.isVerticalIdentifier?
+                numberValue.textContent = String((this.maxV - (this.margerScaleRange - parseInt(this.handlerFullRadius)/2 )*this.correctValue).toFixed(this.stepViewSimbols)):
+                numberValue.textContent = String((this.minV + (this.margerScaleRange - parseInt(this.handlerFullRadius)/2 )*this.correctValue).toFixed(this.stepViewSimbols))
+            } else {
+                this.isVerticalIdentifier?
+                numberValue.textContent = String(this.minV):
                 numberValue.textContent = String(this.maxV)
             }
 
-            line.style.left = this.margerScaleRange + "px"
+            if(this.isVerticalIdentifier) {
+                line.style.top = this.margerScaleRange + "px"
+            } else {
+                line.style.left = this.margerScaleRange + "px"
+            }
             this.margerScaleRange += ((this.stepValueLines) / this.correctValue)
             this.markerSkaleView.append(line) 
             this.markerValueSkaleView.append(numberValue) 
-        }      
+        } 
+    
 
     }
     // добавление линий деления шкалы слайдера в вид
@@ -423,8 +459,8 @@ export class View {
 
     verticalOrHorizontalPosition(handler) {
         return this.isVerticalIdentifier?
-        (parseInt(this.x) - parseInt(handler.style.top)):
-        parseInt(handler.style.left)
+        (parseFloat(this.x) - parseFloat(handler.style.top) - 12):
+        parseFloat(handler.style.left)
     }
 
 
@@ -439,7 +475,7 @@ export class View {
             if(y) {
                 this.markerSkaleView.getElementsByTagName("div")[x].style.display = 'block'
             } else {
-                this.markerSkaleView.getElementsByTagName("div")[x].style.display = 'none'
+                this.markerSkaleView.getElementsByTagName("div")[x].remove().style.display = 'none'
             }
         }
     }
@@ -452,7 +488,7 @@ export class View {
             if(y) {
                 this.markerValueSkaleView.getElementsByTagName("div")[x].style.display = 'block'
             } else {
-                this.markerValueSkaleView.getElementsByTagName("div")[x].style.display = 'none'
+                this.markerValueSkaleView.getElementsByTagName("div")[x].remove().style.display = 'none'
             }
         }
     }
@@ -497,9 +533,6 @@ export class View {
                 this.thumbMin.style.top = 0 + 'px'
                 this.thumb.style.top = 0 + "px"
                 this.thumb.style.left = "-4px"
-                
-
-
             } else {
                 this.thumbMax.style.left = parseInt(this.sliderScale.scaleStyleData.scaleWidth) - parseInt(this.handlerFullRadius) + "px"
                 this.thumbMin.style.left = 0 + 'px'
@@ -519,11 +552,6 @@ export class View {
             this.positionLabelMin.textContent = this.minValue
             this.positionLabelMax.textContent = this.maxValue
             this.setThumbLabelTextContentPosition()
-
-
-            // this.positionLabel.textContent = (this.nearValue(this.verticalOrHorizontalPosition(this.thumb) * this.correctValue)  + this.minValue).toFixed(this.stepViewSimbols)
-            // this.positionLabelMax.textContent = (this.nearValue(this.verticalOrHorizontalPosition(this.thumbMax) * this.correctValue)  + this.minValue).toFixed(this.stepViewSimbols)
-            // this.positionLabelMin.textContent = (this.nearValue(this.verticalOrHorizontalPosition(this.thumbMin) * this.correctValue)  + this.minValue).toFixed(this.stepViewSimbols)
             } else {
             this.thumb.style.display = "block"
             this.positionLabel.style.display = "block"
@@ -539,7 +567,7 @@ export class View {
                 this.thumbMax.style.top = parseInt(this.sliderScale.scaleStyleData.scaleWidth) - parseInt(this.handlerFullRadius) + "px"
                 this.thumbMin.style.top = 0 + 'px'
                 this.thumb.style.top = parseInt(this.sliderScale.scaleStyleData.scaleWidth) - parseInt(this.handlerFullRadius) + "px"
-                this.thumb.style.left = "-4px"                
+                this.thumb.style.left = "-4px" 
             } else {
                 this.thumbMax.style.left = parseInt(this.sliderScale.scaleStyleData.scaleWidth) - parseInt(this.handlerFullRadius) + "px"
                 this.thumbMin.style.left = 0 + "px"
@@ -547,11 +575,6 @@ export class View {
                 this.thumb.style.top = "-4px" 
             }
             this.setThumbLabelTextContentPosition()
-           
-            // this.positionLabel.textContent = (this.nearValue(this.verticalOrHorizontalPosition(this.thumb) * this.correctValue)  + this.minValue).toFixed(this.stepViewSimbols)
-            // this.positionLabelMax.textContent = (this.nearValue(this.verticalOrHorizontalPosition(this.thumbMax) * this.correctValue)  + this.minValue).toFixed(this.stepViewSimbols)
-            // this.positionLabelMin.textContent = (this.nearValue(this.verticalOrHorizontalPosition(this.thumbMin) * this.correctValue)  + this.minValue).toFixed(this.stepViewSimbols)
-            
             
         }
         
@@ -560,7 +583,6 @@ export class View {
 
     // двигает текст над бегунком
     setThumbLabelTextContentPosition() {
-        //this.positionLabel.style.left = this.positionHandler - 19 + parseInt(this.handlerFullRadius)/2 + "px"
         if(this.isVerticalIdentifier) {
             this.positionLabel.style.top = parseInt(this.leftOrTopPosition(this.thumb)) + "px"
             this.positionLabel.style.left = parseInt(this.handlerFullRadius)/2 + "px"
@@ -568,9 +590,9 @@ export class View {
             this.positionLabelMin.style.left = parseInt(this.handlerFullRadius)/2 + "px"
             this.positionLabelMax.style.top =  this.thumbMax.style.top 
             this.positionLabelMin.style.top =  this.thumbMin.style.top
-   
+            this.positionLabelMax.textContent = (this.nearValue(this.verticalOrHorizontalPosition(this.thumbMax) * this.correctValue)  + this.minValue).toFixed(this.stepViewSimbols)
+            this.positionLabelMin.textContent = (this.nearValue(this.verticalOrHorizontalPosition(this.thumbMin) * this.correctValue)  + this.minValue).toFixed(this.stepViewSimbols)
         } else {
-
             this.positionLabelMax.style.top = -parseInt(this.handlerFullRadius) - parseInt(this.y) + "px"
             this.positionLabelMin.style.top =  -parseInt(this.handlerFullRadius) - parseInt(this.y) + "px"
             this.positionLabel.style.top = -parseInt(this.handlerFullRadius) - parseInt(this.y) + "px"
@@ -584,15 +606,15 @@ export class View {
 
 
 
-    isVerticalController(vertical) {
-        if(vertical) {
+    // isVerticalController(vertical) {
+    //     if(vertical) {
 
-        }
-    }
+    //     }
+    // }
 
-    toVertical(pos, newPos){
-        pos = newPos + "px"
-    }
+    // toVertical(pos, newPos){
+    //     pos = newPos + "px"
+    // }
     
     leftOrTopPosition(a) {
         return this.isVerticalIdentifier?
@@ -606,44 +628,48 @@ export class View {
 
     verticalControl(i: boolean = true) {
 
-        if(i)this.isVerticalIdentifier = !this.isVerticalIdentifier
+        this.isVerticalIdentifier = !this.isVerticalIdentifier
         if(this.isVerticalIdentifier){
             this.scaleVaeInView.style.width = this.y
             this.scaleVaeInView.style.height =  this.x
-            // this.thumb.style.left = this.thumb.style.top
-            // this.thumbMax.style.left = this.handlerRegulTop
-            // this.thumbMin.style.left = this.handlerRegulTop
-            this.thumb.style.top =  parseInt(this.x) - parseInt(this.thumb.style.left) - parseInt(this.handlerFullRadius) + "px"
-            //this.scaleVaeInView.style.background = `linear-gradient(to bottom, ${this.viewParamsData.scaleView.scaleBackground} 0%, ${this.viewParamsData.scaleView.scaleBackground} ${parseInt(this.leftOrTopPosition(this.thumb))/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%, ${this.viewParamsData.scaleView.scaleProgress} ${this.positionHandler/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%, ${this.viewParamsData.scaleView.scaleProgress} 100%)`
-
-            
-
-            this.thumbMax.style.top = parseInt(this.x) - parseInt(this.thumbMin.style.left) - parseInt(this.handlerFullRadius) + "px"//  this.thumbMax.style.left//parseInt(this.scaleVaeInView.style.height) - parseInt(this.handlerFullRadius)/2 + "px"
-            this.thumbMin.style.top = parseInt(this.x) - parseInt(this.thumbMax.style.left) - parseInt(this.handlerFullRadius) + "px"// this.thumbMin.style.left//this.scaleHandler.handler.style.left
+           
+            this.thumb.style.top = parseFloat(this.x) - parseFloat(this.handlerFullRadius) + "px"
+         
+            this.thumbMax.style.top = parseFloat(this.x) - parseFloat(this.handlerFullRadius) + "px" 
+            this.thumbMin.style.top = "0px"
 
             this.thumb.style.left = "-4px"
             this.thumbMax.style.left = "-4px"
             this.thumbMin.style.left = "-4px"
             
             this.setThumbLabelTextContentPosition()
-            this.positionLabel.textContent = (this.nearValue(this.verticalOrHorizontalPosition(this.thumb) * this.correctValue)  + this.minValue).toFixed(this.stepViewSimbols)
             
+            this.positionLabel.textContent = (this.nearValue(this.verticalOrHorizontalPosition(this.thumb) * this.correctValue)  + this.minValue).toFixed(this.stepViewSimbols)
             this.positionLabelMax.textContent = (this.nearValue(this.verticalOrHorizontalPosition(this.thumbMax) * this.correctValue)  + this.minValue).toFixed(this.stepViewSimbols)
             this.positionLabelMin.textContent = (this.nearValue(this.verticalOrHorizontalPosition(this.thumbMin) * this.correctValue)  + this.minValue).toFixed(this.stepViewSimbols)
             
+            
+            
+            this.markerValueSkaleView.remove()
+            this.markerSkaleView.remove()     
+            
+            this.scaleLinesAdd()
 
-            this.scaleprogressColor(this.thumb)
+            if(this.isRange) {
+                this.scaleprogressColor(this.thumbMax)
+            } else {
+                this.scaleprogressColor(this.thumb)
+            }
+
+
             
         } else {
             this.scaleVaeInView.style.width = this.x
             this.scaleVaeInView.style.height =  this.y
 
-            this.thumb.style.left = parseInt(this.x) - parseInt(this.thumb.style.top) - parseInt(this.handlerFullRadius) + "px"// parseInt(this.x) - parseInt(this.thumb.style.top) + "px"// this.thumb.style.top
-            //this.scaleVaeInView.style.background = `linear-gradient(to bottom, #EEEEEE 0%,   * %, ${this.viewParamsData.scaleView.scaleProgress} ${this.positionHandler/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%, ${this.viewParamsData.scaleView.scaleProgress} 100%)`
-
-
-            this.thumbMax.style.left = this.thumbMax.style.top//parseInt(this.scaleVaeInView.style.width) - parseInt(this.handlerFullRadius)/2 + "px"
-            this.thumbMin.style.left = this.thumbMin.style.top
+            this.thumb.style.left = "0px"
+            this.thumbMax.style.left = parseFloat(this.x) - parseFloat(this.handlerFullRadius) + "px"
+            this.thumbMin.style.left = "0px"
 
             this.thumb.style.top = "-4px"
             this.thumbMax.style.top = "-4px"
@@ -651,17 +677,33 @@ export class View {
             this.setThumbLabelTextContentPosition()
 
 
-            this.positionLabel.textContent = (this.nearValue(this.verticalOrHorizontalPosition(this.thumb) * this.correctValue)  + this.minValue).toFixed(this.stepViewSimbols)
+            this.positionLabel.textContent = this.minV 
+            this.positionLabelMax.textContent = this.maxV 
+            this.positionLabelMin.textContent = this.minV 
             
-            this.positionLabelMax.textContent = (this.nearValue(this.verticalOrHorizontalPosition(this.thumbMax) * this.correctValue)  + this.minValue).toFixed(this.stepViewSimbols)
-            this.positionLabelMin.textContent = (this.nearValue(this.verticalOrHorizontalPosition(this.thumbMin) * this.correctValue)  + this.minValue).toFixed(this.stepViewSimbols)
+
+
+            this.markerValueSkaleView.remove()
+            this.markerSkaleView.remove()     
             
-            this.scaleprogressColor(this.thumb)
+
+            this.scaleLinesAdd()
+
+            if(this.isRange) {
+                this.scaleprogressColor(this.thumbMax)
+            } else {
+                this.scaleprogressColor(this.thumb)
+            }
             
         }
+
+
     }
 
 
+
+
+    returnCurrentValue(){}
 }
 
 
