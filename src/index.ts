@@ -5,6 +5,7 @@
 import $ from 'jquery'
 import { ViewType, defaultView } from "./View/types"
 import { SliderParams, defaultSlider } from "./types"
+import "./main.scss"
 
 
 //const $ = require( 'jquery' );

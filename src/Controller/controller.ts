@@ -53,14 +53,14 @@ export class Controller {
 
     setCurrentValue() {
         //view.getStepViewSimbols(view.step.veiw)
-        this.view.selectCurrentValues = (this.view.nearValue((this.view.maxValue + this.view.minValue)/2)).toFixed(this.view.stepViewSimbols)
+        //this.view.selectCurrentValues = (this.view.nearValue((this.view.maxValue + this.view.minValue)/2)).toFixed(this.view.stepViewSimbols)
         //view.isRangeSwitch(true)
        
         // view.thumb.style.left = view.selectCurrentValues/view.correctValue + 'px'
         // view.positionLabel.style.left = view.selectCurrentValues/view.correctValue + 'px'
 
         //console.log(view.positionLabelMax.style.left, view.positionLabelMin.style.left)
-        this.view.positionLabel.textContent = this.view.selectCurrentValues
+        //this.view.positionLabel.textContent = this.view.selectCurrentValues
         // view.positionLabelMax.textContent = view.selectCurrentValues
         // view.positionLabelMin.textContent = view.selectCurrentValues
         
@@ -68,7 +68,7 @@ export class Controller {
         // view.scaleLinesTrigger(false)
         // view.scaleValuesTrigger(false)
 
-        //this.view.isRangeSwitch(this.model.isRange)
+        this.view.isRangeSwitch(this.model.isRange)
     }
 
 

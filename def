@@ -1,0 +1,48 @@
+[33mcommit 50e01f5a90cf89d98792a0327fc71fe61d0c48c5[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: DmitriyDobrikov <d-dobrikov@mail.ru>
+Date:   Mon Apr 5 23:50:29 2021 +0700
+
+    new controller
+
+[33mcommit ef0e96b5683660eb9f2c966db53876d119002433[m
+Author: DmitriyDobrikov <d-dobrikov@mail.ru>
+Date:   Sat Apr 3 00:36:04 2021 +0700
+
+    new switch vertical and range
+
+[33mcommit c5b7ccd3564ddf01bf91820d9e934965eb7bdb6d[m
+Author: DmitriyDobrikov <d-dobrikov@mail.ru>
+Date:   Thu Apr 1 22:34:23 2021 +0700
+
+    start of vertical slider
+
+[33mcommit c931006f19e6c4723f8c295009e63f5758122c88[m
+Author: DmitriyDobrikov <d-dobrikov@mail.ru>
+Date:   Wed Mar 31 19:13:28 2021 +0700
+
+    Completed viwe two handlers
+
+[33mcommit a2c330e0a4f20d4ce0be463f3cbfaf68fdbf0602[m
+Merge: b3a7a55 69bfe54
+Author: DmitriyDobrikov <d-dobrikov@mail.ru>
+Date:   Tue Mar 30 23:48:16 2021 +0700
+
+    res
+
+[33mcommit b3a7a5531879cfa177a00545f4e74b73042b74a8[m
+Author: DmitriyDobrikov <d-dobrikov@mail.ru>
+Date:   Tue Mar 30 23:45:45 2021 +0700
+
+    res
+
+[33mcommit 69bfe54caaf822a89d6593376bfcd2295c7b570e[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m
+Author: DmitriyDobrikov <53111514+DmitriyDobrikov@users.noreply.github.com>
+Date:   Tue Mar 30 23:18:50 2021 +0700
+
+    Add files via upload
+
+[33mcommit b43bcde216f997599502100b8b0cfe5104b24aa9[m
+Author: DmitriyDobrikov <d-dobrikov@mail.ru>
+Date:   Wed Mar 3 11:51:49 2021 +0700
+
+    Created project. Installed webpack whith typescript
