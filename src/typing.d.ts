@@ -21,26 +21,26 @@ interface JQuery {
   examplePlugin: Function;
 }
 
-type SliderPluginParams = {
-  n: string
-}
+// type SliderPluginParams = {
+//   n: string
+// }
 
 
-type Slider = {
-  value: string;
-  // min: string;
-  // max: string;
-  rangeSliderProgressBar: string;
-};
+// type Slider = {
+//   value: string;
+//   // min: string;
+//   // max: string;
+//   rangeSliderProgressBar: string;
+// };
 
 
-type Slider1 = {
-  n?: string;
-}
+// type Slider1 = {
+//   n?: string;
+// }
 
 
-type SliderViewParams = {
+// type SliderViewParams = {
 
-}
+// }
 
-//export {JQuery, Slider}
+//export {JQuery.examplePlugin}

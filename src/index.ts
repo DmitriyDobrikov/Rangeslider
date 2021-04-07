@@ -2,9 +2,9 @@
 //const imageSrc = require('./images/1.png')
 //const $ = require( 'jquery' );
 
-import $ from 'jquery'
+import $ from 'jquery';
 import { ViewType, defaultView } from "./View/types"
-import { SliderParams, defaultSlider } from "./types"
+import { SliderParams, defaultSlider, } from "./types"
 import "./main.scss"
 
 
@@ -26,7 +26,21 @@ import { Model } from './Model/model';
 //{handlerView: {handlerBackground: "red"}, scaleView: {scaleBackground: "red"}
 //slider selectSliderView: ViewType,
 
-$.fn.examplePlugin = function ( selectSliderParams : SliderParams = defaultSlider,) {
+
+// interface SliderElement extends JQuery<HTMLElement> {
+//   slider: (
+//     method?: CompleteUserOptions | keyof PluginMethods,
+//     options?: CompleteUserOptions
+//   ) => void;
+// }
+// interface JQuery {
+//   examplePlugin: Function;
+// }
+
+
+
+
+$.fn.examplePlugin = function examplePlugin ( selectSliderParams : SliderParams = defaultSlider,): JQuery {
 
 
 
@@ -40,7 +54,7 @@ $.fn.examplePlugin = function ( selectSliderParams : SliderParams = defaultSlide
 // }
 
 
-
+  
 
  
   let sliderScaleView = new View(selectSliderParams.sliderViewParams)
@@ -73,57 +87,59 @@ $.fn.examplePlugin = function ( selectSliderParams : SliderParams = defaultSlide
   this.append(sliderScalePlugin)
   this.append(this.i)
   this.append(this.vert)
-
+  //name() = this
   return this
   
-};
+}
 
-$('#rootq').examplePlugin(
 
-  {
+// $('#rootq').examplePlugin(
+
+//   {
     
     
-  // //   sliderViewParams: {
-  // //     handlerView: { 
-  // //       //handlerBackground: "green",
-  // //       //handlerLeft: "70px"
-  // //    },
-  // //   scaleView: {
-  // //     scaleBackground: "grey",
-  // //     scaleProgress: "red"
-  // //   },
-  // //   },
+//   // //   sliderViewParams: {
+//   // //     handlerView: { 
+//   // //       //handlerBackground: "green",
+//   // //       //handlerLeft: "70px"
+//   // //    },
+//   // //   scaleView: {
+//   // //     scaleBackground: "grey",
+//   // //     scaleProgress: "red"
+//   // //   },
+//   // //   },
   
 
-    sliderModelParams: {
-      min: 110,
-      max: 120,
-      //current: 103,
-    },
-  }
+//     sliderModelParams: {
+//       min: 110,
+//       max: 120,
+//       //current: 103,
+//     },
+//   }
 
 
-);
-
-
-
+// );
 
 
 
-$('#qwe').examplePlugin(
 
-  // {
-  //   sliderViewParams: {
-  //     handlerView: { 
-  //       handlerBackground: "green",
-  //       //handlerLeft: "70px"
-  //    },
-  //   // scaleView: {
-  //   //   //scaleBackground: "grey",
-  //   //   //scaleProgress: " red"
-  //   // },
-  //   }
-  // }
- );
 
- $('#qwer').examplePlugin()
+
+// $('#qwe').examplePlugin(
+
+//   // {
+//   //   sliderViewParams: {
+//   //     handlerView: { 
+//   //       handlerBackground: "green",
+//   //       //handlerLeft: "70px"
+//   //    },
+//   //   // scaleView: {
+//   //   //   //scaleBackground: "grey",
+//   //   //   //scaleProgress: " red"
+//   //   // },
+//   //   }
+//   // }
+//  );
+
+//  $('#qwer').examplePlugin()
+

@@ -9,9 +9,10 @@ type SliderParams = {
 }
 
 
+
 const defaultSlider = {
     sliderViewParams: defaultView,
     sliderModelParams: defaultModel,
 }
 
-export {SliderParams, defaultSlider}
+export {SliderParams, defaultSlider,}
