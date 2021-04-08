@@ -40,11 +40,11 @@ import { Model } from './Model/model';
 
 
 
-$.fn.examplePlugin = function examplePlugin ( selectSliderParams : SliderParams = defaultSlider,): JQuery {
+$.fn.rangeSlider = function  ( selectSliderParams : SliderParams = defaultSlider,): JQuery {
 
 
 
-  let controller = new Controller(selectSliderParams)
+  this.controller = new Controller(selectSliderParams)
 
   //let mod = new Model(selectSliderParams.sliderModelParams)
 
@@ -57,68 +57,86 @@ $.fn.examplePlugin = function examplePlugin ( selectSliderParams : SliderParams 
   
 
  
-  let sliderScaleView = new View(selectSliderParams.sliderViewParams)
+  //this.sliderScaleView = new View(selectSliderParams.sliderViewParams)
 
 
   // contr.HandlerCurrentsPositionTextContent(mod, sliderScaleView)
   // contr.getHandlerCurrentsPosition(mod, sliderScaleView)
   // contr.setCurrentValue(mod, sliderScaleView)
   //let sliderScaleView1 = new View()
-  let sliderScalePlugin = controller.view.scaleVaeInView
+  this.sliderScalePlugin = this.controller.view.scaleVaeInView
 
   
  // let sliderHandlerPlugin = sliderScaleView.thumb
-  this.i = document.createElement('button')
-  this.vert = document.createElement('button')
-  this.vert.style.background = "red"
-  
+  // this.i = document.createElement('button')
+  // this.vert = document.createElement('button')
+
   this.j = true
   let self = this
-  this.vert.onclick = function() {
-    controller.view.verticalControl()
-  }
-  this.i.onclick = function() {
-    controller.model.isRange = !controller.model.isRange 
+  // this.vert.onclick = function() {
+  //   controller.model.isVertical = !controller.model.isVertical
+  //   //controller.view.verticalControl()
+  //   controller.verticalMethod(controller.model.isVertical)
+  // }
+  // this.i.onclick = function() {
+  //   controller.model.isRange = !controller.model.isRange 
    
-    controller.qwe(controller.model.isRange )
-  }
+  //   controller.qwe(controller.model.isRange )
+  // }
 
 
-  this.append(sliderScalePlugin)
-  this.append(this.i)
-  this.append(this.vert)
+  this.append(this.sliderScalePlugin)
+  // this.append(this.i)
+  // this.append(this.vert)
   //name() = this
   return this
   
 }
+// let i = $('#qwe').rangeSlider()
+// console.log(i.sliderScaleView)
 
-
-// $('#rootq').examplePlugin(
+// console.log(
+// $('#rootq').rangeSlider(
 
 //   {
     
     
-//   // //   sliderViewParams: {
-//   // //     handlerView: { 
-//   // //       //handlerBackground: "green",
-//   // //       //handlerLeft: "70px"
-//   // //    },
-//   // //   scaleView: {
-//   // //     scaleBackground: "grey",
-//   // //     scaleProgress: "red"
-//   // //   },
-//   // //   },
+//     sliderViewParams: {
+//       scaleView: {
+//         scaleWidth: "300px",
+//         scaleHeight: "6px",
+//         scaleBorder: "0px solid black",
+//         scaleBackground: "#EEEEEE",
+//         scaleBorderRadius: '10px',
+//         scaleProgress: "blue"
+//       },
+//       handlerView: { 
+//         handlerWidth: "12px",
+//         handlerHeight: "12px",
+//         handlerBorder: "1px solid #FFFFFF",
+//         handlerBackground: "blue",
+//         handlerBorderRadius: '10px',
+//         handlerLeft: "0px",
+//         handlerTop: "-4px",
+//      },
+
+//     },
   
 
 //     sliderModelParams: {
-//       min: 110,
-//       max: 120,
-//       //current: 103,
+//       min: 0,
+//       max: 10,
+//       //current: 50,
+//       minCurrentDoubleHeandler: 25,
+//       maxCurrentDoubleHeandler: 75,
+//       isVertical: false,
+//       isRange: false,
+//       step: 0.01,
 //     },
 //   }
 
 
-// );
+// ).sliderScaleView)
 
 
 

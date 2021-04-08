@@ -6,7 +6,7 @@ const miniCss = require('mini-css-extract-plugin');
 
 module.exports = {
     entry: {
-        main: path.resolve(__dirname, './src/plagin.ts'),
+        main: path.resolve(__dirname, './src/index.ts'),
     },
 
     devtool: 'inline-source-map',

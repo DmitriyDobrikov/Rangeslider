@@ -37,7 +37,7 @@ export class Model {
         //this.current = this.modelData.current
         this.minCurrentDoubleHeandler = this.modelData.minCurrentDoubleHeandler
         this.maxCurrentDoubleHeandler = this.modelData.maxCurrentDoubleHeandler
-        this.isVertical = this.modelData.ivVertical
+        this.isVertical = this.modelData.isVertical
         this.isRange = this.modelData.isRange
         this.step = this.modelData.step 
 

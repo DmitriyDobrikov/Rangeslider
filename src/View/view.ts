@@ -10,7 +10,7 @@ export class View {
 
     scaleValuesLines
 
-    controller 
+     
 
     sliderScale
     scaleHandler
@@ -21,7 +21,7 @@ export class View {
     minValue
     maxValue
     viewParamsData: ViewType = defaultView;
-    exp
+    
     
 
     rangeValue
@@ -38,10 +38,7 @@ export class View {
     selectCurrentValues
 
     rightEdge
-    thumb1
-    scaleHandler1
-    positionLabel1
-
+   
 
     thumbMax
     thumbMin
@@ -50,18 +47,45 @@ export class View {
     positionLabelMin
 
     isRange = false
-    q
-
-
-    x
-    y
-
+    scaleLong
+    scaleWidth
     isVerticalIdentifier = false
+
+
+
+    valuesOnScale
+    margerScaleRange
+    markerSkaleView
+    markerValueSkaleView
+    stepValueLines
+    maxV
+    minV
+
+
+    handlerRegulLeft
+    handlerRegulTop
+    
+
+    stepPositionRangeOnScale
+
 
 
 
     constructor (viewParams: ViewType = defaultView, ) {
 
+
+        this.viewParamsData
+
+
+        Object.assign(this.viewParamsData, defaultView)
+
+        // //this.scaleStyleData = scaleStyleParams
+
+        for (const key in this.viewParamsData) {
+            if (viewParams[key] != undefined) {
+                this.viewParamsData[key] = viewParams[key]
+            }
+        }
         
       
         this.sliderScale = new Scale(viewParams.scaleView) 
@@ -85,7 +109,6 @@ export class View {
         this.scaleVaeInView.append(this.thumbMax) 
         this.scaleVaeInView.append(this.thumbMin) 
         this.scaleVaeInView.append(this.thumb) 
-        this.q = this.scaleHandler.handler.style.top
 
         const that = this
 
@@ -126,19 +149,22 @@ export class View {
         this.rangeValue = this.maxValue * 1
 
 
-        this.x = this.scaleVaeInView.style.width
-        this.y = this.scaleVaeInView.style.height
+        this.scaleLong = this.scaleVaeInView.style.width
+        this.scaleWidth = this.scaleVaeInView.style.height
 
         this.handlerRegulLeft = this.scaleHandler.handler.style.left
         this.handlerRegulTop = this.scaleHandler.handler.style.top
+
+
+        // handlerPositionInLong
+        // handlerPositionInWidth
 
       
         
 
     }
 
-    handlerRegulLeft
-    handlerRegulTop
+
     
 
 
@@ -231,7 +257,6 @@ export class View {
 
         this.movePositionToNearestValue()
         this.setThumbLabelTextContentPosition()
-        console.log(this.positionHandler, this.thumbMin.style.top, this.thumbMax.style.top)
         }
 
 
@@ -289,10 +314,10 @@ export class View {
           
             if(self.isVerticalIdentifier){
                 handlerName.style.top = self.positionHandler + 'px';
-                handlerName.style.left = -4 + "px"
+                handlerName.style.left = this.handlerRegulTop
             } else {
                 handlerName.style.left = self.positionHandler + 'px';
-                handlerName.style.top = -4 + "px"
+                handlerName.style.top = this.handlerRegulTop
             }
 
             self.scaleprogressColor(handlerName)
@@ -356,18 +381,18 @@ export class View {
     //окрашивает шкалу в зависимости от типа хэндлера
 
 
-    valuesOnScale
+    // valuesOnScale
 
-    margerScaleRange
+    // margerScaleRange
     
-    markerSkaleView
+    // markerSkaleView
 
-    markerValueSkaleView
+    // markerValueSkaleView
 
-    stepValueLines
+    // stepValueLines
 
-    maxV
-    minV
+    // maxV
+    // minV
 
     // добавление линий деления шкалы слайдера в вид
     scaleLinesAdd() {
@@ -379,7 +404,7 @@ export class View {
         this.markerValueSkaleView = new ScaleValues().valueMarker
 
         if(this.isVerticalIdentifier) {
-            this.markerSkaleView.style.left = -parseInt(this.handlerFullRadius) - parseInt(this.y) + "px"
+            this.markerSkaleView.style.left = -parseInt(this.handlerFullRadius) - parseInt(this.scaleWidth) + "px"
             this.markerValueSkaleView.style.left = -parseInt(this.handlerFullRadius)*3.75 + "px"
         } else {
             this.markerSkaleView.style.top = parseInt(this.handlerFullRadius)*0.75 + "px"
@@ -459,7 +484,7 @@ export class View {
 
     verticalOrHorizontalPosition(handler) {
         return this.isVerticalIdentifier?
-        (parseFloat(this.x) - parseFloat(handler.style.top) - 12):
+        (parseFloat( this.scaleLong) - parseFloat(handler.style.top) - 12):
         parseFloat(handler.style.left)
     }
 
@@ -494,7 +519,7 @@ export class View {
     }
     // включает/отключает отображение значений деления шкалы
 
-    stepPositionRangeOnScale
+    
 
 
     //вычисление количества делений шкалы и шага размещения линий и значений(в единицах деления шкалы)
@@ -505,7 +530,7 @@ export class View {
         } else {
             outer:for (let index = 5; index < 10; index++) {
                 if(this.valuesOnScale % index == 0) {
-                    this.stepValueLines = this.valuesOnScale / index
+                    this.stepValueLines = (this.valuesOnScale / index)*this.stepView
                     this.stepPositionRangeOnScale = this.valuesOnScale/(this.valuesOnScale / index)
                     break outer
                 } else {
@@ -530,14 +555,14 @@ export class View {
             this.positionLabelMin.style.display = "block"
             if(this.isVerticalIdentifier) {
                 this.thumbMax.style.top = parseInt(this.sliderScale.scaleStyleData.scaleWidth) - parseInt(this.handlerFullRadius) + "px"
-                this.thumbMin.style.top = 0 + 'px'
-                this.thumb.style.top = 0 + "px"
-                this.thumb.style.left = "-4px"
+                this.thumbMin.style.top = this.handlerRegulLeft
+                this.thumb.style.top = this.handlerRegulLeft
+                this.thumb.style.left = this.handlerRegulTop
             } else {
                 this.thumbMax.style.left = parseInt(this.sliderScale.scaleStyleData.scaleWidth) - parseInt(this.handlerFullRadius) + "px"
-                this.thumbMin.style.left = 0 + 'px'
-                this.thumb.style.left = 0 + 'px'
-                this.thumb.style.top = "-4px" 
+                this.thumbMin.style.left = this.handlerRegulLeft
+                this.thumb.style.left = this.handlerRegulLeft
+                this.thumb.style.top = this.handlerRegulTop
 
             }
             this.scaleVaeInView.style.background = `linear-gradient(to right, 
@@ -559,20 +584,20 @@ export class View {
             this.thumbMin.style.display = "none"
             this.positionLabelMax.style.display = "none"
             this.positionLabelMin.style.display = "none"
-            this.thumb.style.left = 0  + "px" 
+            this.thumb.style.left = this.handlerRegulLeft 
             this.scaleVaeInView.style.background = `linear-gradient(to right, ${this.viewParamsData.scaleView.scaleProgress} 0%, ${this.viewParamsData.scaleView.scaleProgress} ${parseInt(this.thumb.style.left)/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%, #EEEEEE ${parseInt(this.thumb.style.left)/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%, #EEEEEE 100%)`
             this.positionLabel.style.left = parseInt(this.leftOrTopPosition(this.thumb)) - 19 + parseInt(this.handlerFullRadius)/2 + "px"
             this.positionLabel.textContent = this.minValue
             if(this.isVerticalIdentifier) {
                 this.thumbMax.style.top = parseInt(this.sliderScale.scaleStyleData.scaleWidth) - parseInt(this.handlerFullRadius) + "px"
-                this.thumbMin.style.top = 0 + 'px'
+                this.thumbMin.style.top = this.handlerRegulLeft
                 this.thumb.style.top = parseInt(this.sliderScale.scaleStyleData.scaleWidth) - parseInt(this.handlerFullRadius) + "px"
-                this.thumb.style.left = "-4px" 
+                this.thumb.style.left = this.handlerRegulTop
             } else {
                 this.thumbMax.style.left = parseInt(this.sliderScale.scaleStyleData.scaleWidth) - parseInt(this.handlerFullRadius) + "px"
-                this.thumbMin.style.left = 0 + "px"
-                this.thumb.style.left = 0 + "px" 
-                this.thumb.style.top = "-4px" 
+                this.thumbMin.style.left = this.handlerRegulLeft
+                this.thumb.style.left = this.handlerRegulLeft
+                this.thumb.style.top = this.handlerRegulTop
             }
             this.setThumbLabelTextContentPosition()
             
@@ -593,9 +618,9 @@ export class View {
             this.positionLabelMax.textContent = (this.nearValue(this.verticalOrHorizontalPosition(this.thumbMax) * this.correctValue)  + this.minValue).toFixed(this.stepViewSimbols)
             this.positionLabelMin.textContent = (this.nearValue(this.verticalOrHorizontalPosition(this.thumbMin) * this.correctValue)  + this.minValue).toFixed(this.stepViewSimbols)
         } else {
-            this.positionLabelMax.style.top = -parseInt(this.handlerFullRadius) - parseInt(this.y) + "px"
-            this.positionLabelMin.style.top =  -parseInt(this.handlerFullRadius) - parseInt(this.y) + "px"
-            this.positionLabel.style.top = -parseInt(this.handlerFullRadius) - parseInt(this.y) + "px"
+            this.positionLabelMax.style.top = -parseInt(this.handlerFullRadius) - parseInt(this.scaleWidth) + "px"
+            this.positionLabelMin.style.top =  -parseInt(this.handlerFullRadius) - parseInt(this.scaleWidth) + "px"
+            this.positionLabel.style.top = -parseInt(this.handlerFullRadius) - parseInt(this.scaleWidth) + "px"
             this.positionLabel.style.left = parseInt(this.leftOrTopPosition(this.thumb)) - 19 + parseInt(this.handlerFullRadius)/2 + "px"
             this.positionLabelMax.style.left = parseInt(this.leftOrTopPosition(this.thumbMax)) - 19 + parseInt(this.handlerFullRadius)/2 + "px"
             this.positionLabelMin.style.left = parseInt(this.leftOrTopPosition(this.thumbMin)) - 19 + parseInt(this.handlerFullRadius)/2 + "px"
@@ -628,19 +653,19 @@ export class View {
 
     verticalControl(i: boolean = true) {
 
-        this.isVerticalIdentifier = !this.isVerticalIdentifier
+        this.isVerticalIdentifier = i
         if(this.isVerticalIdentifier){
-            this.scaleVaeInView.style.width = this.y
-            this.scaleVaeInView.style.height =  this.x
+            this.scaleVaeInView.style.width = this.scaleWidth
+            this.scaleVaeInView.style.height =  this.scaleLong
            
-            this.thumb.style.top = parseFloat(this.x) - parseFloat(this.handlerFullRadius) + "px"
+            this.thumb.style.top = parseFloat(this.scaleLong) - parseFloat(this.handlerFullRadius) + "px"
          
-            this.thumbMax.style.top = parseFloat(this.x) - parseFloat(this.handlerFullRadius) + "px" 
-            this.thumbMin.style.top = "0px"
+            this.thumbMax.style.top = parseFloat(this.scaleLong) - parseFloat(this.handlerFullRadius) + "px" 
+            this.thumbMin.style.top = this.handlerRegulLeft
 
-            this.thumb.style.left = "-4px"
-            this.thumbMax.style.left = "-4px"
-            this.thumbMin.style.left = "-4px"
+            this.thumb.style.left = this.handlerRegulTop
+            this.thumbMax.style.left = this.handlerRegulTop
+            this.thumbMin.style.left = this.handlerRegulTop
             
             this.setThumbLabelTextContentPosition()
             
@@ -664,16 +689,16 @@ export class View {
 
             
         } else {
-            this.scaleVaeInView.style.width = this.x
-            this.scaleVaeInView.style.height =  this.y
+            this.scaleVaeInView.style.width = this.scaleLong
+            this.scaleVaeInView.style.height =  this.scaleWidth
 
-            this.thumb.style.left = "0px"
-            this.thumbMax.style.left = parseFloat(this.x) - parseFloat(this.handlerFullRadius) + "px"
-            this.thumbMin.style.left = "0px"
+            this.thumb.style.left = this.handlerRegulLeft
+            this.thumbMax.style.left = parseFloat(this.scaleLong) - parseFloat(this.handlerFullRadius) + "px"
+            this.thumbMin.style.left = this.handlerRegulLeft
 
-            this.thumb.style.top = "-4px"
-            this.thumbMax.style.top = "-4px"
-            this.thumbMin.style.top = "-4px"
+            this.thumb.style.top = this.handlerRegulTop
+            this.thumbMax.style.top = this.handlerRegulTop
+            this.thumbMin.style.top = this.handlerRegulTop
             this.setThumbLabelTextContentPosition()
 
 
@@ -703,7 +728,6 @@ export class View {
 
 
 
-    returnCurrentValue(){}
 }
 
 

@@ -4,7 +4,7 @@ type ModelType = {
     current?: number;
     minCurrentDoubleHeandler?: number;
     maxCurrentDoubleHeandler?: number;
-    ivVertical?: boolean;
+    isVertical?: boolean;
     isRange?: boolean;
     step?: number;
     
@@ -13,11 +13,11 @@ type ModelType = {
 
  const defaultModel = {
     min: 0,
-    max: 100,
+    max: 10,
     //current: 50,
     minCurrentDoubleHeandler: 25,
     maxCurrentDoubleHeandler: 75,
-    ivVertical: false,
+    isVertical: false,
     isRange: false,
     step: 1,
     

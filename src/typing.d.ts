@@ -18,7 +18,7 @@
 // }
 
 interface JQuery {
-  examplePlugin: Function;
+  rangeSlider: Function;
 }
 
 // type SliderPluginParams = {

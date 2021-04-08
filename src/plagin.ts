@@ -17,5 +17,33 @@ import { Model } from './Model/model';
 //import examplePlugin from "./index"
 //import jQuery from './interface'
 
-$('#rootq').examplePlugin()
+$('#rootq').rangeSlider(
+
+
+
+    {
+    
+    
+        sliderViewParams: {
+            // handlerView: { 
+            //     handlerBackground: "green",
+            //     //handlerLeft: "70px"
+            // },
+            scaleView: {
+                scaleBackground: "grey",
+                scaleProgress: "red"
+            },
+        },
+    
+
+        sliderModelParams: {
+            min: 110,
+            max: 120,
+        //current: 103,
+        },
+  }
+
+
+
+)
 

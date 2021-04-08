@@ -32,22 +32,36 @@ export class Controller {
     }
 
 
+
+    getData() {
+        this.view.correctValue = (this.model.max - this.model.min)/this.view.rangeValue
+        this.view.stepView = this.model.step
+        this.view.getStepViewSimbols(this.view.stepView)
+        this.view.maxV = this.model.max
+        this.view.minV = this.model.min
+        this.view.maxValue = this.model.max
+        this.view.minValue = this.model.min
+        this.view.scaleLinesAdd()
+        this.view.isRangeSwitch(this.model.isRange)
+    }
+
+
+
+
     getHandlerCurrentsPosition () {
         this.view.correctValue = (this.model.max - this.model.min)/this.view.rangeValue
         this.view.stepView = this.model.step
         this.view.getStepViewSimbols(this.view.stepView)
         this.view.maxV = this.model.max
         this.view.minV = this.model.min
-       
-        
     }
 
     HandlerCurrentsPositionTextContent () {
         this.view.maxValue = this.model.max
         this.view.minValue = this.model.min
         
-        this.view.sliderScale.maxVal.textContent = this.model.max
-        this.view.sliderScale.minVal.textContent = this.model.min
+        // this.view.sliderScale.maxVal.textContent = this.model.max
+        // this.view.sliderScale.minVal.textContent = this.model.min
   
     }
 
@@ -72,13 +86,16 @@ export class Controller {
     }
 
 
-    qwe(param) {
+    rangeSwich(param) {
+        this.model.isRange = !this.model.isRange
         this.view.isRangeSwitch(param)
     }
-    r
+    
 
-    verticalMethod(view, param) {
-        this.view.isVerticalIdentifier = false
+    verticalMethod(param) {
+        //this.view.isVerticalIdentifier = param
+        this.model.isVertical = !this.model.isVertical
+        this.view.verticalControl(param)
     }
     
 }

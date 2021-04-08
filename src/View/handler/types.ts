@@ -19,7 +19,7 @@ const handlerStyle = {
     handlerBorder: "1px solid #FFFFFF",
     handlerBackground: "blue",
     handlerBorderRadius: '10px',
-    handlerLeft: "-10px",
+    handlerLeft: "0px",
     handlerTop: "-4px",
 }
 
