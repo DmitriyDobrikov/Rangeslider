@@ -68,6 +68,10 @@ export class View {
 
     stepPositionRangeOnScale
 
+    current
+    currentMin
+    currentMax
+
 
 
 
@@ -102,6 +106,8 @@ export class View {
         this.positionLabel = this.scaleHandler.handlerCurrentPosinion
         this.positionLabelMax = new Handler(viewParams.handlerView).handlerCurrentPosinion
         this.positionLabelMin = new Handler(viewParams.handlerView).handlerCurrentPosinion
+
+        //this.isVerticalIdentifier = this.viewParamsData
 
         this.scaleVaeInView.append(this.positionLabel)
         this.scaleVaeInView.append(this.positionLabelMax)
@@ -306,6 +312,8 @@ export class View {
             //окрашивает шкалу в зависимости от типа хэндлера
             self.scaleprogressColor(handlerName)
 
+           
+
             
         }
 
@@ -314,10 +322,10 @@ export class View {
           
             if(self.isVerticalIdentifier){
                 handlerName.style.top = self.positionHandler + 'px';
-                handlerName.style.left = this.handlerRegulTop
+                handlerName.style.left = self.handlerRegulTop
             } else {
                 handlerName.style.left = self.positionHandler + 'px';
-                handlerName.style.top = this.handlerRegulTop
+                handlerName.style.top = self.handlerRegulTop
             }
 
             self.scaleprogressColor(handlerName)
@@ -396,6 +404,11 @@ export class View {
 
     // добавление линий деления шкалы слайдера в вид
     scaleLinesAdd() {
+
+        if(this.markerValueSkaleView != undefined) this.markerValueSkaleView.remove()
+        if(this.markerSkaleView != undefined) this.markerSkaleView.remove()
+       // this.markerSkaleView.remove() 
+        
         
         this.valuesOnScale = ((this.maxV - this.minV)/this.stepView).toFixed(0)
         this.margerScaleRange = parseInt(this.handlerFullRadius)/2
@@ -430,18 +443,21 @@ export class View {
                 numberValue.style.top = this.margerScaleRange - parseInt(this.handlerFullRadius)/2 + "px";
             } else {
                 //numberValue.style.left = this.margerScaleRange - parseInt(this.handlerFullRadius)/2 + "px";
-                numberValue.style.left = this.margerScaleRange - 15 + "px";
+                numberValue.style.left = this.margerScaleRange - parseInt(this.handlerFullRadius) - 3 + "px";
             }
 
-            if(((this.margerScaleRange - parseInt(this.handlerFullRadius)/2)*this.correctValue).toFixed(this.stepViewSimbols) < this.maxV){
+            //if(((this.margerScaleRange - parseInt(this.handlerFullRadius)/2)*this.correctValue).toFixed(this.stepViewSimbols) < this.maxV){
                 this.isVerticalIdentifier?
-                numberValue.textContent = String((this.maxV - (this.margerScaleRange - parseInt(this.handlerFullRadius)/2 )*this.correctValue).toFixed(this.stepViewSimbols)):
-                numberValue.textContent = String((this.minV + (this.margerScaleRange - parseInt(this.handlerFullRadius)/2 )*this.correctValue).toFixed(this.stepViewSimbols))
-            } else {
-                this.isVerticalIdentifier?
-                numberValue.textContent = String(this.minV):
-                numberValue.textContent = String(this.maxV)
-            }
+                numberValue.textContent = (this.maxV - (this.margerScaleRange - parseInt(this.handlerFullRadius)/2 )*this.correctValue).toFixed(this.stepViewSimbols):
+                numberValue.textContent = (this.minV + (this.margerScaleRange - parseInt(this.handlerFullRadius)/2 )*this.correctValue).toFixed(this.stepViewSimbols)
+                //numberValue.textContent = String((this.nearValue(this.verticalOrHorizontalPosition(this.thumb) * this.correctValue)  + this.minValue).toFixed(this.stepViewSimbols))
+                //console.log(1)
+
+            //} else {
+                // this.isVerticalIdentifier?
+                // numberValue.textContent = String(this.minV):
+                // numberValue.textContent = String(this.maxV)
+            //}
 
             if(this.isVerticalIdentifier) {
                 line.style.top = this.margerScaleRange + "px"
@@ -528,7 +544,7 @@ export class View {
             this.stepValueLines = this.stepView
             this.stepPositionRangeOnScale = parseInt(this.valuesOnScale)
         } else {
-            outer:for (let index = 5; index < 10; index++) {
+            outer:for (let index = 10; index > 4; index--) {
                 if(this.valuesOnScale % index == 0) {
                     this.stepValueLines = (this.valuesOnScale / index)*this.stepView
                     this.stepPositionRangeOnScale = this.valuesOnScale/(this.valuesOnScale / index)
@@ -723,6 +739,60 @@ export class View {
         }
 
 
+    }
+
+    setCurrentValue(currentValue: number) {
+        this.positionLabel.textContent = currentValue
+        this.valuesOnScale = ((this.maxV - this.minV)/this.stepView).toFixed(0)
+        currentValue = (currentValue - this.minValue) * this.stepView
+        this.current = this.nearValue((currentValue).toFixed(this.stepViewSimbols))/this.correctValue
+        if (!this.isVerticalIdentifier) {
+            // currentValue = (currentValue - this.minValue) * this.stepView
+            // this.current = this.nearValue((currentValue).toFixed(this.stepViewSimbols))/this.correctValue// + 'px'
+            this.thumb.style.left = this.current + "px"
+            // this.scaleprogressColor(this.thumb)
+        } else {
+            // currentValue = (currentValue - this.minValue) * this.stepView
+            // this.current = this.nearValue((currentValue).toFixed(this.stepViewSimbols))/this.correctValue// + 'px'
+            this.thumb.style.top = (this.valuesOnScale/this.correctValue) - this.current + 'px'
+            //this.scaleprogressColor(this.thumb)
+        }
+        this.scaleprogressColor(this.thumb)
+        this.setThumbLabelTextContentPosition()
+        this.movePositionToNearestValue()
+        //this.positionLabel.textContent = 
+    }
+
+
+    setCurrentRangeValue(currentMinValue: number, currentMaxValue: number) {
+        this.positionLabelMax.textContent = currentMaxValue
+        this.positionLabelMin.textContent = currentMinValue
+
+        this.valuesOnScale = ((this.maxV - this.minV)/this.stepView).toFixed(0)
+        currentMinValue = (currentMinValue - this.minValue) * this.stepView
+        currentMaxValue = (currentMaxValue - this.minValue) * this.stepView
+
+        this.currentMax = this.nearValue((currentMaxValue).toFixed(this.stepViewSimbols))/this.correctValue
+        this.currentMin = this.nearValue((currentMinValue).toFixed(this.stepViewSimbols))/this.correctValue
+
+        if (!this.isVerticalIdentifier) {
+            // currentValue = (currentValue - this.minValue) * this.stepView
+            // this.current = this.nearValue((currentValue).toFixed(this.stepViewSimbols))/this.correctValue// + 'px'
+            this.thumbMin.style.left = this.currentMin + "px"
+            this.thumbMax.style.left = this.currentMax + "px"
+
+            // this.scaleprogressColor(this.thumb)
+        } else {
+            // currentValue = (currentValue - this.minValue) * this.stepView
+            // this.current = this.nearValue((currentValue).toFixed(this.stepViewSimbols))/this.correctValue// + 'px'
+            this.thumbMin.style.top = (this.valuesOnScale/this.correctValue) - this.currentMax + 'px'
+            this.thumbMax.style.top = (this.valuesOnScale/this.correctValue) - this.currentMin + 'px'
+            //this.scaleprogressColor(this.thumb)
+        }
+        this.scaleprogressColor(this.thumbMax)
+        this.setThumbLabelTextContentPosition()
+        this.movePositionToNearestValue()
+        //this.positionLabel.textContent = 
     }
 
 

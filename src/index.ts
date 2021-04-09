@@ -6,6 +6,7 @@ import $ from 'jquery';
 import { ViewType, defaultView } from "./View/types"
 import { SliderParams, defaultSlider, } from "./types"
 import "./main.scss"
+import { SliderPanel } from './blocks/panel/panel'
 
 
 //const $ = require( 'jquery' );
@@ -16,26 +17,9 @@ import { Controller } from "./Controller/controller"
 import { Model } from './Model/model';
 
 
+import './blocks/switch-buttons/switch-buttons.scss'
 
-// type SliderViewParams = {
-//   sliderViewParams?: ViewType,
-//   sliderModelParams?: ModelType,
-// }
-
-//selectSliderView : SliderViewParams = {sliderViewParams: defaultView}
-//{handlerView: {handlerBackground: "red"}, scaleView: {scaleBackground: "red"}
-//slider selectSliderView: ViewType,
-
-
-// interface SliderElement extends JQuery<HTMLElement> {
-//   slider: (
-//     method?: CompleteUserOptions | keyof PluginMethods,
-//     options?: CompleteUserOptions
-//   ) => void;
-// }
-// interface JQuery {
-//   examplePlugin: Function;
-// }
+import { ControlParamButton } from './blocks/switch-buttons/switch-buttons'
 
 
 
@@ -83,9 +67,9 @@ $.fn.rangeSlider = function  ( selectSliderParams : SliderParams = defaultSlider
    
   //   controller.qwe(controller.model.isRange )
   // }
-
-
+  
   this.append(this.sliderScalePlugin)
+  //alert(Boolean("false"))
   // this.append(this.i)
   // this.append(this.vert)
   //name() = this
@@ -99,29 +83,30 @@ $.fn.rangeSlider = function  ( selectSliderParams : SliderParams = defaultSlider
 // $('#rootq').rangeSlider(
 
 //   {
-    
-    
-//     sliderViewParams: {
+let i = new SliderPanel('#qwe')
+
+// $("#qwe").rangeSlider(
+          
+//   {
+//       sliderViewParams: {
 //       scaleView: {
-//         scaleWidth: "300px",
-//         scaleHeight: "6px",
-//         scaleBorder: "0px solid black",
-//         scaleBackground: "#EEEEEE",
-//         scaleBorderRadius: '10px',
-//         scaleProgress: "blue"
+//           scaleWidth: "300px",
+//           scaleHeight: "6px",
+//           scaleBorder: "0px solid black",
+//           scaleBackground: "#EEEEEE",
+//           scaleBorderRadius: '10px',
+//           scaleProgress: "blue"
 //       },
 //       handlerView: { 
-//         handlerWidth: "12px",
-//         handlerHeight: "12px",
-//         handlerBorder: "1px solid #FFFFFF",
-//         handlerBackground: "blue",
-//         handlerBorderRadius: '10px',
-//         handlerLeft: "0px",
-//         handlerTop: "-4px",
-//      },
-
-//     },
-  
+//           handlerWidth: "12px",
+//           handlerHeight: "12px",
+//           handlerBorder: "1px solid #FFFFFF",
+//           handlerBackground: "blue",
+//           handlerBorderRadius: '10px',
+//           handlerLeft: "0px",
+//           handlerTop: "-4px",
+//       },
+//       },
 
 //     sliderModelParams: {
 //       min: 0,
@@ -129,35 +114,9 @@ $.fn.rangeSlider = function  ( selectSliderParams : SliderParams = defaultSlider
 //       //current: 50,
 //       minCurrentDoubleHeandler: 25,
 //       maxCurrentDoubleHeandler: 75,
-//       isVertical: false,
-//       isRange: false,
+//       isVertical: true,
+//       isRange: true,
 //       step: 0.01,
-//     },
+//       },
 //   }
-
-
-// ).sliderScaleView)
-
-
-
-
-
-
-// $('#qwe').examplePlugin(
-
-//   // {
-//   //   sliderViewParams: {
-//   //     handlerView: { 
-//   //       handlerBackground: "green",
-//   //       //handlerLeft: "70px"
-//   //    },
-//   //   // scaleView: {
-//   //   //   //scaleBackground: "grey",
-//   //   //   //scaleProgress: " red"
-//   //   // },
-//   //   }
-//   // }
-//  );
-
-//  $('#qwer').examplePlugin()
-
+// )

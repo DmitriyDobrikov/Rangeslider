@@ -1,8 +1,9 @@
 import '../../index'
 import { SliderParams, defaultSlider } from "../../types"
+import { ControlParamButton } from '../switch-buttons/switch-buttons'
 
 
-export class SliderPanel {
+class SliderPanel {
 
 
 
@@ -16,19 +17,91 @@ export class SliderPanel {
 
     panel
 
+    verticalParamButton = new ControlParamButton('Vertical')
+    rangeParamButton = new ControlParamButton('Range')
+
+    thumblerValue = new ControlParamButton('Current value')
+
+    maxScaleValue = new ControlParamButton('Max value')
+    minScaleValue = new ControlParamButton('Min value')
+
+    stepValue = new ControlParamButton('Step')
+
+    currentMinValue = new ControlParamButton('Current min')
+    currentMaxValue = new ControlParamButton('Current max')
+
+
     constructor(sliderSelector) {
         const that = this
 
-        this.min = document.createElement('button')
-        this.max = document.createElement('input')
+      
 
-        this.rangeInput = document.createElement('button')
-
-        this.panel = $('#qwe').rangeSlider()
+        this.panel = $(sliderSelector).rangeSlider()
         // console.log(i.sliderScaleView)
+        this.panel.append(this.verticalParamButton.containerOfSwitchParams)
+        this.panel.append(this.rangeParamButton.containerOfSwitchParams)
+        this.panel.append(this.thumblerValue.containerOfSwitchParams)
+        this.panel.append(this.maxScaleValue.containerOfSwitchParams)
+        this.panel.append(this.minScaleValue.containerOfSwitchParams)
+        this.panel.append(this.stepValue.containerOfSwitchParams)
+        this.panel.append(this.currentMinValue.containerOfSwitchParams)
+        this.panel.append(this.currentMaxValue.containerOfSwitchParams)
 
-        this.rangeInput.onclick = function() {
-            that.panel.constructor.rangeSwich()
+
+        // var text = document.getElementsByTagName("input")[0];
+        // var val = text.value;
+        // alert(val);
+
+        this.rangeParamButton.switchButton.onclick = function() {
+            that.panel.controller.rangeSwich(that.rangeParamButton.booleanMethod(that.rangeParamButton.paramInput.value))
+            that.panel.controller.getData()
+        }
+
+        this.verticalParamButton.switchButton.onclick = function() {
+            that.panel.controller.verticalMethod(that.verticalParamButton.booleanMethod(that.verticalParamButton.paramInput.value))
+            that.panel.controller.getData()
+        }
+
+        this.thumblerValue.switchButton.onclick = function() {
+            if(isNaN(that.thumblerValue.numberMethod(that.thumblerValue.paramInput.value)) == false) {
+                that.panel.controller.model.current = that.thumblerValue.numberMethod(that.thumblerValue.paramInput.value)
+            }
+            that.panel.controller.getData()
+        }
+        
+        this.maxScaleValue.switchButton.onclick = function() {
+            if(isNaN(that.maxScaleValue.numberMethod(that.maxScaleValue.paramInput.value)) == false) {
+                that.panel.controller.model.max = that.maxScaleValue.numberMethod(that.maxScaleValue.paramInput.value)
+            }
+                that.panel.controller.getData()
+        }
+
+        this.minScaleValue.switchButton.onclick = function() {
+            if(isNaN(that.minScaleValue.numberMethod(that.minScaleValue.paramInput.value)) == false) {
+                that.panel.controller.model.min = that.minScaleValue.numberMethod(that.minScaleValue.paramInput.value)
+            }
+            that.panel.controller.getData()
+        }
+
+        this.stepValue.switchButton.onclick = function() {
+            if(isNaN(that.stepValue.numberMethod(that.stepValue.paramInput.value)) == false) {
+                that.panel.controller.model.step = that.stepValue.numberMethod(that.stepValue.paramInput.value)
+            }
+            that.panel.controller.getData()
+        }
+
+        this.currentMinValue.switchButton.onclick = function() {
+            if(isNaN(that.currentMinValue.numberMethod(that.currentMinValue.paramInput.value)) == false) {
+                that.panel.controller.model.minCurrentDoubleHeandler = that.currentMinValue.numberMethod(that.currentMinValue.paramInput.value)
+            }
+            that.panel.controller.getData()
+        }
+
+        this.currentMaxValue.switchButton.onclick = function() {
+            if(isNaN(that.currentMaxValue.numberMethod(that.currentMaxValue.paramInput.value)) == false) {
+                that.panel.controller.model.maxCurrentDoubleHeandler = that.currentMaxValue.numberMethod(that.currentMaxValue.paramInput.value)
+            }
+            that.panel.controller.getData()
         }
 
 
@@ -79,3 +152,4 @@ export class SliderPanel {
 
 
 }
+export { SliderPanel}

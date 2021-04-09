@@ -14,9 +14,9 @@ type ModelType = {
  const defaultModel = {
     min: 0,
     max: 10,
-    //current: 50,
-    minCurrentDoubleHeandler: 25,
-    maxCurrentDoubleHeandler: 75,
+    current: 5,
+    minCurrentDoubleHeandler: 2,
+    maxCurrentDoubleHeandler: 7,
     isVertical: false,
     isRange: false,
     step: 1,

@@ -17,33 +17,33 @@ import { Model } from './Model/model';
 //import examplePlugin from "./index"
 //import jQuery from './interface'
 
-$('#rootq').rangeSlider(
+// $('#rootq').rangeSlider(
 
 
 
-    {
+//     {
     
     
-        sliderViewParams: {
-            // handlerView: { 
-            //     handlerBackground: "green",
-            //     //handlerLeft: "70px"
-            // },
-            scaleView: {
-                scaleBackground: "grey",
-                scaleProgress: "red"
-            },
-        },
+//         sliderViewParams: {
+//             // handlerView: { 
+//             //     handlerBackground: "green",
+//             //     //handlerLeft: "70px"
+//             // },
+//             scaleView: {
+//                 scaleBackground: "grey",
+//                 scaleProgress: "red"
+//             },
+//         },
     
 
-        sliderModelParams: {
-            min: 110,
-            max: 120,
-        //current: 103,
-        },
-  }
+//         sliderModelParams: {
+//             min: 110,
+//             max: 120,
+//         //current: 103,
+//         },
+//   }
 
 
 
-)
+// )
 

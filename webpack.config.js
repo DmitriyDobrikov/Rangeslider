@@ -16,6 +16,13 @@ module.exports = {
         filename: 'bundle.js',
     },
 
+    devServer: {
+        contentBase: path.resolve(__dirname, 'dist'),
+        compress: true,
+        port: 9000,
+        hot: true,
+      },
+
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
       },
@@ -93,7 +100,14 @@ module.exports = {
                 loader: 'pug-loader'
             }
         ],
-    }
+    },
+
+    // devServer: {
+    //     contentBase: path.join(__dirname, 'dist'),
+    //     compress: true,
+    //     port: 9000,
+    //     hot: true,
+    //   },
 
     
 }

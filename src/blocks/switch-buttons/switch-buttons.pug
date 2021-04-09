@@ -1,3 +1,8 @@
-mixin sliderParamButton(textParam, )
-    div 
-        input.paramInput
+mixin sliderParamButton(textParam, paramName )
+    
+    div.container-of-switch-params
+        div.container-of-switch-params-text=paramName
+        input.paramInput(type=textParam)
+        button.switch-button
+
+    
