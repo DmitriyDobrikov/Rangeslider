@@ -30,6 +30,9 @@ class SliderPanel {
     currentMinValue = new ControlParamButton('Current min')
     currentMaxValue = new ControlParamButton('Current max')
 
+    scaleValues = new ControlParamButton('Scale values')
+    scaleLines = new ControlParamButton('Scale lines')
+
 
     constructor(sliderSelector) {
         const that = this
@@ -46,6 +49,8 @@ class SliderPanel {
         this.panel.append(this.stepValue.containerOfSwitchParams)
         this.panel.append(this.currentMinValue.containerOfSwitchParams)
         this.panel.append(this.currentMaxValue.containerOfSwitchParams)
+        this.panel.append(this.scaleLines.containerOfSwitchParams)
+        this.panel.append(this.scaleValues.containerOfSwitchParams)
 
 
         // var text = document.getElementsByTagName("input")[0];
@@ -103,6 +108,19 @@ class SliderPanel {
             }
             that.panel.controller.getData()
         }
+
+
+
+        this.scaleValues.switchButton.onclick = function() {
+            that.panel.controller.model.scaleValues = that.scaleValues.booleanMethod(that.scaleValues.paramInput.value)
+            that.panel.controller.getData()
+        }
+
+        this.scaleLines.switchButton.onclick = function() {
+            that.panel.controller.model.scaleLines = that.scaleLines.booleanMethod(that.scaleLines.paramInput.value)
+            that.panel.controller.getData()
+        }
+
 
 
 

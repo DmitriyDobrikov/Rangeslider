@@ -512,11 +512,13 @@ export class View {
 
     // включает/отключает отображение делений шкалы
     scaleLinesTrigger(y) {
+        this.valuesOnScale = ((this.maxV - this.minV)/this.stepView).toFixed(0)
+        this.scaleLinesAndLabelsStep()
         for(let x = 0; x < this.stepPositionRangeOnScale + 1; x += this.stepView) {
             if(y) {
                 this.markerSkaleView.getElementsByTagName("div")[x].style.display = 'block'
             } else {
-                this.markerSkaleView.getElementsByTagName("div")[x].remove().style.display = 'none'
+                this.markerSkaleView.getElementsByTagName("div")[x].style.display = 'none'
             }
         }
     }
@@ -525,11 +527,13 @@ export class View {
 
     // включает/отключает отображение значений деления шкалы
     scaleValuesTrigger(y) {
+        this.valuesOnScale = ((this.maxV - this.minV)/this.stepView).toFixed(0)
+        this.scaleLinesAndLabelsStep()
         for(let x = 0; x < this.stepPositionRangeOnScale + 1; x += this.stepView) {
             if(y) {
                 this.markerValueSkaleView.getElementsByTagName("div")[x].style.display = 'block'
             } else {
-                this.markerValueSkaleView.getElementsByTagName("div")[x].remove().style.display = 'none'
+                this.markerValueSkaleView.getElementsByTagName("div")[x].style.display = 'none'
             }
         }
     }

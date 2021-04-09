@@ -7,7 +7,8 @@ type ModelType = {
     isVertical?: boolean;
     isRange?: boolean;
     step?: number;
-    
+    scaleValues?: boolean;
+    scaleLines?: boolean;
 }
 
 
@@ -20,6 +21,8 @@ type ModelType = {
     isVertical: false,
     isRange: false,
     step: 1,
+    scaleValues: false,
+    scaleLines: true,
     
 }
 

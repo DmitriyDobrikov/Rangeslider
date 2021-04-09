@@ -39,10 +39,10 @@ export class Controller {
             alert('The min value cannot be less than the max value')
             return
         }
-        if((this.model.max - this.model.min)%this.model.step) {
-            alert('The number of scale divisions must be a multiple of the step')
-            return
-        }
+        // if((this.model.max - this.model.min)%this.model.step) {
+        //     alert('The number of scale divisions must be a multiple of the step')
+        //     return
+        // }
         if(this.model.current < this.model.min || this.model.current > this.model.max) {
             alert('The current value must be within the scale values')
             return
@@ -77,12 +77,15 @@ export class Controller {
         // this.view.markerSkaleView.remove() 
         //this.model.current = this.view.current
         this.view.scaleLinesAdd();
+        
         this.view.verticalControl(this.model.isVertical);
         this.view.isRangeSwitch(this.model.isRange);
 
         this.model.isRange?
         this.view.setCurrentRangeValue(this.model.minCurrentDoubleHeandler, this.model.maxCurrentDoubleHeandler):
         this.view.setCurrentValue(this.model.current);
+        this.view.scaleLinesTrigger(this.model.scaleLines)
+        this.view.scaleValuesTrigger(this.model.scaleValues)
         //this.view.setCurrentRangeValue(this.model.minCurrentDoubleHeandler, this.model.maxCurrentDoubleHeandler)
         
 

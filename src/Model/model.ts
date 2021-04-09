@@ -11,6 +11,8 @@ export class Model {
     isVertical
     isRange
     step
+    scaleValues
+    scaleLines
 
     modelData: ModelType = {}
 
@@ -40,7 +42,8 @@ export class Model {
         this.isVertical = this.modelData.isVertical
         this.isRange = this.modelData.isRange
         this.step = this.modelData.step 
-
+        this.scaleValues = this.modelData.scaleValues 
+        this.scaleLines = this.modelData.scaleLines 
     }
 
 }
