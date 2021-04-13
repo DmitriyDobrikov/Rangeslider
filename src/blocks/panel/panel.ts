@@ -19,10 +19,11 @@ class SliderPanel {
     scaleLines = new ControlParamButton('Scale lines')
     scaleLong = new ControlParamButton('Scale long')
 
-    constructor(sliderSelector, sliderParam = {}) {
+    constructor(sliderSelector, param: any) {
         const that = this      
+        let i = $(sliderSelector).rangeSlider(param)
 
-        this.panel = $(sliderSelector).rangeSlider(sliderParam)
+        this.panel = i// $(sliderSelector).rangeSlider(param)
 
         this.panel.append(this.verticalParamButton.containerOfSwitchParams)
         this.panel.append(this.rangeParamButton.containerOfSwitchParams)

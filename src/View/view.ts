@@ -74,7 +74,8 @@ export class View {
     currentMax
 
 
-
+    scaleProgress
+    scaleBackground
 
     constructor (viewParams: ViewType = defaultView, ) {
 
@@ -91,7 +92,25 @@ export class View {
                 this.viewParamsData[key] = viewParams[key]
             }
         }
+        this.scaleProgress = new Scale(viewParams.scaleView).scale
+        //this.scaleProgress.style.width = this.thumb.style.left
+        this.scaleProgress.style.position = 'absolute'
+        this.scaleProgress.style.left = '-10px'
+        this.scaleProgress.style.background = this.viewParamsData.scaleView.scaleProgress
+        this.scaleProgress.style.zIndex = '1'
         
+
+
+        this.scaleBackground = new Scale(viewParams.scaleView).scale
+        this.scaleBackground.style.width = "100%"
+        this.scaleBackground.style.height = "100%"
+        this.scaleBackground.style.position = 'absolute'
+        this.scaleBackground.style.right = '0px'
+        this.scaleBackground.style.background = this.viewParamsData.scaleView.scaleBackground
+        this.scaleBackground.style.zIndex = '0'
+
+
+
       
         this.sliderScale = new Scale(viewParams.scaleView) 
         this.scaleHandler = new Handler(viewParams.handlerView) 
@@ -105,6 +124,9 @@ export class View {
         this.thumbMax = new Handler(this.viewParamsData.handlerView).handler 
         this.thumbMin = new Handler(this.viewParamsData.handlerView).handler 
 
+        // this.thumbMax.style.background = this.thumbMax.handlerBackground
+        // this.thumbMin.style.background = this.thumbMin.handlerBackground
+
         this.positionLabel = this.scaleHandler.handlerCurrentPosinion
         this.positionLabelMax = new Handler(this.viewParamsData.handlerView).handlerCurrentPosinion
         this.positionLabelMin = new Handler(this.viewParamsData.handlerView).handlerCurrentPosinion
@@ -117,6 +139,8 @@ export class View {
         this.scaleVaeInView.append(this.thumbMax) 
         this.scaleVaeInView.append(this.thumbMin) 
         this.scaleVaeInView.append(this.thumb) 
+        this.scaleVaeInView.append(this.scaleProgress) 
+        this.scaleVaeInView.append(this.scaleBackground) 
 
         const that = this
 
@@ -365,26 +389,36 @@ export class View {
 
     //окрашивает шкалу в зависимости от типа хэндлера
     scaleprogressColor(handlerType) {
+        this.scaleVaeInView.style.background = this.viewParamsData.scaleView.scaleBackground
         if(handlerType == this.thumbMin || handlerType == this.thumbMax){
-            !this.isVerticalIdentifier?
-            this.scaleVaeInView.style.background = `linear-gradient(to right, 
-            ${this.viewParamsData.scaleView.scaleBackground} 0%, 
-            ${this.viewParamsData.scaleView.scaleBackground} ${parseInt(this.leftOrTopPosition(this.thumbMin))/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%,
-            ${this.viewParamsData.scaleView.scaleProgress} ${parseInt(this.leftOrTopPosition(this.thumbMin))/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%,
-            ${this.viewParamsData.scaleView.scaleProgress} ${parseInt(this.leftOrTopPosition(this.thumbMax))/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%,
-            ${this.viewParamsData.scaleView.scaleBackground} ${parseInt(this.leftOrTopPosition(this.thumbMax))/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%,
-            ${this.viewParamsData.scaleView.scaleBackground} 100%`  :
-            this.scaleVaeInView.style.background = `linear-gradient(to bottom, 
-            ${this.viewParamsData.scaleView.scaleBackground} 0%, 
-            ${this.viewParamsData.scaleView.scaleBackground} ${parseInt(this.leftOrTopPosition(this.thumbMin))/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%,
-            ${this.viewParamsData.scaleView.scaleProgress} ${parseInt(this.leftOrTopPosition(this.thumbMin))/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%,
-            ${this.viewParamsData.scaleView.scaleProgress} ${parseInt(this.leftOrTopPosition(this.thumbMax))/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%,
-            ${this.viewParamsData.scaleView.scaleBackground} ${parseInt(this.leftOrTopPosition(this.thumbMax))/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%,
-            ${this.viewParamsData.scaleView.scaleBackground} 100%`
+            if(this.isVerticalIdentifier) {
+                this.scaleProgress.style.width = this.scaleWidth
+                this.scaleBackground.style.width = this.scaleWidth
+                this.scaleBackground.style.height = this.scaleLong
+                this.scaleProgress.style.height = parseInt(this.leftOrTopPosition(this.thumbMax)) - parseInt(this.leftOrTopPosition(this.thumbMin)) - parseInt(this.handlerFullRadius)/2 + 'px'
+                this.scaleProgress.style.bottom = parseInt(this.scaleLong) - parseInt(this.leftOrTopPosition(this.thumbMax)) - parseInt(this.handlerFullRadius)/2 + 'px'
+                this.scaleProgress.style.left = - parseInt(this.handlerFullRadius)*0.8 + 'px'
+            } else {
+                this.scaleBackground.style.width = this.scaleLong
+                this.scaleBackground.style.height = this.scaleWidth
+                this.scaleProgress.style.height = this.scaleWidth
+                this.scaleProgress.style.left = this.leftOrTopPosition(this.thumbMin)
+                this.scaleProgress.style.width = parseInt(this.leftOrTopPosition(this.thumbMax)) - parseInt(this.leftOrTopPosition(this.thumbMin)) - parseInt(this.handlerFullRadius)/2 + 'px'
+            }
         } else {
-            this.isVerticalIdentifier?
-            this.scaleVaeInView.style.background = `linear-gradient(to bottom, ${this.viewParamsData.scaleView.scaleBackground} 0%, ${this.viewParamsData.scaleView.scaleBackground} ${parseInt(this.leftOrTopPosition(this.thumb))/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 }%, ${this.viewParamsData.scaleView.scaleProgress} ${parseInt(this.leftOrTopPosition(this.thumb))/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%, ${this.viewParamsData.scaleView.scaleProgress} 100%)`:
-            this.scaleVaeInView.style.background = `linear-gradient(to right, ${this.viewParamsData.scaleView.scaleProgress} 0%, ${this.viewParamsData.scaleView.scaleProgress} ${parseInt(this.leftOrTopPosition(this.thumb))/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 }%, ${this.viewParamsData.scaleView.scaleBackground} ${parseInt(this.leftOrTopPosition(this.thumb))/parseInt(this.sliderScale.scaleStyleData.scaleWidth) * 100 + 1}%, ${this.viewParamsData.scaleView.scaleBackground} 100%)`
+            if(this.isVerticalIdentifier) {
+                this.scaleBackground.style.width = this.scaleWidth
+                this.scaleBackground.style.height = this.scaleLong
+                this.scaleProgress.style.width = this.scaleWidth
+                this.scaleProgress.style.height = parseInt(this.scaleLong) - parseInt(this.leftOrTopPosition(this.thumb)) - parseInt(this.handlerFullRadius)/2 + 'px'
+                this.scaleProgress.style.bottom = "0px"
+            } else {
+                this.scaleBackground.style.width = this.scaleLong
+                this.scaleBackground.style.height = this.scaleWidth
+                this.scaleProgress.style.height = this.scaleWidth
+                this.scaleProgress.style.left = - parseInt(this.handlerFullRadius)*0.8 + 'px'
+                this.scaleProgress.style.width = parseInt(this.leftOrTopPosition(this.thumb)) + parseInt(this.handlerFullRadius)/2 + 'px'
+            }
         }
     }
     //окрашивает шкалу в зависимости от типа хэндлера

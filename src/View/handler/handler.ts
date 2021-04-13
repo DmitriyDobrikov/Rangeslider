@@ -9,6 +9,7 @@ export class Handler {
     
 
     handlerStyleData : HandlerType = {}
+    handlerBackground
 
 
     constructor (handlerStyleParam : HandlerType = handlerStyle ) {
@@ -23,6 +24,9 @@ export class Handler {
             }
         }
 
+        this.handlerBackground = this.handlerStyleData.handlerBackground
+
+        this.handler.style.zIndex = '100'
         this.handler.style.width = this.handlerStyleData.handlerWidth
         this.handler.style.height = this.handlerStyleData.handlerHeight
         this.handler.style.border = this.handlerStyleData.handlerBorder

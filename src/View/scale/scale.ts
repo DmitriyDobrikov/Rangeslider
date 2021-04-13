@@ -12,7 +12,7 @@ export class Scale {
 
     scaleStyleData : ScaleType = {}
     
-    
+    scaleProgress
     constructor (scaleStyleParams : ScaleType = scaleStyle,){
 
         Object.assign(this.scaleStyleData, scaleStyle)
@@ -26,7 +26,7 @@ export class Scale {
         }
         
 
-
+        this.scaleProgress = this.scaleStyleData.scaleProgress
         this.scale.style.width = this.scaleStyleData.scaleWidth
         this.scale.style.height = this.scaleStyleData.scaleHeight
         this.scale.style.border = this.scaleStyleData.scaleBorder

@@ -33,7 +33,7 @@ $.fn.rangeSlider = function  ( selectSliderParams : SliderParams = defaultSlider
   this.sliderScalePlugin = this.controller.view.scaleVaeInView
 
   this.append(this.sliderScalePlugin)
-  console.log(selectSliderParams.sliderViewParams.scaleView.scaleProgress)
+  //console.log(selectSliderParams.sliderViewParams.scaleView.scaleProgress)
 
   return this
   
@@ -42,7 +42,7 @@ $.fn.rangeSlider = function  ( selectSliderParams : SliderParams = defaultSlider
 
 
 
-// let i = new SliderPanel('#qwe', 
+//let i = new SliderPanel('#qwe')//, 
 //   {
 //         sliderViewParams: {
 //         scaleView: {
@@ -78,47 +78,87 @@ $.fn.rangeSlider = function  ( selectSliderParams : SliderParams = defaultSlider
 
 
 
-// let j = new SliderPanel('#qwer', {
-//   sliderViewParams: {
-//     scaleView: {
-//         scaleWidth: "200px",
-//         scaleHeight: "6px",
-//         scaleBorder: "0px solid black",
-//         scaleBackground: "gray",
-//         scaleBorderRadius: '10px',
-//         scaleProgress: "black"
-//   },
-//     handlerView: { 
-//         handlerWidth: "12px",
-//         handlerHeight: "12px",
-//         handlerBorder: "1px solid #FFFFFF",
-//         handlerBackground: "black",
-//         handlerBorderRadius: '10px',
-//         handlerLeft: "0px",
-//         handlerTop: "-4px",
-//     },
-//   },
+ let j = new SliderPanel('#2', {
+  sliderViewParams: {
+    scaleView: {
+        scaleWidth: "200px",
+        scaleHeight: "6px",
+        scaleBorder: "0px solid black",
+        scaleBackground: "gray",
+        scaleBorderRadius: '10px',
+        scaleProgress: "red"
+  },
+    handlerView: { 
+        handlerWidth: "12px",
+        handlerHeight: "12px",
+        handlerBorder: "1px solid #FFFFFF",
+        handlerBackground: "red",
+        handlerBorderRadius: '10px',
+        handlerLeft: "0px",
+        handlerTop: "-4px",
+    },
+  },
 
-//   sliderModelParams: {
-//     min: 0,
-//     max: 100,
-//     current: 20,
-//     minCurrentDoubleHeandler: 20,
-//     maxCurrentDoubleHeandler: 88,
-//     isVertical: true,
-//     isRange: true,
-//     step: 1,
-//     },
-// }
-// )
+  sliderModelParams: {
+    min: 0,
+    max: 100,
+    current: 20,
+    minCurrentDoubleHeandler: 20,
+    maxCurrentDoubleHeandler: 88,
+    isVertical: true,
+    isRange: true,
+    step: 1,
+    },
+}
+)
 
 
 
-//let k = new SliderPanel('#rootq')
+let k = new SliderPanel('#3', {
+sliderViewParams: {
+  scaleView: {
+      //scaleWidth: "300px",
+      scaleHeight: "6px",
+      scaleBorder: "0px solid black",
+      scaleBackground: "#EEEEEE",
+      scaleBorderRadius: '10px',
+      scaleProgress: "blue"
+},
+  // handlerView: { 
+  //     handlerWidth: "12px",
+  //     handlerHeight: "12px",
+  //     handlerBorder: "1px solid #FFFFFF",
+  //     handlerBackground: "black",
+  //     handlerBorderRadius: '10px',
+  //     handlerLeft: "0px",
+  //     handlerTop: "-4px",
+  // },
+},
+
+sliderModelParams: {
+  min: 0,
+  max: 100,
+  current: 20,
+  minCurrentDoubleHeandler: 20,
+  maxCurrentDoubleHeandler: 88,
+  isVertical: false,
+  isRange: true,
+  step: 1,
+  },
+}
+
+)
 // $("#qwer").rangeSlider()
 // $("#rootq").rangeSlider()
 
 
+
+
+
+
+
+
+/*
 
 $("#1").rangeSlider(          
   {
@@ -148,8 +188,8 @@ $("#1").rangeSlider(
       current: 5,
       minCurrentDoubleHeandler: 2,
       maxCurrentDoubleHeandler: 7,
-      isVertical: false,
-      isRange: false,
+      isVertical: true,
+      isRange: true,
       step: 1,
       },
   })
@@ -160,7 +200,7 @@ $("#2").rangeSlider(
   {
       sliderViewParams: {
       scaleView: {
-          scaleWidth: "100px",
+          scaleWidth: "200px",
           scaleHeight: "6px",
           scaleBorder: "0px solid black",
           scaleBackground: "#EEEEEE",
@@ -197,7 +237,7 @@ $("#3").rangeSlider(
   {
       sliderViewParams: {
       scaleView: {
-          scaleWidth: "100px",
+          scaleWidth: "200px",
           scaleHeight: "6px",
           scaleBorder: "0px solid black",
           scaleBackground: "#EEEEEE",
@@ -221,9 +261,10 @@ $("#3").rangeSlider(
       current: 5,
       minCurrentDoubleHeandler: 2,
       maxCurrentDoubleHeandler: 7,
-      isVertical: false,
+      isVertical: true,
       isRange: false,
       step: 1,
       },
   }
 )
+*/
