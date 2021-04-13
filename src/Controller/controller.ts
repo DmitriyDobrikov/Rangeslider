@@ -17,19 +17,25 @@ export class Controller {
 
     model
     view
+    controllerParamsData
 
     constructor(selectSliderParams : SliderParams = defaultSlider) {
 
+
+        //Object.assign(this.controllerParamsData, defaultView, selectSliderParams)
+
+        // //this.scaleStyleData = scaleStyleParams
+
+        // for (const key in this.viewParamsData) {
+        //     if (viewParams[key] != undefined) {
+        //         this.viewParamsData[key] = viewParams[key]
+        //     }
+        // }
+        //console.log(selectSliderParams)
+
         this.model = new Model(selectSliderParams.sliderModelParams)
         this.view = new View(selectSliderParams.sliderViewParams)
-
-        // this.HandlerCurrentsPositionTextContent()
-        // this.getHandlerCurrentsPosition()
-        // this.setCurrentValue()
         this.getData()
-
-
-
     }
 
 
@@ -39,22 +45,15 @@ export class Controller {
             alert('The min value cannot be less than the max value')
             return
         }
-        // if((this.model.max - this.model.min)%this.model.step) {
-        //     alert('The number of scale divisions must be a multiple of the step')
-        //     return
-        // }
+
         if(this.model.current < this.model.min || this.model.current > this.model.max) {
-            alert('The current value must be within the scale values')
-            return
+            this.model.current = this.model.max
         }
-        if(this.model.current < this.model.min || this.model.current > this.model.max) {
-            alert('The current value must be within the scale values')
-            return
-        }
-        if(this.model.minCurrentDoubleHeandler < this.model.min) {
+   
+        if(this.model.minCurrentDoubleHeandler < this.model.min || this.model.minCurrentDoubleHeandler > this.model.max) {
             this.model.minCurrentDoubleHeandler = this.model.min
         }
-        if(this.model.maxCurrentDoubleHeandler > this.model.max) {
+        if(this.model.maxCurrentDoubleHeandler > this.model.max || this.model.maxCurrentDoubleHeandler < this.model.min) {
             this.model.maxCurrentDoubleHeandler = this.model.max
         }
 
@@ -67,15 +66,7 @@ export class Controller {
         this.view.maxValue = this.model.max
         this.view.minValue = this.model.min
         this.view.isRange = this.model.isRange
-        //this.view.selectCurrentValues = (this.view.nearValue((this.view.maxValue + this.view.minValue)/2)).toFixed(this.view.stepViewSimbols)
-        
-        //this.view.isVerticalIdentifier = this.model.isVertical
 
-        
-
-        // this.view.markerValueSkaleView.remove()
-        // this.view.markerSkaleView.remove() 
-        //this.model.current = this.view.current
         this.view.scaleLinesAdd();
         
         this.view.verticalControl(this.model.isVertical);
@@ -84,15 +75,8 @@ export class Controller {
         this.model.isRange?
         this.view.setCurrentRangeValue(this.model.minCurrentDoubleHeandler, this.model.maxCurrentDoubleHeandler):
         this.view.setCurrentValue(this.model.current);
-        this.view.scaleLinesTrigger(this.model.scaleLines)
-        this.view.scaleValuesTrigger(this.model.scaleValues)
-        //this.view.setCurrentRangeValue(this.model.minCurrentDoubleHeandler, this.model.maxCurrentDoubleHeandler)
-        
-
-        // this.view.thumb.style.left = this.view.selectCurrentValues/this.view.correctValue + 'px'
-        // this.view.scaleprogressColor(this.view.thumb)
-
-
+        // this.view.scaleLinesTrigger(this.model.scaleLines)
+        // this.view.scaleValuesTrigger(this.model.scaleValues)
     }
 
 
@@ -108,32 +92,12 @@ export class Controller {
 
     HandlerCurrentsPositionTextContent () {
         this.view.maxValue = this.model.max
-        this.view.minValue = this.model.min
-        
-        // this.view.sliderScale.maxVal.textContent = this.model.max
-        // this.view.sliderScale.minVal.textContent = this.model.min
-  
+        this.view.minValue = this.model.min  
     }
 
-    setCurrentValue() {
-        //view.getStepViewSimbols(view.step.veiw)
-        //this.view.selectCurrentValues = (this.view.nearValue((this.view.maxValue + this.view.minValue)/2)).toFixed(this.view.stepViewSimbols)
-        //view.isRangeSwitch(true)
-       
-        // view.thumb.style.left = view.selectCurrentValues/view.correctValue + 'px'
-        // view.positionLabel.style.left = view.selectCurrentValues/view.correctValue + 'px'
-
-        //console.log(view.positionLabelMax.style.left, view.positionLabelMin.style.left)
-        //this.view.positionLabel.textContent = this.view.selectCurrentValues
-        // view.positionLabelMax.textContent = view.selectCurrentValues
-        // view.positionLabelMin.textContent = view.selectCurrentValues
-        
+    setCurrentValue() {      
         this.view.scaleLinesAdd()
-        // view.scaleLinesTrigger(false)
-        // view.scaleValuesTrigger(false)
-
         this.view.isRangeSwitch(this.model.isRange)
-        
     }
 
 
@@ -147,9 +111,8 @@ export class Controller {
         } else {
             return 
         }
-        this.model.isRange = isRangeValue//!this.model.isRange //isRangeValue
+        this.model.isRange = isRangeValue
         this.view.isRangeSwitch(this.model.isRange)
-        //console.log(this.model.isRange)
     }
     
 
@@ -161,16 +124,15 @@ export class Controller {
         } else {
             return 
         }
-        //this.view.isVerticalIdentifier = param
-        this.model.isVertical = isVerticalValue//!this.model.isVertical
+        this.model.isVertical = isVerticalValue
         this.view.verticalControl(this.model.isVertical)
     }
+
+    setModelDanaInPanelInput(inputName, modelData) {
+        inputName.value = String(modelData)
+    }
+
+
+
     
 }
-
-//берем вид и модель 
-//данные из модели переводим в тип принимаемый видом
-//данные из вида переводим в модельные
-//
-//
-//

@@ -1,46 +1,29 @@
 import '../../index'
-import { SliderParams, defaultSlider } from "../../types"
 import { ControlParamButton } from '../switch-buttons/switch-buttons'
+import { SliderParams, defaultSlider, } from "../../types"
 
 
 class SliderPanel {
-
-
-
-    // sliderSelector
-    rangeInput
-    verticalInput
-
-    min 
-    max
-
 
     panel
 
     verticalParamButton = new ControlParamButton('Vertical')
     rangeParamButton = new ControlParamButton('Range')
-
     thumblerValue = new ControlParamButton('Current value')
-
     maxScaleValue = new ControlParamButton('Max value')
     minScaleValue = new ControlParamButton('Min value')
-
     stepValue = new ControlParamButton('Step')
-
     currentMinValue = new ControlParamButton('Current min')
     currentMaxValue = new ControlParamButton('Current max')
-
     scaleValues = new ControlParamButton('Scale values')
     scaleLines = new ControlParamButton('Scale lines')
+    scaleLong = new ControlParamButton('Scale long')
 
+    constructor(sliderSelector, sliderParam = {}) {
+        const that = this      
 
-    constructor(sliderSelector) {
-        const that = this
+        this.panel = $(sliderSelector).rangeSlider(sliderParam)
 
-      
-
-        this.panel = $(sliderSelector).rangeSlider()
-        // console.log(i.sliderScaleView)
         this.panel.append(this.verticalParamButton.containerOfSwitchParams)
         this.panel.append(this.rangeParamButton.containerOfSwitchParams)
         this.panel.append(this.thumblerValue.containerOfSwitchParams)
@@ -50,12 +33,19 @@ class SliderPanel {
         this.panel.append(this.currentMinValue.containerOfSwitchParams)
         this.panel.append(this.currentMaxValue.containerOfSwitchParams)
         this.panel.append(this.scaleLines.containerOfSwitchParams)
-        this.panel.append(this.scaleValues.containerOfSwitchParams)
+        this.panel.append(this.scaleValues.containerOfSwitchParams) 
 
+        this.panel.controller.setModelDanaInPanelInput(this.verticalParamButton.paramInput, this.panel.controller.model.isVertical)
+        this.panel.controller.setModelDanaInPanelInput(this.rangeParamButton.paramInput, this.panel.controller.model.isRange)
+        this.panel.controller.setModelDanaInPanelInput(this.thumblerValue.paramInput, this.panel.controller.model.current)
+        this.panel.controller.setModelDanaInPanelInput(this.maxScaleValue.paramInput, this.panel.controller.model.max)
+        this.panel.controller.setModelDanaInPanelInput(this.minScaleValue.paramInput, this.panel.controller.model.min)
+        this.panel.controller.setModelDanaInPanelInput(this.stepValue.paramInput, this.panel.controller.model.step)
+        this.panel.controller.setModelDanaInPanelInput(this.currentMinValue.paramInput, this.panel.controller.model.minCurrentDoubleHeandler)
+        this.panel.controller.setModelDanaInPanelInput(this.currentMaxValue.paramInput, this.panel.controller.model.maxCurrentDoubleHeandler)
 
-        // var text = document.getElementsByTagName("input")[0];
-        // var val = text.value;
-        // alert(val);
+        this.panel.controller.setModelDanaInPanelInput(this.scaleLines.paramInput, this.panel.controller.model.scaleLines)
+        this.panel.controller.setModelDanaInPanelInput(this.scaleValues.paramInput, this.panel.controller.model.scaleValues)
 
         this.rangeParamButton.switchButton.onclick = function() {
             that.panel.controller.rangeSwich(that.rangeParamButton.booleanMethod(that.rangeParamButton.paramInput.value))
@@ -64,6 +54,11 @@ class SliderPanel {
 
         this.verticalParamButton.switchButton.onclick = function() {
             that.panel.controller.verticalMethod(that.verticalParamButton.booleanMethod(that.verticalParamButton.paramInput.value))
+            
+
+            that.verticalParamButton.booleanMethod(that.verticalParamButton.paramInput.value)?
+            that.verticalParamButton.containerOfSwitchParams.style.marginTop = '-300px':
+            that.verticalParamButton.containerOfSwitchParams.style.marginTop = '-10px';
             that.panel.controller.getData()
         }
 
@@ -109,18 +104,15 @@ class SliderPanel {
             that.panel.controller.getData()
         }
 
-
-
         this.scaleValues.switchButton.onclick = function() {
             that.panel.controller.model.scaleValues = that.scaleValues.booleanMethod(that.scaleValues.paramInput.value)
-            that.panel.controller.getData()
+            that.panel.controller.view.scaleValuesTrigger(that.panel.controller.model.scaleValues)
         }
 
         this.scaleLines.switchButton.onclick = function() {
             that.panel.controller.model.scaleLines = that.scaleLines.booleanMethod(that.scaleLines.paramInput.value)
-            that.panel.controller.getData()
+            that.panel.controller.view.scaleLinesTrigger(that.panel.controller.model.scaleLines)
         }
-
 
 
 
@@ -170,4 +162,4 @@ class SliderPanel {
 
 
 }
-export { SliderPanel}
+export {SliderPanel}

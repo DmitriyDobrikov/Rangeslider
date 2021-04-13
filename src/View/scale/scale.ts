@@ -12,6 +12,7 @@ export class Scale {
 
     scaleStyleData : ScaleType = {}
     
+    
     constructor (scaleStyleParams : ScaleType = scaleStyle,){
 
         Object.assign(this.scaleStyleData, scaleStyle)
@@ -23,6 +24,7 @@ export class Scale {
                 this.scaleStyleData[key] = scaleStyleParams[key]
             }
         }
+        
 
 
         this.scale.style.width = this.scaleStyleData.scaleWidth

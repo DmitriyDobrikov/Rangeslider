@@ -17,11 +17,11 @@ type ModelType = {
     max: 10,
     current: 5,
     minCurrentDoubleHeandler: 2,
-    maxCurrentDoubleHeandler: 7,
+    maxCurrentDoubleHeandler: 8,
     isVertical: false,
     isRange: false,
     step: 1,
-    scaleValues: false,
+    scaleValues: true,
     scaleLines: true,
     
 }

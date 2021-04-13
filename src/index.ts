@@ -25,98 +25,205 @@ import { ControlParamButton } from './blocks/switch-buttons/switch-buttons'
 
 
 $.fn.rangeSlider = function  ( selectSliderParams : SliderParams = defaultSlider,): JQuery {
-
-
+  //this.newObj = selectSliderParams
+  //Object.assign(this.newObj, selectSliderParams)
 
   this.controller = new Controller(selectSliderParams)
 
-  //let mod = new Model(selectSliderParams.sliderModelParams)
-
-
-//   function qwe (model, view) {
-//     view.maxValue  .sliderScale.maxVal.textContent = model.max
-// }
-
-
-  
-
- 
-  //this.sliderScaleView = new View(selectSliderParams.sliderViewParams)
-
-
-  // contr.HandlerCurrentsPositionTextContent(mod, sliderScaleView)
-  // contr.getHandlerCurrentsPosition(mod, sliderScaleView)
-  // contr.setCurrentValue(mod, sliderScaleView)
-  //let sliderScaleView1 = new View()
   this.sliderScalePlugin = this.controller.view.scaleVaeInView
 
-  
- // let sliderHandlerPlugin = sliderScaleView.thumb
-  // this.i = document.createElement('button')
-  // this.vert = document.createElement('button')
-
-  this.j = true
-  let self = this
-  // this.vert.onclick = function() {
-  //   controller.model.isVertical = !controller.model.isVertical
-  //   //controller.view.verticalControl()
-  //   controller.verticalMethod(controller.model.isVertical)
-  // }
-  // this.i.onclick = function() {
-  //   controller.model.isRange = !controller.model.isRange 
-   
-  //   controller.qwe(controller.model.isRange )
-  // }
-  
   this.append(this.sliderScalePlugin)
-  //alert(Boolean("false"))
-  // this.append(this.i)
-  // this.append(this.vert)
-  //name() = this
+  console.log(selectSliderParams.sliderViewParams.scaleView.scaleProgress)
+
   return this
   
 }
-// let i = $('#qwe').rangeSlider()
-// console.log(i.sliderScaleView)
 
-// console.log(
-// $('#rootq').rangeSlider(
 
+
+
+// let i = new SliderPanel('#qwe', 
 //   {
-let i = new SliderPanel('#qwe')
+//         sliderViewParams: {
+//         scaleView: {
+//             scaleWidth: "100px",
+//             scaleHeight: "6px",
+//             scaleBorder: "0px solid black",
+//             scaleBackground: "#EEEEEE",
+//             scaleBorderRadius: '10px',
+//             scaleProgress: "blue"
+//         },
+//         handlerView: { 
+//             handlerWidth: "12px",
+//             handlerHeight: "12px",
+//             handlerBorder: "1px solid #FFFFFF",
+//             handlerBackground: "blue",
+//             handlerBorderRadius: '10px',
+//             handlerLeft: "0px",
+//             handlerTop: "-4px",
+//         },
+//       },
+  
+//       sliderModelParams: {
+//         min: 0,
+//         max: 10,
+//         current: 5,
+//         minCurrentDoubleHeandler: 2,
+//         maxCurrentDoubleHeandler: 7,
+//         isVertical: true,
+//         isRange: false,
+//         step: 1,
+//         },
+//     })
 
-// $("#qwe").rangeSlider(
-          
-//   {
-//       sliderViewParams: {
-//       scaleView: {
-//           scaleWidth: "300px",
-//           scaleHeight: "6px",
-//           scaleBorder: "0px solid black",
-//           scaleBackground: "#EEEEEE",
-//           scaleBorderRadius: '10px',
-//           scaleProgress: "blue"
-//       },
-//       handlerView: { 
-//           handlerWidth: "12px",
-//           handlerHeight: "12px",
-//           handlerBorder: "1px solid #FFFFFF",
-//           handlerBackground: "blue",
-//           handlerBorderRadius: '10px',
-//           handlerLeft: "0px",
-//           handlerTop: "-4px",
-//       },
-//       },
 
-//     sliderModelParams: {
-//       min: 0,
-//       max: 10,
-//       //current: 50,
-//       minCurrentDoubleHeandler: 25,
-//       maxCurrentDoubleHeandler: 75,
-//       isVertical: true,
-//       isRange: true,
-//       step: 0.01,
-//       },
-//   }
+
+// let j = new SliderPanel('#qwer', {
+//   sliderViewParams: {
+//     scaleView: {
+//         scaleWidth: "200px",
+//         scaleHeight: "6px",
+//         scaleBorder: "0px solid black",
+//         scaleBackground: "gray",
+//         scaleBorderRadius: '10px',
+//         scaleProgress: "black"
+//   },
+//     handlerView: { 
+//         handlerWidth: "12px",
+//         handlerHeight: "12px",
+//         handlerBorder: "1px solid #FFFFFF",
+//         handlerBackground: "black",
+//         handlerBorderRadius: '10px',
+//         handlerLeft: "0px",
+//         handlerTop: "-4px",
+//     },
+//   },
+
+//   sliderModelParams: {
+//     min: 0,
+//     max: 100,
+//     current: 20,
+//     minCurrentDoubleHeandler: 20,
+//     maxCurrentDoubleHeandler: 88,
+//     isVertical: true,
+//     isRange: true,
+//     step: 1,
+//     },
+// }
 // )
+
+
+
+//let k = new SliderPanel('#rootq')
+// $("#qwer").rangeSlider()
+// $("#rootq").rangeSlider()
+
+
+
+$("#1").rangeSlider(          
+  {
+      sliderViewParams: {
+      scaleView: {
+          scaleWidth: "300px",
+          scaleHeight: "6px",
+          scaleBorder: "0px solid black",
+          scaleBackground: "#EEEEEE",
+          scaleBorderRadius: '10px',
+          scaleProgress: "blue"
+      },
+      handlerView: { 
+          handlerWidth: "12px",
+          handlerHeight: "12px",
+          handlerBorder: "1px solid #FFFFFF",
+          handlerBackground: "blue",
+          handlerBorderRadius: '10px',
+          handlerLeft: "0px",
+          handlerTop: "-4px",
+      },
+    },
+
+    sliderModelParams: {
+      min: 0,
+      max: 10,
+      current: 5,
+      minCurrentDoubleHeandler: 2,
+      maxCurrentDoubleHeandler: 7,
+      isVertical: false,
+      isRange: false,
+      step: 1,
+      },
+  })
+
+
+$("#2").rangeSlider(
+          
+  {
+      sliderViewParams: {
+      scaleView: {
+          scaleWidth: "100px",
+          scaleHeight: "6px",
+          scaleBorder: "0px solid black",
+          scaleBackground: "#EEEEEE",
+          scaleBorderRadius: '10px',
+          scaleProgress: "red"
+      },
+      handlerView: { 
+          handlerWidth: "12px",
+          handlerHeight: "12px",
+          handlerBorder: "1px solid #FFFFFF",
+          handlerBackground: "black",
+          handlerBorderRadius: '10px',
+          handlerLeft: "0px",
+          handlerTop: "-4px",
+      },
+    },
+
+    sliderModelParams: {
+      min: 0,
+      max: 20,
+      current: 5,
+      minCurrentDoubleHeandler: 2,
+      maxCurrentDoubleHeandler: 7,
+      isVertical: false,
+      isRange: false,
+      step: 1,
+      },
+  }
+)
+
+
+$("#3").rangeSlider(
+          
+  {
+      sliderViewParams: {
+      scaleView: {
+          scaleWidth: "100px",
+          scaleHeight: "6px",
+          scaleBorder: "0px solid black",
+          scaleBackground: "#EEEEEE",
+          scaleBorderRadius: '10px',
+          scaleProgress: "black"
+      },
+      handlerView: { 
+          handlerWidth: "12px",
+          handlerHeight: "12px",
+          handlerBorder: "1px solid #FFFFFF",
+          handlerBackground: "red",
+          handlerBorderRadius: '10px',
+          handlerLeft: "0px",
+          handlerTop: "-4px",
+      },
+    },
+
+    sliderModelParams: {
+      min: 0,
+      max: 60,
+      current: 5,
+      minCurrentDoubleHeandler: 2,
+      maxCurrentDoubleHeandler: 7,
+      isVertical: false,
+      isRange: false,
+      step: 1,
+      },
+  }
+)
