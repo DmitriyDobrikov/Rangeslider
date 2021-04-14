@@ -4,7 +4,7 @@
     font-size: 12px;
     display: inline-block;
     position: absolute;
-    left: 60px;
+    left: 80px;
 }
 
 .switch-button {
@@ -14,21 +14,24 @@
     
     display: inline-block;
     position: absolute;
-    left: 120px;
+    left: 140px;
 }
 
 .container-of-switch-params {
     height: 20px;
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     margin-left: 320px;
     margin-top: -10px;
     //display: inline;
+    
 }
 .container-of-switch-params-text {
-    width: 60px;
+    width: 80px;
     position: absolute;
     text-align: center;
     font-size: 12px;
     vertical-align: middle;
+    left: 0;
+    
 }

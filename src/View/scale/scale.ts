@@ -17,7 +17,6 @@ export class Scale {
 
         Object.assign(this.scaleStyleData, scaleStyle)
 
-        // //this.scaleStyleData = scaleStyleParams
 
         for (const key in this.scaleStyleData) {
             if (scaleStyleParams[key] != undefined) {
@@ -44,23 +43,13 @@ export class Scale {
         this.scaleValues.style.width = this.scaleStyleData.scaleWidth
         this.scaleValues.style.top = this.scale.style.height
 
-        //this.scaleMarkerValue.style.position = "absolute"
-
-        // this.minVal.textContent = "1000"
-        // this.maxVal.textContent = "1000"
-        //this.minVal.textContent = this.maxVal.style.width 
         this.maxVal.style.left = this.scale.style.width
-        this.scale.style.marginLeft = "10px"// this.scale.style.width 
-        this.minVal.style.right = this.scale.style.width
-        this.minVal.style.top = "-5px"
-        this.maxVal.style.top = "-5px"
-        this.maxVal.style.fontSize = '12px'
-        this.minVal.style.fontSize = '12px'
+        this.scale.style.marginLeft = "10px" 
+
 
 
         this.scale.append(this.scaleValues)  
-        this.scale.append(this.minVal)  
-        this.scale.append(this.maxVal)    
+
         
     }
 

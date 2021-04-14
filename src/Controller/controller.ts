@@ -77,6 +77,10 @@ export class Controller {
         this.view.setCurrentValue(this.model.current);
         // this.view.scaleLinesTrigger(this.model.scaleLines)
         // this.view.scaleValuesTrigger(this.model.scaleValues)
+        const that = this
+        //console.log(this.view.aListener)
+        this.view.a
+        
     }
 
 

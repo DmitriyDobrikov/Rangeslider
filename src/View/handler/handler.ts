@@ -9,14 +9,12 @@ export class Handler {
     
 
     handlerStyleData : HandlerType = {}
-    handlerBackground
+
 
 
     constructor (handlerStyleParam : HandlerType = handlerStyle ) {
 
         Object.assign(this.handlerStyleData, handlerStyle)
-
-        // //this.scaleStyleData = scaleStyleParams
 
         for (const key in this.handlerStyleData) {
             if (handlerStyleParam[key] != undefined) {
@@ -24,7 +22,7 @@ export class Handler {
             }
         }
 
-        this.handlerBackground = this.handlerStyleData.handlerBackground
+
 
         this.handler.style.zIndex = '100'
         this.handler.style.width = this.handlerStyleData.handlerWidth
@@ -34,16 +32,6 @@ export class Handler {
         this.handler.style.background = this.handlerStyleData.handlerBackground
         this.handler.style.left = this.handlerStyleData.handlerLeft
         this.handler.style.top = this.handlerStyleData.handlerTop
-
-        this.handler1.style.width = this.handlerStyleData.handlerWidth
-        this.handler1.style.height = this.handlerStyleData.handlerHeight
-        this.handler1.style.border = this.handlerStyleData.handlerBorder
-        this.handler1.style.borderRadius = this.handlerStyleData.handlerBorderRadius
-        this.handler1.style.background = this.handlerStyleData.handlerBackground
-        this.handler1.style.left = this.handlerStyleData.handlerLeft
-        this.handler1.style.top = this.handlerStyleData.handlerTop
-
-
 
         this.handlerCurrentPosinion.style.position = "absolute"
         this.handlerCurrentPosinion.style.top = "-20px"
