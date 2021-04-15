@@ -29,6 +29,11 @@ export class ExampleService {
   //   return clamp(positionPart, 0, 1);
   // }
 
+
+  testMethod() {
+    return 1
+  }
+
   
   
   frweq() {

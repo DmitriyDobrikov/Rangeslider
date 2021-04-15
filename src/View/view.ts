@@ -276,10 +276,6 @@ export class View {
 
 
 
-
-
-
-
         this.movePositionToNearestValue()
         this.setThumbLabelTextContentPosition()
         }
@@ -388,7 +384,7 @@ export class View {
                 this.scaleBackground.style.width = this.scaleWidth
                 this.scaleBackground.style.height = this.scaleLong
                 this.scaleProgress.style.height = parseInt(this.leftOrTopPosition(this.thumbMax)) - parseInt(this.leftOrTopPosition(this.thumbMin)) + parseInt(this.handlerFullRadius)/2 + 'px'
-                this.scaleProgress.style.top = parseInt(this.leftOrTopPosition(this.thumbMin)) + 'px' //parseInt(this.scaleLong) - parseInt(this.leftOrTopPosition(this.thumbMax)) - parseInt(this.handlerFullRadius)/2 + 'px'
+                this.scaleProgress.style.top = parseInt(this.leftOrTopPosition(this.thumbMin)) + parseInt(this.handlerFullRadius)/2 + 'px' //parseInt(this.scaleLong) - parseInt(this.leftOrTopPosition(this.thumbMax)) - parseInt(this.handlerFullRadius)/2 + 'px'
                 this.scaleProgress.style.left = - parseInt(this.handlerFullRadius)*0.8 + 'px'
             } else {
                 this.scaleBackground.style.width = this.scaleLong
@@ -509,20 +505,16 @@ export class View {
         parseFloat(handler.style.left)
     }
 
-
-
-
-
-
-
     // включает/отключает отображение делений шкалы
     scaleLinesTrigger(y) {
         this.valuesOnScale = ((this.maxV - this.minV)/this.stepView).toFixed(0)
         this.scaleLinesAndLabelsStep()
-        for(let x = 0; x < this.stepPositionRangeOnScale + 1; x += this.stepView) {
+        for(let x = 0; x < this.stepPositionRangeOnScale + 1; x += 1) {
             if(y) {
                 this.markerSkaleView.getElementsByTagName("div")[x].style.display = 'block'
+                //console.log(this.markerSkaleView.getElementsByTagName("div")[x])
             } else {
+                //console.log(this.markerSkaleView.getElementsByTagName("div")[x])
                 this.markerSkaleView.getElementsByTagName("div")[x].style.display = 'none'
             }
         }
@@ -534,7 +526,7 @@ export class View {
     scaleValuesTrigger(y) {
         this.valuesOnScale = ((this.maxV - this.minV)/this.stepView).toFixed(0)
         this.scaleLinesAndLabelsStep()
-        for(let x = 0; x < this.stepPositionRangeOnScale + 1; x += this.stepView) {
+        for(let x = 0; x < this.stepPositionRangeOnScale + 1; x += 1) {
             if(y) {
                 this.markerValueSkaleView.getElementsByTagName("div")[x].style.display = 'block'
             } else {
@@ -617,6 +609,27 @@ export class View {
         
     }
     // двигает текст над бегунком
+
+
+    positionLabelTrigger(positionLabelTrig: boolean) {
+        if(positionLabelTrig) {
+            if(this.isRange) {
+                this.positionLabelMax.style.display = 'block' 
+                this.positionLabelMin.style.display = 'block' 
+            } else {
+                this.positionLabel.style.display = 'block' 
+            }
+        } else {
+            if(this.isRange) {
+                this.positionLabelMax.style.display = 'none' 
+                this.positionLabelMin.style.display = 'none' 
+            } else {
+                this.positionLabel.style.display = 'none' 
+            }
+        }
+    }
+
+
     
     leftOrTopPosition(a) {
         return this.isVerticalIdentifier?
@@ -745,26 +758,6 @@ export class View {
         this.setThumbLabelTextContentPosition()
         this.movePositionToNearestValue()
     }
-
-    
-    public get valueR() : string {
-        return this.positionLabel.textContent
-    }
-
-    aInternal
-    aListener
-    set a(val) {
-        this.aInternal = val;
-        //this.aListener(val);
-      }
-      get a() {
-        return this.aInternal;
-      }
-      registerListener() {
-        console.log(this.positionLabel.textContent);
-      }
-    
-
 
 
 }

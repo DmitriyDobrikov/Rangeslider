@@ -19,6 +19,7 @@ class SliderPanel {
     scaleValues = new ControlParamButton('Scale values')
     scaleLines = new ControlParamButton('Scale lines')
     scaleLong = new ControlParamButton('Scale long')
+    positionLabels = new ControlParamButton('Position label')
 
     // sliderConteiner = document.createElement('div')
     buttonConteiner = document.createElement('div')
@@ -28,7 +29,7 @@ class SliderPanel {
 
     // buttonConteiner1 = document.createElement('div')
 
-    constructor(sliderSelector, param : SliderParams = defaultSlider) {
+    constructor(sliderSelector: any, param : SliderParams = defaultSlider) {
         const that = this      
         //let i = $(sliderSelector).rangeSlider(param)
 
@@ -52,9 +53,7 @@ class SliderPanel {
         this.buttonConteiner.append(this.currentMaxValue.containerOfSwitchParams)
         this.buttonConteiner.append(this.scaleLines.containerOfSwitchParams)
         this.buttonConteiner.append(this.scaleValues.containerOfSwitchParams) 
-
-        // this.panelConteiner.append(this.buttonConteiner)
-        // this.panelConteiner.append(this.sliderConteiner) 
+        this.buttonConteiner.append(this.positionLabels.containerOfSwitchParams) 
 
         this.panel.controller.setModelDanaInPanelInput(this.verticalParamButton.paramInput, this.panel.controller.model.isVertical)
         this.panel.controller.setModelDanaInPanelInput(this.rangeParamButton.paramInput, this.panel.controller.model.isRange)
@@ -67,6 +66,7 @@ class SliderPanel {
 
         this.panel.controller.setModelDanaInPanelInput(this.scaleLines.paramInput, this.panel.controller.model.scaleLines)
         this.panel.controller.setModelDanaInPanelInput(this.scaleValues.paramInput, this.panel.controller.model.scaleValues)
+        this.panel.controller.setModelDanaInPanelInput(this.positionLabels.paramInput, this.panel.controller.model.positionLabels)
 
 
 
@@ -91,9 +91,11 @@ class SliderPanel {
         }
 
         this.thumblerValue.switchButton.onclick = function() {
-            if(isNaN(that.thumblerValue.numberMethod(that.thumblerValue.paramInput.value)) == false) {
-                that.panel.controller.model.current = that.thumblerValue.numberMethod(that.thumblerValue.paramInput.value)
-            }
+            //if(isNaN(that.thumblerValue.numberMethod(that.thumblerValue.paramInput.value)) == false) {
+                that.panel.controller.current()
+                that.thumblerValue.paramInput.value = that.panel.controller.c
+                //that.panel.controller.model.current = that.thumblerValue.numberMethod(that.thumblerValue.paramInput.value)
+            //}
             that.panel.controller.getData()
         }
         
@@ -140,6 +142,12 @@ class SliderPanel {
         this.scaleLines.switchButton.onclick = function() {
             that.panel.controller.model.scaleLines = that.scaleLines.booleanMethod(that.scaleLines.paramInput.value)
             that.panel.controller.view.scaleLinesTrigger(that.panel.controller.model.scaleLines)
+        }
+
+
+        this.positionLabels.switchButton.onclick = function() {
+            that.panel.controller.model.positionLabels = that.positionLabels.booleanMethod(that.positionLabels.paramInput.value)
+            that.panel.controller.view.positionLabelTrigger(that.panel.controller.model.positionLabels)
         }
 
 

@@ -6,7 +6,7 @@ const miniCss = require('mini-css-extract-plugin');
 
 module.exports = {
     entry: {
-        main: path.resolve(__dirname, './src/index.ts'),
+        main: path.resolve(__dirname, './src/demo-page/demo-page.ts'),
     },
 
     devtool: 'inline-source-map',
@@ -30,7 +30,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             title: 'webpack Boilerplate',
-            template: path.resolve(__dirname, './src/template.pug'), // шаблон
+            template: path.resolve(__dirname, './src/demo-page/demo-page.pug'), // шаблон
             filename: 'index.html', // название выходного файла
         }),
 

@@ -9,6 +9,7 @@ type ModelType = {
     step?: number;
     scaleValues?: boolean;
     scaleLines?: boolean;
+    positionLabels?: boolean;
 }
 
 
@@ -23,6 +24,7 @@ type ModelType = {
     step: 1,
     scaleValues: true,
     scaleLines: true,
+    positionLabels: true,
     
 }
 

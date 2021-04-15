@@ -75,12 +75,35 @@ export class Controller {
         this.model.isRange?
         this.view.setCurrentRangeValue(this.model.minCurrentDoubleHeandler, this.model.maxCurrentDoubleHeandler):
         this.view.setCurrentValue(this.model.current);
-        // this.view.scaleLinesTrigger(this.model.scaleLines)
-        // this.view.scaleValuesTrigger(this.model.scaleValues)
+        // this.view.scaleLinesAdd();
+
+        this.view.scaleLinesTrigger(this.model.scaleLines);
+        this.view.scaleValuesTrigger(this.model.scaleValues);
+        this.view.positionLabelTrigger(this.model.positionLabels)
+
+
         const that = this
-        //console.log(this.view.aListener)
-        this.view.a
-        
+        this.current()
+
+
+        // this.view.positionLabel.textContent.onchange = function () {
+        //     console.log(this.view.positionLabel.textContent)
+        // }
+
+
+    }
+
+    c
+
+    current() {
+        const that = this
+        this.view.thumb.onclick = function() {
+            that.model.current = Number(that.view.positionLabel.textContent)
+            // console.log(that.view.positionLabel.textContent)
+            that.c = Number(that.view.positionLabel.textContent)
+            //return Number(that.view.positionLabel.textContent)
+
+        }
     }
 
 

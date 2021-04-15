@@ -13,6 +13,7 @@ export class Model {
     step
     scaleValues
     scaleLines
+    positionLabels
 
     modelData: ModelType = {}
 
@@ -31,6 +32,7 @@ export class Model {
         this.step = this.modelData.step 
         this.scaleValues = this.modelData.scaleValues 
         this.scaleLines = this.modelData.scaleLines 
+        this.positionLabels = this.modelData.positionLabels
     }
 
 }
