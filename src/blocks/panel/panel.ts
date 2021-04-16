@@ -76,26 +76,29 @@ class SliderPanel {
 
 
         this.rangeParamButton.switchButton.onclick = function() {
+            that.switchButtonMethod(that.rangeParamButton)
             that.panel.controller.rangeSwich(that.rangeParamButton.booleanMethod(that.rangeParamButton.paramInput.value))
             that.panel.controller.getData()
         }
 
         this.verticalParamButton.switchButton.onclick = function() {
+            that.switchButtonMethod(that.verticalParamButton)
             that.panel.controller.verticalMethod(that.verticalParamButton.booleanMethod(that.verticalParamButton.paramInput.value))
             
 
             that.verticalParamButton.booleanMethod(that.verticalParamButton.paramInput.value)?
             that.verticalParamButton.containerOfSwitchParams.style.marginTop = '-' +(that.panel.controller.view.scaleLong):
             that.verticalParamButton.containerOfSwitchParams.style.marginTop = '-10px';
+            
             that.panel.controller.getData()
         }
 
         this.thumblerValue.switchButton.onclick = function() {
-            //if(isNaN(that.thumblerValue.numberMethod(that.thumblerValue.paramInput.value)) == false) {
-                that.panel.controller.current()
-                that.thumblerValue.paramInput.value = that.panel.controller.c
-                //that.panel.controller.model.current = that.thumblerValue.numberMethod(that.thumblerValue.paramInput.value)
-            //}
+            if(isNaN(that.thumblerValue.numberMethod(that.thumblerValue.paramInput.value)) == false) {
+                //that.panel.controller.current()
+                //that.thumblerValue.paramInput.value = that.panel.controller.c
+                that.panel.controller.model.current = that.thumblerValue.numberMethod(that.thumblerValue.paramInput.value)
+            }
             that.panel.controller.getData()
         }
         
@@ -135,24 +138,57 @@ class SliderPanel {
         }
 
         this.scaleValues.switchButton.onclick = function() {
+            that.switchButtonMethod(that.scaleValues)
             that.panel.controller.model.scaleValues = that.scaleValues.booleanMethod(that.scaleValues.paramInput.value)
             that.panel.controller.view.scaleValuesTrigger(that.panel.controller.model.scaleValues)
         }
 
         this.scaleLines.switchButton.onclick = function() {
+            //that.switchButtonMethod(that.scaleLines, that.panel.controller.model.scaleLines)
+            //that.scaleLines.paramInput.value = String(!that.scaleLines.booleanMethod(that.scaleLines.paramInput.value))
+            that.switchButtonMethod(that.scaleLines)
             that.panel.controller.model.scaleLines = that.scaleLines.booleanMethod(that.scaleLines.paramInput.value)
             that.panel.controller.view.scaleLinesTrigger(that.panel.controller.model.scaleLines)
         }
 
 
         this.positionLabels.switchButton.onclick = function() {
+            that.switchButtonMethod(that.positionLabels)
+            //that.positionLabels.paramInput.value = String(!that.positionLabels.booleanMethod(that.positionLabels.paramInput.value))
             that.panel.controller.model.positionLabels = that.positionLabels.booleanMethod(that.positionLabels.paramInput.value)
             that.panel.controller.view.positionLabelTrigger(that.panel.controller.model.positionLabels)
+            //that.switchButtonMethod(that.positionLabels, that.panel.controller.model.positionLabels)
         }
 
 
 
 
+
+
+    
+
+
+    }
+
+
+
+    switchButtonMethod(thisParam) {
+        thisParam.paramInput.value = String(!thisParam.booleanMethod(thisParam.paramInput.value))
+        //this.panel.controller.model[modelParam] = thisParam.booleanMethod(thisParam.paramInput.value)  
+        //this.panel.controller.view.positionLabelTrigger(this.panel.controller.model[modelParam])
+        //this.panel.controller.getData()
+    }
+
+
+
+
+
+
+
+
+
+}
+export {SliderPanel}
 
 
 
@@ -194,9 +230,3 @@ class SliderPanel {
         //     }
 
         // )
-
-    }
-
-
-}
-export {SliderPanel}

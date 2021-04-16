@@ -18,6 +18,9 @@ export class Controller {
     model
     view
     controllerParamsData
+    observer
+    observerMin
+    observerMax
 
     constructor(selectSliderParams : SliderParams = defaultSlider) {
 
@@ -83,28 +86,61 @@ export class Controller {
 
 
         const that = this
-        this.current()
+
+        
 
 
-        // this.view.positionLabel.textContent.onchange = function () {
-        //     console.log(this.view.positionLabel.textContent)
+
+        // if(that.model.isRange) {
+        //     if(that.model.isVerticalIdentifier) {
+        //         this.observerMin = new MutationObserver(mutationRecords1 => {
+        //             that.model.minCurrentDoubleHeandler = Number(that.view.positionLabelMax.textContent)
+        //             //console.log(that.model.minCurrentDoubleHeandler)
+        //         });
+        //         this.observerMax = new MutationObserver(mutationRecords2 => {
+        //             that.model.maxCurrentDoubleHeandler = Number(that.view.positionLabelMin.textContent)
+        //             //console.log(that.model.maxCurrentDoubleHeandler)
+        //         });
+        //     } else {
+        //         this.observerMin = new MutationObserver(mutationRecords1 => {
+        //             that.model.minCurrentDoubleHeandler = Number(that.view.positionLabelMin.textContent)
+        //             //console.log(that.model.minCurrentDoubleHeandler)
+        //         });
+        //         this.observerMax = new MutationObserver(mutationRecords2 => {
+        //             that.model.maxCurrentDoubleHeandler = Number(that.view.positionLabelMax.textContent)
+        //             //console.log(that.model.maxCurrentDoubleHeandler)
+        //         });
+        //     }
+        // } else { 
+            this.observer = new MutationObserver(mutationRecords => {
+                that.model.current = Number(that.view.positionLabel.textContent)
+            });
+        // }
+   
+
+
+        // if(that.model.isRange) {
+        //     this.observerMax.observe(this.view.positionLabelMax, {
+        //         attributes: true,
+        //     });
+        //     this.observerMin.observe(this.view.positionLabelMin, {
+        //         attributes: true,
+        //     });
+        // } else {
+            this.observer.observe(this.view.positionLabel, {
+                attributes: true,
+             });
         // }
 
 
+
+       
+       
+
+
     }
 
-    c
-
-    current() {
-        const that = this
-        this.view.thumb.onclick = function() {
-            that.model.current = Number(that.view.positionLabel.textContent)
-            // console.log(that.view.positionLabel.textContent)
-            that.c = Number(that.view.positionLabel.textContent)
-            //return Number(that.view.positionLabel.textContent)
-
-        }
-    }
+   
 
 
 
@@ -151,7 +187,13 @@ export class Controller {
         } else {
             return 
         }
+        this.view.isVerticalIdentifier = isVerticalValue
         this.model.isVertical = isVerticalValue
+
+        this.model.isRange?
+        this.view.setCurrentRangeValue(this.model.minCurrentDoubleHeandler, this.model.maxCurrentDoubleHeandler):
+        this.view.setCurrentValue(this.model.current);
+        
         this.view.verticalControl(this.model.isVertical)
     }
 

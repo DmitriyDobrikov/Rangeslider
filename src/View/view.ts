@@ -643,11 +643,6 @@ export class View {
         if(this.isVerticalIdentifier){
             this.scaleVaeInView.style.width = this.scaleWidth
             this.scaleVaeInView.style.height =  this.scaleLong
-           
-            // this.thumb.style.top = parseFloat(this.scaleLong) - parseFloat(this.handlerFullRadius) + "px"
-         
-            // this.thumbMax.style.top = parseFloat(this.scaleLong) - parseFloat(this.handlerFullRadius) + "px" 
-            // this.thumbMin.style.top = this.handlerRegulLeft
 
             this.thumb.style.left = this.handlerRegulTop
             this.thumbMax.style.left = this.handlerRegulTop
