@@ -78,14 +78,9 @@ export class View {
     scaleBackground
 
     constructor (viewParams: ViewType = defaultView, ) {
-
-
         this.viewParamsData
 
-
         Object.assign(this.viewParamsData, defaultView, viewParams)
-
-        // //this.scaleStyleData = scaleStyleParams
 
         for (const key in this.viewParamsData) {
             if (viewParams[key] != undefined) {
@@ -93,11 +88,7 @@ export class View {
             }
         }
 
-        //if( viewParams.scaleView.scaleProgress== undefined) this.viewParamsData.scaleView.scaleProgress = 'blue'
-
-
         this.scaleProgress = new Scale(this.viewParamsData.scaleView).scale
-        //this.scaleProgress.style.width = this.thumb.style.left
         this.scaleProgress.style.position = 'absolute'
         this.scaleProgress.style.left = '-10px'
         this.scaleProgress.style.background = this.viewParamsData.scaleView.scaleProgress

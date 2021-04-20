@@ -14,17 +14,18 @@ config.set({
     },
     // spec файлы, условимся называть по маске **_*.spec.js_**
     files: [
-        //'app/**/*.spec.js'
-        //'boilerplate.spec.js'
-        './allTestFiles.ts', '*.test.js'
+        //'./allTestFiles.ts', //все файлы
+         './src/Model/model.test.js',
+        // './src/View/handler/handler.test.js',
+
     ],
     frameworks: [ 'chai', 'jasmine' ],
     // репортеры необходимы для  наглядного отображения результатов
-    reporters: ['mocha', 'coverage'],
+    reporters: ['mocha', 'coverage'],//['mocha', 'coverage'],
     preprocessors: {
-      //'boilerplate.spec.js': ['webpack', 'sourcemap']
-      './allTestFiles.ts': ['webpack', 'sourcemap'],
-      '*.test.js': ['webpack', 'sourcemap'],
+      //'./allTestFiles.ts': ['webpack', 'sourcemap'],//все файлы
+       './src/Model/model.test.js': ['webpack', 'coverage'],
+      // './src/View/handler/handler.test.js': ['webpack', 'coverage'],
     },
     plugins: [
         'karma-jasmine', 'karma-mocha',

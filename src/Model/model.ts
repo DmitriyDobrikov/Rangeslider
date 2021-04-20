@@ -21,6 +21,13 @@ export class Model {
 
         Object.assign(this.modelData, defaultModel, madelParam)
 
+        
+        // for (const key in this.modelData) {
+        //     if (madelParam[key] != undefined) {
+        //         this.modelData[key] = madelParam[key]
+        //     }
+        // }
+
         this.min = this.modelData.min 
         this.max = this.modelData.max
 
@@ -55,6 +62,26 @@ export class Model {
     set maxCurrentValue(value) {
         this.maxCurrentDoubleHeandler = value
     }
+
+    qwe() {
+        let p = 100
+    }
+    qwe1() {
+        let q = 100
+    }
+    qwe2() {
+        let p = 100
+    }
+    qwe3() {
+        let p = 100
+    }
+    qwe4() {
+        let p = 100
+    }
+    qwe5() {
+        let p = 100
+    }
+
 
 
 }
