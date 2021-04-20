@@ -35,4 +35,26 @@ export class Model {
         this.positionLabels = this.modelData.positionLabels
     }
 
+    get currentValue() {
+        return this.current
+    }
+    set currentValue(value) {
+        this.current = value
+    }
+
+    get minCurrentValue() {
+        return this.minCurrentDoubleHeandler
+    }
+    set minCurrentValue(value) {
+        this.minCurrentDoubleHeandler = value
+    }
+
+    get maxCurrentValue() {
+        return this.maxCurrentDoubleHeandler
+    }
+    set maxCurrentValue(value) {
+        this.maxCurrentDoubleHeandler = value
+    }
+
+
 }

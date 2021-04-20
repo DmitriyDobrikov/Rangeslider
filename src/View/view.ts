@@ -93,7 +93,7 @@ export class View {
             }
         }
 
-        if( viewParams.scaleView.scaleProgress== undefined) this.viewParamsData.scaleView.scaleProgress = 'blue'
+        //if( viewParams.scaleView.scaleProgress== undefined) this.viewParamsData.scaleView.scaleProgress = 'blue'
 
 
         this.scaleProgress = new Scale(this.viewParamsData.scaleView).scale
@@ -179,14 +179,15 @@ export class View {
         this.maxValue = parseInt(this.sliderScale.scaleStyleData.scaleWidth) - parseInt(this.handlerFullRadius)
         this.minValue 
 
-        this.rangeValue = this.maxValue * 1
+        this.rangeValue =  parseInt(this.sliderScale.scaleStyleData.scaleWidth) - parseInt(this.handlerFullRadius)
 
 
         this.scaleLong = this.scaleVaeInView.style.width
         this.scaleWidth = this.scaleVaeInView.style.height
 
         this.handlerRegulLeft = this.scaleHandler.handler.style.left
-        this.handlerRegulTop = this.scaleHandler.handler.style.top     
+        this.handlerRegulTop = this.scaleHandler.handler.style.top 
+        this.valuesOnScale = ((this.maxV - this.minV)/this.stepView).toFixed(0)    
         
 
     }
@@ -223,10 +224,6 @@ export class View {
 
     scaleOncklickMethod (event) {
         event.preventDefault();
-
-
-        
-
 
 
         // показывает количество знаков после запятой
@@ -280,7 +277,7 @@ export class View {
         this.setThumbLabelTextContentPosition()
         }
 
-
+        
 
     scaleHandlerMoveMethod(event , handlerName) {
             
@@ -325,9 +322,7 @@ export class View {
             self.setThumbLabelTextContentPosition()
   
             //окрашивает шкалу в зависимости от типа хэндлера
-            self.scaleprogressColor(handlerName)
-
-          
+            self.scaleprogressColor(handlerName)     
             
         }
 
@@ -606,6 +601,7 @@ export class View {
             this.positionLabelMax.style.left = parseInt(this.leftOrTopPosition(this.thumbMax)) - 19 + parseInt(this.handlerFullRadius)/2 + "px"
             this.positionLabelMin.style.left = parseInt(this.leftOrTopPosition(this.thumbMin)) - 19 + parseInt(this.handlerFullRadius)/2 + "px"
         }
+
         
     }
     // двигает текст над бегунком
@@ -727,6 +723,8 @@ export class View {
         this.movePositionToNearestValue()
     }
 
+
+
     setCurrentRangeValue(currentMinValue: number, currentMaxValue: number) {
 
         currentMinValue = this.nearValue(Number((currentMinValue).toFixed(this.stepViewSimbols)))
@@ -752,6 +750,39 @@ export class View {
         this.scaleprogressColor(this.thumbMax)
         this.setThumbLabelTextContentPosition()
         this.movePositionToNearestValue()
+    }
+
+
+
+    get getCurrentValue() {
+        this.valuesOnScale = (this.maxV - this.minV)/this.stepView
+        let item = this.stepView/this.correctValue
+        if (!this.isVerticalIdentifier) {
+            return  this.nearValue(Number(this.minValue + ((parseInt(this.thumb.style.left)/item) * this.stepView).toFixed(this.stepViewSimbols)))
+        } else {
+            return  this.nearValue(Number(this.minValue + ((parseInt(this.scaleLong) - parseInt(this.handlerFullRadius) - parseInt(this.thumb.style.top))/item) * this.stepView.toFixed(this.stepViewSimbols)))
+        }
+    }
+
+    get getCurrentMinValue() {
+        this.valuesOnScale = (this.maxV - this.minV)/this.stepView
+        let item = this.stepView/this.correctValue
+        if (!this.isVerticalIdentifier) {
+            return  this.nearValue(Number(this.minValue + ((parseInt(this.thumbMin.style.left)/item) * this.stepView).toFixed(this.stepViewSimbols)))
+        } else {
+            return  this.nearValue(Number(this.minValue + ((parseInt(this.scaleLong) - parseInt(this.handlerFullRadius) - parseInt(this.thumbMax.style.top))/item) * this.stepView.toFixed(this.stepViewSimbols)))
+        }
+    }
+
+
+    get getCurrentMaxValue() {
+        this.valuesOnScale = (this.maxV - this.minV)/this.stepView
+        let item = this.stepView/this.correctValue
+        if (!this.isVerticalIdentifier) {
+            return  this.nearValue(Number(this.minValue + ((parseInt(this.thumbMax.style.left)/item) * this.stepView).toFixed(this.stepViewSimbols)))
+        } else {
+            return  this.nearValue(Number(this.minValue + ((parseInt(this.scaleLong) - parseInt(this.handlerFullRadius) - parseInt(this.thumbMin.style.top))/item) * this.stepView.toFixed(this.stepViewSimbols)))
+        }
     }
 
 

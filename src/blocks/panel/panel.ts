@@ -21,24 +21,12 @@ class SliderPanel {
     scaleLong = new ControlParamButton('Scale long')
     positionLabels = new ControlParamButton('Position label')
 
-    // sliderConteiner = document.createElement('div')
     buttonConteiner = document.createElement('div')
-
-    // panelConteiner = document.createElement('div')
-
-
-    // buttonConteiner1 = document.createElement('div')
 
     constructor(sliderSelector: any, param : SliderParams = defaultSlider) {
         const that = this      
-        //let i = $(sliderSelector).rangeSlider(param)
 
-
-        // this.buttonConteiner1.textContent = "s;hguihsdhdhhdhdhfkjkdjf;skdef;skhg;fjh"
-        // this.sliderConteiner.classList.add('slider-and-button-conteiner')
         this.buttonConteiner.classList.add('slider-and-button-conteiner')
-
-        //this.panelConteiner.classList.add('panel-conteiner')
 
         this.panel = $(sliderSelector).rangeSlider(param)
         this.panel.append(this.buttonConteiner)
@@ -77,15 +65,20 @@ class SliderPanel {
 
         this.rangeParamButton.switchButton.onclick = function() {
             that.switchButtonMethod(that.rangeParamButton)
+            
+            that.panel.controller.setCurrentValues()
+            that.panel.controller.setCurrenttoViewFromModel()
             that.panel.controller.rangeSwich(that.rangeParamButton.booleanMethod(that.rangeParamButton.paramInput.value))
+            
             that.panel.controller.getData()
         }
 
         this.verticalParamButton.switchButton.onclick = function() {
             that.switchButtonMethod(that.verticalParamButton)
-            that.panel.controller.verticalMethod(that.verticalParamButton.booleanMethod(that.verticalParamButton.paramInput.value))
-            
 
+            that.panel.controller.setCurrentValues()
+            that.panel.controller.setCurrenttoViewFromModel()
+            that.panel.controller.verticalMethod(that.verticalParamButton.booleanMethod(that.verticalParamButton.paramInput.value))
             that.verticalParamButton.booleanMethod(that.verticalParamButton.paramInput.value)?
             that.verticalParamButton.containerOfSwitchParams.style.marginTop = '-' +(that.panel.controller.view.scaleLong):
             that.verticalParamButton.containerOfSwitchParams.style.marginTop = '-10px';
@@ -95,8 +88,6 @@ class SliderPanel {
 
         this.thumblerValue.switchButton.onclick = function() {
             if(isNaN(that.thumblerValue.numberMethod(that.thumblerValue.paramInput.value)) == false) {
-                //that.panel.controller.current()
-                //that.thumblerValue.paramInput.value = that.panel.controller.c
                 that.panel.controller.model.current = that.thumblerValue.numberMethod(that.thumblerValue.paramInput.value)
             }
             that.panel.controller.getData()
@@ -144,8 +135,6 @@ class SliderPanel {
         }
 
         this.scaleLines.switchButton.onclick = function() {
-            //that.switchButtonMethod(that.scaleLines, that.panel.controller.model.scaleLines)
-            //that.scaleLines.paramInput.value = String(!that.scaleLines.booleanMethod(that.scaleLines.paramInput.value))
             that.switchButtonMethod(that.scaleLines)
             that.panel.controller.model.scaleLines = that.scaleLines.booleanMethod(that.scaleLines.paramInput.value)
             that.panel.controller.view.scaleLinesTrigger(that.panel.controller.model.scaleLines)
@@ -154,10 +143,8 @@ class SliderPanel {
 
         this.positionLabels.switchButton.onclick = function() {
             that.switchButtonMethod(that.positionLabels)
-            //that.positionLabels.paramInput.value = String(!that.positionLabels.booleanMethod(that.positionLabels.paramInput.value))
             that.panel.controller.model.positionLabels = that.positionLabels.booleanMethod(that.positionLabels.paramInput.value)
             that.panel.controller.view.positionLabelTrigger(that.panel.controller.model.positionLabels)
-            //that.switchButtonMethod(that.positionLabels, that.panel.controller.model.positionLabels)
         }
 
 

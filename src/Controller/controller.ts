@@ -18,23 +18,17 @@ export class Controller {
     model
     view
     controllerParamsData
+
     observer
     observerMin
     observerMax
+    observerMaxVert
+    observerMinVert
+
+    proxy
+
 
     constructor(selectSliderParams : SliderParams = defaultSlider) {
-
-
-        //Object.assign(this.controllerParamsData, defaultView, selectSliderParams)
-
-        // //this.scaleStyleData = scaleStyleParams
-
-        // for (const key in this.viewParamsData) {
-        //     if (viewParams[key] != undefined) {
-        //         this.viewParamsData[key] = viewParams[key]
-        //     }
-        // }
-        //console.log(selectSliderParams)
 
         this.model = new Model(selectSliderParams.sliderModelParams)
         this.view = new View(selectSliderParams.sliderViewParams)
@@ -60,6 +54,41 @@ export class Controller {
             this.model.maxCurrentDoubleHeandler = this.model.max
         }
 
+        const that = this
+
+        this.observer = undefined
+        this.observerMin = undefined
+        this.observerMax = undefined
+        this.observerMaxVert = undefined
+        this.observerMinVert = undefined
+        
+
+
+
+
+
+        this.proxy = new Proxy(this.view, {
+            get(target, prop) {
+            //   console.log(
+            //       target.positionLabel.textContent
+            //   );
+              return Reflect.get(target, prop);
+            },
+            // set(target, prop, value) {
+            //   console.log({
+            //     type: "set",
+            //     target,
+            //     prop,
+            //     value
+            //   });
+            //   return Reflect.set(target, prop, value);
+            // }
+          });
+          //this.proxy.i = 5
+          
+
+
+       
   
         this.view.correctValue = (this.model.max - this.model.min)/this.view.rangeValue
         this.view.stepView = this.model.step
@@ -70,74 +99,41 @@ export class Controller {
         this.view.minValue = this.model.min
         this.view.isRange = this.model.isRange
 
+
+        //this.observerData()
+        
+
+
         this.view.scaleLinesAdd();
         
         this.view.verticalControl(this.model.isVertical);
         this.view.isRangeSwitch(this.model.isRange);
 
-        this.model.isRange?
-        this.view.setCurrentRangeValue(this.model.minCurrentDoubleHeandler, this.model.maxCurrentDoubleHeandler):
-        this.view.setCurrentValue(this.model.current);
-        // this.view.scaleLinesAdd();
-
         this.view.scaleLinesTrigger(this.model.scaleLines);
         this.view.scaleValuesTrigger(this.model.scaleValues);
-        this.view.positionLabelTrigger(this.model.positionLabels)
-
-
-        const that = this
-
+        this.view.positionLabelTrigger(this.model.positionLabels)        
         
+        this.setCurrenttoViewFromModel()
+
+    }
+
+    setCurrentValues() {
+        if(this.model.isRange) {
+            this.model.minCurrentValue = this.view.getCurrentMinValue
+            this.model.maxCurrentValue = this.view.getCurrentMaxValue
+            console.log(this.model.minCurrentDoubleHeandler, this.model.maxCurrentDoubleHeandler)
+        } else {
+            this.model.currentValue = this.view.getCurrentValue
+        }
+    }
 
 
-
-        // if(that.model.isRange) {
-        //     if(that.model.isVerticalIdentifier) {
-        //         this.observerMin = new MutationObserver(mutationRecords1 => {
-        //             that.model.minCurrentDoubleHeandler = Number(that.view.positionLabelMax.textContent)
-        //             //console.log(that.model.minCurrentDoubleHeandler)
-        //         });
-        //         this.observerMax = new MutationObserver(mutationRecords2 => {
-        //             that.model.maxCurrentDoubleHeandler = Number(that.view.positionLabelMin.textContent)
-        //             //console.log(that.model.maxCurrentDoubleHeandler)
-        //         });
-        //     } else {
-        //         this.observerMin = new MutationObserver(mutationRecords1 => {
-        //             that.model.minCurrentDoubleHeandler = Number(that.view.positionLabelMin.textContent)
-        //             //console.log(that.model.minCurrentDoubleHeandler)
-        //         });
-        //         this.observerMax = new MutationObserver(mutationRecords2 => {
-        //             that.model.maxCurrentDoubleHeandler = Number(that.view.positionLabelMax.textContent)
-        //             //console.log(that.model.maxCurrentDoubleHeandler)
-        //         });
-        //     }
-        // } else { 
-            this.observer = new MutationObserver(mutationRecords => {
-                that.model.current = Number(that.view.positionLabel.textContent)
-            });
-        // }
-   
-
-
-        // if(that.model.isRange) {
-        //     this.observerMax.observe(this.view.positionLabelMax, {
-        //         attributes: true,
-        //     });
-        //     this.observerMin.observe(this.view.positionLabelMin, {
-        //         attributes: true,
-        //     });
-        // } else {
-            this.observer.observe(this.view.positionLabel, {
-                attributes: true,
-             });
-        // }
-
-
-
-       
-       
-
-
+    setCurrenttoViewFromModel() {
+        if(this.model.isRange) {
+            this.view.setCurrentRangeValue(this.model.minCurrentDoubleHeandler, this.model.maxCurrentDoubleHeandler)
+        } else {
+            this.view.setCurrentValue(this.model.current);
+        }
     }
 
    
@@ -158,10 +154,10 @@ export class Controller {
         this.view.minValue = this.model.min  
     }
 
-    setCurrentValue() {      
-        this.view.scaleLinesAdd()
-        this.view.isRangeSwitch(this.model.isRange)
-    }
+    // setCurrentValue() {      
+    //     this.view.scaleLinesAdd()
+    //     this.view.isRangeSwitch(this.model.isRange)
+    // }
 
 
 
@@ -189,17 +185,97 @@ export class Controller {
         }
         this.view.isVerticalIdentifier = isVerticalValue
         this.model.isVertical = isVerticalValue
-
-        this.model.isRange?
-        this.view.setCurrentRangeValue(this.model.minCurrentDoubleHeandler, this.model.maxCurrentDoubleHeandler):
-        this.view.setCurrentValue(this.model.current);
-        
         this.view.verticalControl(this.model.isVertical)
     }
 
     setModelDanaInPanelInput(inputName, modelData) {
         inputName.value = String(modelData)
     }
+
+
+
+
+    observerData() {
+        if(this.model.isRange) {
+            if(this.model.isVertical) {
+                this.observerMinVert = new MutationObserver(mutationRecords1 => {
+                    this.model.minCurrentDoubleHeandler = Number(this.view.positionLabelMax.textContent)
+                });
+                this.observerMaxVert = new MutationObserver(mutationRecords2 => {
+                    this.model.maxCurrentDoubleHeandler = Number(this.view.positionLabelMin.textContent)
+                });
+                this.observerMaxVert.observe(this.view.positionLabelMin, {
+                    attributes: true,
+                    childList: true, 
+                    subtree: true, 
+                    characterDataOldValue: false 
+                });
+                this.observerMinVert.observe(this.view.positionLabelMax, {
+                    attributes: true,
+                    childList: true, 
+                    subtree: true, 
+                    characterDataOldValue: false 
+                });
+ 
+            } else {
+
+                this.observerMin = new MutationObserver(mutationRecords4 => {
+                    this.model.minCurrentDoubleHeandler = Number(this.view.positionLabelMin.textContent)
+                });
+                this.observerMax = new MutationObserver(mutationRecords5 => {
+                    this.model.maxCurrentDoubleHeandler = Number(this.view.positionLabelMax.textContent)
+                });
+
+                this.observerMax.observe(this.view.positionLabelMax, {
+                    attributes: true,
+                    childList: true, 
+                    subtree: true, 
+                    characterDataOldValue: false 
+                });
+                this.observerMin.observe(this.view.positionLabelMin, {
+                    attributes: true,
+                    childList: true, 
+                    subtree: true, 
+                    characterDataOldValue: false 
+                });
+                return
+            }
+
+
+        } else { 
+            this.observer = new MutationObserver(mutationRecords3 => {
+                this.model.current = Number(this.view.positionLabel.textContent)
+            });
+
+            this.observer.observe(this.view.positionLabel, {
+                attributes: true,
+                childList: true, // наблюдать за непосредственными детьми
+                subtree: true, // и более глубокими потомками
+                characterDataOldValue: false // передавать старое значение в колбэк
+             });
+             return
+        }
+    }
+     //this.observerData()
+
+        // this.observerMinVert = new MutationObserver(mutationRecords1 => {
+        //     this.model.minCurrentDoubleHeandler = Number(this.view.positionLabelMax.textContent)
+        // });
+        // this.observerMaxVert = new MutationObserver(mutationRecords2 => {
+        //     this.model.maxCurrentDoubleHeandler = Number(this.view.positionLabelMin.textContent)
+        // });
+        // this.observer = new MutationObserver(mutationRecords3 => {
+        //     this.model.current = Number(this.view.positionLabel.textContent)
+        // });
+        // this.observerMin = new MutationObserver(mutationRecords4 => {
+        //     this.model.minCurrentDoubleHeandler = Number(this.view.positionLabelMin.textContent)
+        // });
+        // this.observerMax = new MutationObserver(mutationRecords5 => {
+        //     this.model.maxCurrentDoubleHeandler = Number(this.view.positionLabelMax.textContent)
+        // });
+
+        //console.log(this.model.current, this.model.minCurrentDoubleHeandler, this.model.maxCurrentDoubleHeandler)
+ 
 
 
 
