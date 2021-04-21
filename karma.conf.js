@@ -14,8 +14,8 @@ config.set({
     },
     // spec файлы, условимся называть по маске **_*.spec.js_**
     files: [
-        //'./allTestFiles.ts', //все файлы
-         './src/Model/model.test.js',
+        './allTestFiles.ts', //все файлы
+        //'./src/Model/model.test.js',
         // './src/View/handler/handler.test.js',
 
     ],
@@ -23,8 +23,8 @@ config.set({
     // репортеры необходимы для  наглядного отображения результатов
     reporters: ['mocha', 'coverage'],//['mocha', 'coverage'],
     preprocessors: {
-      //'./allTestFiles.ts': ['webpack', 'sourcemap'],//все файлы
-       './src/Model/model.test.js': ['webpack', 'coverage'],
+      './allTestFiles.ts': ['webpack', 'sourcemap'],//все файлы
+      //'./src/Model/model.test.js': ['webpack', 'coverage'],
       // './src/View/handler/handler.test.js': ['webpack', 'coverage'],
     },
     plugins: [

@@ -338,8 +338,7 @@ export class View {
 
    
 
-
-    // показывает количество знаков после запятой
+    //возращает this.stepViewSimbols равное количеству знаков после запятой
     getStepViewSimbols(value) {
         if(Math.floor(value) != value) {
             return this.stepViewSimbols = this.stepValueAfterDot(value)
@@ -347,9 +346,10 @@ export class View {
             return this.stepViewSimbols = 0 
         }
     }
-    // показывает количество знаков после запятой
 
-    // защита от выхода из границ
+
+
+    // защита от выхода из границ слайдера
     stayHandlerInBorder() {
         if (this.positionHandler < - this.positionHandler) {
             this.positionHandler = 0

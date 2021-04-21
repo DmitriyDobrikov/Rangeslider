@@ -111,49 +111,13 @@
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -233,54 +197,36 @@ describe("Model with default options", function() {
 describe("Геттеры - Сеттеры", function() {
    let modelAsset = new Model()
 &nbsp;
-  it("get/set текущего знвчения", function() {
-   modelAsset.currentValue = 6
-     assert.equal(Number(modelAsset.currentValue), Number(modelAsset.current))
+  it("get/set текущего Min знвчения", function() {
+   modelAsset.minCurrentValue = 1
+     assert.equal(Number(modelAsset.minCurrentValue), Number(modelAsset.minCurrentDoubleHeandler))
   });
 &nbsp;
-  it("get/set текущего знвчения", function() {
-     alert(modelAsset.qwe()) 
+  it("get/set текущего Max знвчения", function() {
+   modelAsset.maxCurrentValue = 9
+     assert.equal(Number(modelAsset.maxCurrentValue), Number(modelAsset.maxCurrentDoubleHeandler))
   });
-  it("get/set текущего знвчения", function() {
-   alert(modelAsset.qwe1()) 
-});
-it("get/set текущего знвчения", function() {
-   alert(modelAsset.qwe2()) 
-});
-it("get/set текущего знвчения", function() {
-   alert(modelAsset.qwe3()) 
-});
-&nbsp;
-//   it("get/set текущего Min знвчения", function() {
-//    modelAsset.minCurrentValue = 1
-//      assert.equal(Number(modelAsset.minCurrentValue), Number(modelAsset.minCurrentDoubleHeandler))
-//   });
-&nbsp;
-//   it("get/set текущего Max знвчения", function() {
-//    modelAsset.maxCurrentValue = 9
-//      assert.equal(Number(modelAsset.maxCurrentValue), Number(modelAsset.maxCurrentDoubleHeandler))
-//   });
 &nbsp;
 });
 &nbsp;
 &nbsp;
-// describe("Ввод значений пользователя", function() {
-//    let modelCastom = new Model({min: 1, max: 9, positionLabels: false})
+describe("Ввод значений пользователя", function() {
+   let modelCastom = new Model({min: 1, max: 9, positionLabels: false})
 &nbsp;
-//    it("Сравнение данных модели с переданными значениями", function() {
-//       let arrayCastomModel = Object.values(modelCastom)
-//       arrayCastomModel.shift()
-//       assert.equal(arrayCastomModel.toString(), Object.values(modelCastom.modelData).toString())
-//    });
+   it("Сравнение данных модели с переданными значениями", function() {
+      let arrayCastomModel = Object.values(modelCastom)
+      arrayCastomModel.shift()
+      assert.equal(arrayCastomModel.toString(), Object.values(modelCastom.modelData).toString())
+   });
 &nbsp;
-// });</pre></td></tr></table></pre>
+});</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Apr 20 2021 21:31:55 GMT+0700 (Красноярск, стандартное время)
+                at Wed Apr 21 2021 10:15:51 GMT+0700 (Красноярск, стандартное время)
             </div>
         </div>
         <script src="prettify.js"></script>

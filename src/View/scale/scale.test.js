@@ -2,15 +2,16 @@ import { Scale } from './scale'
 
 
 describe("Шкала", function() {
+   let scaleDefault = new Scale
+   let scaleUser = new Scale({scaleProgress: 'red', scaleWidth: '150px'})
    
    it("Значения scale - по умолчанию", function() {
-      let scaleDefault = new Scale
-      //assert.equal(Object.keys(handlerDefault.handlerStyleData).length, 7)
+      assert.equal(Object.keys(scaleDefault.scaleStyleData).length, 6)
    });
 
    it("Значения scale - пользовательские", function() {
-      let scaleUser = new Scale()
-      //assert.equal(handlerUser.handlerStyleData.handlerBorderRadius, handlerUser.handler.style.borderRadius)
+      assert.equal(scaleUser.scaleStyleData.scaleWidth, scaleUser.scale.style.width)
+      assert.equal(Object.keys(scaleDefault.scaleStyleData).length, Object.keys(scaleUser.scaleStyleData).length)
    });
 
 });
