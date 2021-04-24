@@ -134,11 +134,37 @@ describe("Метод nearValue(position) класса View", function() {
 describe("Метод scaleprogressColor(handlerType) класса View", function() {
    viewUser.isVerticalIdentifier = true
 
-   it("position ближе к меньшему значению", function() {
-      viewDefault.thumb = 7
+   it("Горизонтально - 1 бегунок", function() {
+      viewDefault.thumb.style.left = '90px'
 
-      viewUser.scaleprogressColor(this.thumb)
-      assert.equal(viewDefault.nearValue(viewDefault.stepView/3), 0)
+      viewDefault.scaleprogressColor(viewDefault.thumb)
+      assert.equal(viewDefault.scaleProgress.style.width, '96px')
+      assert.equal(viewDefault.scaleProgress.style.height, '6px')
+   });
+
+   it("Горизонтально - 2 бегунка", function() {
+      //viewDefault.thumbMin.style.left = '90px'
+      viewDefault.thumbMax.style.left = '288px'
+      let handlerWidth = parseInt(viewDefault.handlerFullRadius)
+      for(let item = 0; item < viewDefault.rangeValue - handlerWidth; item+=10) {
+
+         let u = parseInt(viewDefault.thumbMax.style.left) - item
+         viewDefault.thumbMin.style.left = item + 'px'
+         viewDefault.scaleprogressColor(viewDefault.thumbMax)
+         //alert(viewDefault.scaleProgress.style.width + "-----" + item)
+         alert(u)
+         assert.isTrue()
+      }
+      // alert(viewDefault.rangeValue , viewDefault.handlerFullRadius)
+      // alert(viewDefault.handlerFullRadius)
+
+      viewDefault.scaleprogressColor(viewDefault.thumbMax)
+      // alert(viewDefault.scaleProgress.style.width)
+      // alert(viewDefault.scaleProgress.style.left)
+
+
+      // assert.equal(viewDefault.scaleProgress.style.width, '96px')
+      // assert.equal(viewDefault.scaleProgress.style.height, '6px')
    });
 
 });
