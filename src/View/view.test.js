@@ -181,13 +181,25 @@ describe("Метод scaleprogressColor(handlerType) класса View", functio
 describe("Метод scaleLinesAdd() класса View", function() {
    viewUser.minV = 0
    
-   viewUser.stepView = 1
+  
 
-   it("JHFKUHFKU", function() {
+   it("Шаг - 1", function() {
       for(let item = 1; item < 100; item++) {
+         viewUser.stepView = 1
          viewUser.isVerticalIdentifier = true
          viewUser.maxV = item
          viewUser.scaleLinesAdd()
+         for (let index = 10; index > 4; index--) {
+            if(this.item % index == 0) {
+                this.stepValueLines = (this.valuesOnScale / index)*this.stepView
+                this.stepPositionRangeOnScale = this.valuesOnScale/(this.valuesOnScale / index)
+                break outer
+            } else {
+                this.stepValueLines = this.nearValue((this.valuesOnScale / 5).toFixed(this.stepViewSimbols))
+                this.stepPositionRangeOnScale = 5
+            }
+         }
+
          alert(viewUser.markerSkaleView.getElementsByTagName("div").length + ' ' + viewUser.maxV + ' ' + viewUser.stepPositionRangeOnScale)
          
       }
