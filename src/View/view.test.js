@@ -114,9 +114,6 @@ describe("Метод stayHandlerInBorder() класса View", function() {
 
 
 
-
-
-
 describe("Метод nearValue(position) класса View", function() {
    viewDefault.stepView = 1
 
@@ -132,40 +129,69 @@ describe("Метод nearValue(position) класса View", function() {
 
 
 describe("Метод scaleprogressColor(handlerType) класса View", function() {
-   viewUser.isVerticalIdentifier = true
-
-   it("Горизонтально - 1 бегунок", function() {
-      viewDefault.thumb.style.left = '90px'
-
-      viewDefault.scaleprogressColor(viewDefault.thumb)
-      assert.equal(viewDefault.scaleProgress.style.width, '96px')
-      assert.equal(viewDefault.scaleProgress.style.height, '6px')
+   let handlerWidth = parseInt(viewDefault.handlerFullRadius)
+   it("1 бегунок", function() {
+      viewUser.isVerticalIdentifier = true
+      for(let item = 0; item < viewDefault.rangeValue - handlerWidth; item+=10) {
+         viewDefault.thumb.style.left = item + 'px'
+         viewDefault.scaleprogressColor(viewDefault.thumb)
+         assert.equal(parseInt(viewDefault.scaleProgress.style.width), parseInt(viewDefault.thumb.style.left) + handlerWidth/2)      
+         viewUser.thumb.style.top = item + 'px'
+         viewUser.scaleprogressColor(viewUser.thumb)
+         assert.equal(parseInt(viewUser.scaleProgress.style.width), parseInt(viewUser.thumb.style.left) + handlerWidth/2)      
+     
+      }
    });
 
-   it("Горизонтально - 2 бегунка", function() {
-      //viewDefault.thumbMin.style.left = '90px'
+   it("2 бегунка", function() {
+      viewUser.isVerticalIdentifier = true
+      viewUser.thumbMin.style.top = '0px'
       viewDefault.thumbMax.style.left = '288px'
       let handlerWidth = parseInt(viewDefault.handlerFullRadius)
-      for(let item = 0; item < viewDefault.rangeValue - handlerWidth; item+=10) {
-
-         let u = parseInt(viewDefault.thumbMax.style.left) - item
+      for(let item = 0; item < viewDefault.rangeValue - handlerWidth; item+=20) {
          viewDefault.thumbMin.style.left = item + 'px'
          viewDefault.scaleprogressColor(viewDefault.thumbMax)
-         //alert(viewDefault.scaleProgress.style.width + "-----" + item)
-         alert(u)
-         assert.isTrue()
+         assert.isTrue(parseInt(viewDefault.thumbMin.style.left) == parseInt(viewDefault.scaleProgress.style.left))
+         assert.isTrue(parseInt(viewDefault.scaleProgress.style.width) == (parseInt(viewDefault.thumbMax.style.left) - parseInt(viewDefault.thumbMin.style.left) - handlerWidth/2))
+         viewUser.thumbMax.style.top = item + 'px'
+         viewUser.scaleprogressColor(viewUser.thumbMax)         
+         assert.isTrue(parseInt(viewUser.scaleProgress.style.height) == (parseInt(viewUser.thumbMax.style.top) - parseInt(viewUser.thumbMin.style.top) + handlerWidth/2))
+     
       }
-      // alert(viewDefault.rangeValue , viewDefault.handlerFullRadius)
-      // alert(viewDefault.handlerFullRadius)
-
-      viewDefault.scaleprogressColor(viewDefault.thumbMax)
-      // alert(viewDefault.scaleProgress.style.width)
-      // alert(viewDefault.scaleProgress.style.left)
-
-
-      // assert.equal(viewDefault.scaleProgress.style.width, '96px')
-      // assert.equal(viewDefault.scaleProgress.style.height, '6px')
    });
 
-});
+   // it("Вертикально - 2 бегунка", function() {
+   //    let handlerWidth = parseInt(viewUser.handlerFullRadius)
+   // });
+      // it("Вертикально - 1 бегунок", function() {
+   //    viewUser.isVerticalIdentifier = true
+   //    for(let item = 0; item < viewUser.rangeValue - handlerWidth; item-=20) {
+      //    viewUser.thumb.style.top = item + 'px'
+      //    viewUser.scaleprogressColor(viewUser.thumb)
+      //    assert.equal(parseInt(viewUser.scaleProgress.style.width), parseInt(viewUser.thumb.style.left) + handlerWidth/2)      
+      // }
+   // });
 
+}); 
+
+
+
+
+
+describe("Метод scaleLinesAdd() класса View", function() {
+   viewUser.minV = 0
+   
+   viewUser.stepView = 1
+
+   it("JHFKUHFKU", function() {
+      for(let item = 1; item < 100; item++) {
+         viewUser.isVerticalIdentifier = true
+         viewUser.maxV = item
+         viewUser.scaleLinesAdd()
+         alert(viewUser.markerSkaleView.getElementsByTagName("div").length + ' ' + viewUser.maxV + ' ' + viewUser.stepPositionRangeOnScale)
+         
+      }
+   });
+
+
+});

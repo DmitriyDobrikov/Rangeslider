@@ -14,8 +14,8 @@ config.set({
     },
     // spec файлы, условимся называть по маске **_*.spec.js_**
     files: [
-        './allTestFiles.ts', //все файлы
-        //'./src/Model/model.test.js',
+        './allTestFiles.test.js', //все файлы
+        //'./src/View/view.test.js',
         // './src/View/handler/handler.test.js',
 
     ],
@@ -23,20 +23,26 @@ config.set({
     // репортеры необходимы для  наглядного отображения результатов
     reporters: ['mocha', 'coverage'],//['mocha', 'coverage'],
     preprocessors: {
-      './allTestFiles.ts': ['webpack', 'sourcemap'],//все файлы
-      //'./src/Model/model.test.js': ['webpack', 'coverage'],
+      './allTestFiles.test.js': ['webpack', 'sourcemap'],//все файлы
+      //'./src/View/view.test.js': ['webpack', 'coverage'],
       // './src/View/handler/handler.test.js': ['webpack', 'coverage'],
     },
+    //frameworks: ['jasmine-jquery', 'jasmine', 'requirejs'],
+
     plugins: [
         'karma-jasmine', 'karma-mocha',
         'karma-chai', 'karma-coverage',
         'karma-webpack', 'karma-phantomjs-launcher',
-        'karma-mocha-reporter', 'karma-sourcemap-loader'
+        'karma-mocha-reporter', 'karma-sourcemap-loader',
+        
+ 
     ],
     // передаем конфигурацию webpack
     webpack: webpackConfig,
     webpackMiddleware: {
       noInfo:true
-    }
+    },
+
+    // browsers : ['Chrome']
   });
 };
