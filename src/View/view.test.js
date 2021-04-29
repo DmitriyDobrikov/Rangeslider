@@ -183,25 +183,46 @@ describe("Метод scaleLinesAdd() класса View", function() {
    
   
 
-   it("Шаг - 1", function() {
+
+   it("Шаг = 1", function() {
       for(let item = 1; item < 100; item++) {
          viewUser.stepView = 1
          viewUser.isVerticalIdentifier = true
          viewUser.maxV = item
+         viewUser.correctValue = (viewUser.maxV - viewUser.minV)/viewUser.rangeValue
          viewUser.scaleLinesAdd()
-         for (let index = 10; index > 4; index--) {
-            if(this.item % index == 0) {
-                this.stepValueLines = (this.valuesOnScale / index)*this.stepView
-                this.stepPositionRangeOnScale = this.valuesOnScale/(this.valuesOnScale / index)
-                break outer
-            } else {
-                this.stepValueLines = this.nearValue((this.valuesOnScale / 5).toFixed(this.stepViewSimbols))
-                this.stepPositionRangeOnScale = 5
-            }
+         for(let i of viewUser.markerSkaleView.getElementsByTagName("div")) {
+            assert.isTrue(parseInt(i.style.top) <= (parseInt(viewUser.scaleLong) - parseInt(viewUser.handlerFullRadius)/2))
          }
 
-         alert(viewUser.markerSkaleView.getElementsByTagName("div").length + ' ' + viewUser.maxV + ' ' + viewUser.stepPositionRangeOnScale)
-         
+      }
+   });
+
+   it("Шаг > 1", function() {
+      for(let item = 6; item < 90; item+=5) {
+         viewUser.stepView = 3
+         viewUser.isVerticalIdentifier = false
+         viewUser.maxV = item
+         viewUser.correctValue = (viewUser.maxV - viewUser.minV)/viewUser.rangeValue
+         viewUser.scaleLinesAdd()
+         for(let i of viewUser.markerSkaleView.getElementsByTagName("div")) {
+            assert.isTrue(parseInt(i.style.left) <= (parseInt(viewUser.scaleLong) - parseInt(viewUser.handlerFullRadius)/2))
+         }
+
+      }
+   });
+
+   it("Шаг < 1", function() {
+      for(let item = 1; item < 100; item++) {
+         viewUser.stepView = 0.01
+         viewUser.isVerticalIdentifier = true
+         viewUser.maxV = item
+         viewUser.correctValue = (viewUser.maxV - viewUser.minV)/viewUser.rangeValue
+         viewUser.scaleLinesAdd()
+         for(let i of viewUser.markerSkaleView.getElementsByTagName("div")) {
+            assert.isTrue(parseInt(i.style.top) <= (parseInt(viewUser.scaleLong) - parseInt(viewUser.handlerFullRadius)/2))
+         }
+
       }
    });
 

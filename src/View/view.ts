@@ -427,29 +427,35 @@ export class View {
 
         for(let i = 0; i < this.stepPositionRangeOnScale + 1; i += 1 ) {
             let line = new ScaleValues().scaleMarkerValue  
+            let numberValue = new ScaleValues().scaleValues
+
+
             if(this.isVerticalIdentifier) {
                 line.style.width = "10px"
                 line.style.height = "1px"
+                numberValue.style.top = this.margerScaleRange - parseInt(this.handlerFullRadius)/2 + "px";
+                numberValue.textContent = String(Number((this.maxV - (this.margerScaleRange - parseInt(this.handlerFullRadius)/2 )*this.correctValue).toFixed(this.stepViewSimbols)))
+                line.style.top = this.margerScaleRange + "px"
+
+                if(i == this.stepPositionRangeOnScale) {
+                    line.style.top = parseInt(this.scaleLong) - parseInt(this.handlerFullRadius)/2 + "px"
+                    numberValue.style.top = parseInt(this.scaleLong) - parseInt(this.handlerFullRadius) + "px";
+                    numberValue.textContent = this.minV
+                } 
+                
             } else {
                 line.style.width = "1px"
                 line.style.height = "10px"
-            }
-
-            let numberValue = new ScaleValues().scaleValues
-            if(this.isVerticalIdentifier) {
-                numberValue.style.top = this.margerScaleRange - parseInt(this.handlerFullRadius)/2 + "px";
-            } else {
                 numberValue.style.left = this.margerScaleRange - parseInt(this.handlerFullRadius) - 3 + "px";
-            }
-
-            this.isVerticalIdentifier?
-            numberValue.textContent = String(Number((this.maxV - (this.margerScaleRange - parseInt(this.handlerFullRadius)/2 )*this.correctValue).toFixed(this.stepViewSimbols))):
-            numberValue.textContent = (this.minV + (this.margerScaleRange - parseInt(this.handlerFullRadius)/2 )*this.correctValue).toFixed(this.stepViewSimbols);
-
-            if(this.isVerticalIdentifier) {
-                line.style.top = this.margerScaleRange + "px"
-            } else {
+                numberValue.textContent = (this.minV + (this.margerScaleRange - parseInt(this.handlerFullRadius)/2 )*this.correctValue).toFixed(this.stepViewSimbols);
                 line.style.left = this.margerScaleRange + "px"
+
+                if(i == this.stepPositionRangeOnScale) {
+                    numberValue.style.left =  parseInt(this.scaleLong) - parseInt(this.handlerFullRadius) - 8 + "px";
+                    line.style.left = parseInt(this.scaleLong) - parseInt(this.handlerFullRadius)/2 + "px"
+                    numberValue.textContent = this.maxV
+                } 
+
             }
             this.margerScaleRange += ((this.stepValueLines) / this.correctValue)
             this.markerSkaleView.append(line) 
