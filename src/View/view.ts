@@ -468,12 +468,14 @@ export class View {
 
     // не позволяет меньшему значению быть >= большего и наоборот
     twoHandlersBorderMove(handler : HandlerType) {
+        
         if(handler == this.thumbMax && this.positionHandler < (parseFloat(this.leftOrTopPosition(this.thumbMin)) + this.stepView/this.correctValue)) {
             this.positionHandler = (parseFloat(this.leftOrTopPosition(this.thumbMin)) + this.stepView/this.correctValue)
         } 
         if(handler == this.thumbMin && this.positionHandler > (parseFloat(this.leftOrTopPosition(this.thumbMax)) - this.stepView/this.correctValue)) {
             this.positionHandler = parseFloat(this.leftOrTopPosition(this.thumbMax))  - this.stepView/this.correctValue
         } 
+    //     alert((parseFloat(this.leftOrTopPosition(this.thumbMax)) + "  " + this.stepView + " " + this.correctValue))
     }
     // не позволяет меньшему значению быть >= большего и наоборот
 
@@ -481,7 +483,6 @@ export class View {
     movePositionToNearestValue(slowMover: boolean = false) {
         if((this.positionHandler * this.correctValue)%this.stepView < this.stepView) {
             this.positionLabel.textContent = (this.nearValue(this.verticalOrHorizontalPosition(this.thumb) * this.correctValue)  + this.minValue).toFixed(this.stepViewSimbols)
-            
             this.positionLabelMax.textContent = (this.nearValue(this.verticalOrHorizontalPosition(this.thumbMax) * this.correctValue)  + this.minValue).toFixed(this.stepViewSimbols)
             this.positionLabelMin.textContent = (this.nearValue(this.verticalOrHorizontalPosition(this.thumbMin) * this.correctValue)  + this.minValue).toFixed(this.stepViewSimbols)
             if(!slowMover)this.positionHandler = (this.nearValue(this.positionHandler * this.correctValue))/this.correctValue
@@ -504,9 +505,7 @@ export class View {
         for(let x = 0; x < this.stepPositionRangeOnScale + 1; x += 1) {
             if(y) {
                 this.markerSkaleView.getElementsByTagName("div")[x].style.display = 'block'
-                //console.log(this.markerSkaleView.getElementsByTagName("div")[x])
             } else {
-                //console.log(this.markerSkaleView.getElementsByTagName("div")[x])
                 this.markerSkaleView.getElementsByTagName("div")[x].style.display = 'none'
             }
         }

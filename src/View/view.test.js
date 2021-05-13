@@ -138,11 +138,9 @@ describe("Метод scaleprogressColor(handlerType) класса View", functio
          assert.equal(parseInt(viewDefault.scaleProgress.style.width), parseInt(viewDefault.thumb.style.left) + handlerWidth/2)      
          viewUser.thumb.style.top = item + 'px'
          viewUser.scaleprogressColor(viewUser.thumb)
-         assert.equal(parseInt(viewUser.scaleProgress.style.width), parseInt(viewUser.thumb.style.left) + handlerWidth/2)      
-     
+         assert.equal(parseInt(viewUser.scaleProgress.style.width), parseInt(viewUser.thumb.style.left) + handlerWidth/2)           
       }
    });
-
    it("2 бегунка", function() {
       viewUser.isVerticalIdentifier = true
       viewUser.thumbMin.style.top = '0px'
@@ -159,19 +157,6 @@ describe("Метод scaleprogressColor(handlerType) класса View", functio
      
       }
    });
-
-   // it("Вертикально - 2 бегунка", function() {
-   //    let handlerWidth = parseInt(viewUser.handlerFullRadius)
-   // });
-      // it("Вертикально - 1 бегунок", function() {
-   //    viewUser.isVerticalIdentifier = true
-   //    for(let item = 0; item < viewUser.rangeValue - handlerWidth; item-=20) {
-      //    viewUser.thumb.style.top = item + 'px'
-      //    viewUser.scaleprogressColor(viewUser.thumb)
-      //    assert.equal(parseInt(viewUser.scaleProgress.style.width), parseInt(viewUser.thumb.style.left) + handlerWidth/2)      
-      // }
-   // });
-
 }); 
 
 
@@ -228,3 +213,223 @@ describe("Метод scaleLinesAdd() класса View", function() {
 
 
 });
+
+
+
+
+
+
+
+describe("Метод scaleLinesAdd() класса View", function() {
+   viewUser.minV = 0
+   
+  
+
+
+   it("Шаг = 1", function() {
+      for(let item = 1; item < 100; item++) {
+         viewUser.stepView = 1
+         viewUser.isVerticalIdentifier = true
+         viewUser.maxV = item
+         viewUser.correctValue = (viewUser.maxV - viewUser.minV)/viewUser.rangeValue
+         viewUser.scaleLinesAdd()
+         for(let i of viewUser.markerSkaleView.getElementsByTagName("div")) {
+            assert.isTrue(parseInt(i.style.top) <= (parseInt(viewUser.scaleLong) - parseInt(viewUser.handlerFullRadius)/2))
+         }
+
+      }
+   });
+
+   it("Шаг > 1", function() {
+      for(let item = 6; item < 90; item+=5) {
+         viewUser.stepView = 3
+         viewUser.isVerticalIdentifier = false
+         viewUser.maxV = item
+         viewUser.correctValue = (viewUser.maxV - viewUser.minV)/viewUser.rangeValue
+         viewUser.scaleLinesAdd()
+         for(let i of viewUser.markerSkaleView.getElementsByTagName("div")) {
+            assert.isTrue(parseInt(i.style.left) <= (parseInt(viewUser.scaleLong) - parseInt(viewUser.handlerFullRadius)/2))
+         }
+
+      }
+   });
+
+   it("Шаг < 1", function() {
+      for(let item = 1; item < 100; item++) {
+         viewUser.stepView = 0.01
+         viewUser.isVerticalIdentifier = true
+         viewUser.maxV = item
+         viewUser.correctValue = (viewUser.maxV - viewUser.minV)/viewUser.rangeValue
+         viewUser.scaleLinesAdd()
+         for(let i of viewUser.markerSkaleView.getElementsByTagName("div")) {
+            assert.isTrue(parseInt(i.style.top) <= (parseInt(viewUser.scaleLong) - parseInt(viewUser.handlerFullRadius)/2))
+         }
+      }
+   });
+});
+
+
+
+
+
+describe("Метод twoHandlersBorderMove(handler : HandlerType) класса View", function() {
+   viewUser.stepView = 1
+   viewUser.maxV = 10
+   viewUser.minV = 0
+   viewUser.correctValue = (viewUser.maxV - viewUser.minV)/288
+   viewUser.positionHandler = 43
+
+   it("Горизонтально", function() {
+      viewUser.isVerticalIdentifier = false
+      viewUser.thumbMax.style.left = '43px'
+      viewUser.thumbMin.style.left = '44px'
+      viewUser.twoHandlersBorderMove(viewUser.thumbMax)
+      assert.isTrue(parseInt(viewUser.thumbMin.style.left) < viewUser.positionHandler)      
+   });
+
+   it("Вертикально", function() {
+      viewUser.isVerticalIdentifier = true
+      viewUser.thumbMax.style.top = '43px'
+      viewUser.thumbMin.style.top = '44px'
+      viewUser.twoHandlersBorderMove(viewUser.thumbMin)
+      assert.isTrue(parseInt(viewUser.thumbMax.style.top) > viewUser.positionHandler)  
+   });
+
+}); 
+
+
+
+describe("Метод  movePositionToNearestValue класса View", function() {
+   let movePositionToNearestValueView = new View
+   movePositionToNearestValueView.stepView = 1
+   movePositionToNearestValueView.maxV = 10
+   movePositionToNearestValueView.minV = 0
+   movePositionToNearestValueView.minValue = 0
+   movePositionToNearestValueView.correctValue = (movePositionToNearestValueView.maxV - movePositionToNearestValueView.minV)/288
+  
+   it("Горизонтально", function() {
+      movePositionToNearestValueView.isVerticalIdentifier = false
+      let stepLong =  movePositionToNearestValueView.stepView / movePositionToNearestValueView.correctValue
+      for(let item = 0; item < 280; item += 10) {
+         let textValue = movePositionToNearestValueView.nearValue(item/stepLong)
+         movePositionToNearestValueView.thumbMax.style.left = item + 'px'
+         movePositionToNearestValueView.thumbMin.style.left = item + 'px'
+         movePositionToNearestValueView.thumb.style.left = item + 'px'  
+         movePositionToNearestValueView.positionHandler = item
+         movePositionToNearestValueView.movePositionToNearestValue()
+         assert.equal(Number(movePositionToNearestValueView.positionLabel.textContent), movePositionToNearestValueView.nearValue(textValue))           
+         assert.equal(Number(movePositionToNearestValueView.positionLabelMin.textContent), movePositionToNearestValueView.nearValue(textValue))           
+         assert.equal(Number(movePositionToNearestValueView.positionLabelMax.textContent), movePositionToNearestValueView.nearValue(textValue))           
+      }
+   });
+
+   it("Вертикально", function() {
+      movePositionToNearestValueView.isVerticalIdentifier = true
+      let stepLong =  movePositionToNearestValueView.stepView / movePositionToNearestValueView.correctValue
+      for(let item = 0; item < 280; item += 10) {
+         let textValue = movePositionToNearestValueView.nearValue((288 - item)/stepLong)
+         movePositionToNearestValueView.thumbMax.style.top = item + 'px'
+         movePositionToNearestValueView.thumbMin.style.top = item + 'px'
+         movePositionToNearestValueView.thumb.style.top = item + 'px'  
+         movePositionToNearestValueView.positionHandler = item
+         movePositionToNearestValueView.movePositionToNearestValue()
+         assert.equal(Number(movePositionToNearestValueView.positionLabel.textContent), textValue)          
+         assert.equal(Number(movePositionToNearestValueView.positionLabelMin.textContent), textValue)           
+         assert.equal(Number(movePositionToNearestValueView.positionLabelMax.textContent), textValue)           
+      }
+   });
+
+}); 
+
+
+describe("Метод verticalOrHorizontalPosition() класса View", function() {
+   let verticalOrHorizontalPositionView = new View
+   verticalOrHorizontalPositionView.thumbMax.style.left = '11px'
+   verticalOrHorizontalPositionView.thumbMax.style.top = '88px'
+   it("Горизонтально", function() {
+      verticalOrHorizontalPositionView.isVerticalIdentifier = false
+      assert.equal(verticalOrHorizontalPositionView.verticalOrHorizontalPosition(verticalOrHorizontalPositionView.thumbMax), 11)           
+   });
+   it("Вертикально", function() {
+      verticalOrHorizontalPositionView.isVerticalIdentifier = true
+      assert.equal(verticalOrHorizontalPositionView.verticalOrHorizontalPosition(verticalOrHorizontalPositionView.thumbMax), 200)           
+   });
+}); 
+
+describe("Метод scaleLinesAndLabelsStep() класса View", function() {
+   let verticalOrHorizontalPositionView = new View
+   verticalOrHorizontalPositionView.stepView = 1
+   verticalOrHorizontalPositionView.stepViewSimbols = 0
+   verticalOrHorizontalPositionView.minV = 0
+   verticalOrHorizontalPositionView.isVerticalIdentifier = false
+
+   describe("Изменяется количество значений на шкале", function() {
+      for(let item = 2; item < 100; item++) {
+         verticalOrHorizontalPositionView.maxV = item
+         verticalOrHorizontalPositionView.scaleLinesAndLabelsStep()
+         if(verticalOrHorizontalPositionView.valuesOnScale%verticalOrHorizontalPositionView.stepPositionRangeOnScale != 0 ) {
+            assert.equal(verticalOrHorizontalPositionView.stepPositionRangeOnScale, 5)   
+         } else {
+            assert.isTrue(verticalOrHorizontalPositionView.stepPositionRangeOnScale <= 10)  
+         }
+            verticalOrHorizontalPositionView.scaleLinesAndLabelsStep()
+            verticalOrHorizontalPositionView.scaleLinesAdd()
+            for(let index = 0; index < verticalOrHorizontalPositionView.markerSkaleView.getElementsByTagName("div").length - 1; index++) {
+               verticalOrHorizontalPositionView.scaleLinesTrigger(true)
+               assert.equal(verticalOrHorizontalPositionView.markerSkaleView.getElementsByTagName("div")[index].style.display, 'block')           
+               verticalOrHorizontalPositionView.scaleLinesTrigger(false)
+               assert.equal(verticalOrHorizontalPositionView.markerSkaleView.getElementsByTagName("div")[index].style.display, 'none')                      
+            
+               verticalOrHorizontalPositionView.scaleValuesTrigger(true)
+               assert.equal(verticalOrHorizontalPositionView.markerValueSkaleView.getElementsByTagName("div")[index].style.display, 'block')           
+               verticalOrHorizontalPositionView.scaleValuesTrigger(false)
+               assert.equal(verticalOrHorizontalPositionView.markerValueSkaleView.getElementsByTagName("div")[index].style.display, 'none')                      
+            }   
+      }
+   });
+
+}); 
+
+
+describe("Метод isRangeSwitch(isRange: boolean) класса View", function() {
+   let viewisRangeSwitch = new View
+
+   it("Горизонтально", function() {
+      viewisRangeSwitch.isRangeSwitch(true)
+      assert.isTrue(viewisRangeSwitch.thumb.style.display == "none")
+      assert.isTrue(viewisRangeSwitch.positionLabel.style.display == "none")
+      assert.isTrue(viewisRangeSwitch.thumbMax.style.display == "block")
+      assert.isTrue(viewisRangeSwitch.thumbMin.style.display == "block")
+      assert.isTrue(viewisRangeSwitch.positionLabelMax.style.display == "block")
+      assert.isTrue(viewisRangeSwitch.positionLabelMin.style.display == "block") 
+      
+      viewisRangeSwitch.isRangeSwitch(false)
+      assert.isTrue(viewisRangeSwitch.thumb.style.display == "block")
+      assert.isTrue(viewisRangeSwitch.positionLabel.style.display == "block")
+      assert.isTrue(viewisRangeSwitch.thumbMax.style.display == "none")
+      assert.isTrue(viewisRangeSwitch.thumbMin.style.display == "none")
+      assert.isTrue(viewisRangeSwitch.positionLabelMax.style.display == "none")
+      assert.isTrue(viewisRangeSwitch.positionLabelMin.style.display == "none")
+   });
+
+   it("Вертикально", function() {
+
+      viewisRangeSwitch.isRangeSwitch(true)
+      assert.isTrue(viewisRangeSwitch.thumb.style.display == "none")
+      assert.isTrue(viewisRangeSwitch.positionLabel.style.display == "none")
+      assert.isTrue(viewisRangeSwitch.thumbMax.style.display == "block")
+      assert.isTrue(viewisRangeSwitch.thumbMin.style.display == "block")
+      assert.isTrue(viewisRangeSwitch.positionLabelMax.style.display == "block")
+      assert.isTrue(viewisRangeSwitch.positionLabelMin.style.display == "block") 
+      
+      viewisRangeSwitch.isRangeSwitch(false)
+      assert.isTrue(viewisRangeSwitch.thumb.style.display == "block")
+      assert.isTrue(viewisRangeSwitch.positionLabel.style.display == "block")
+      assert.isTrue(viewisRangeSwitch.thumbMax.style.display == "none")
+      assert.isTrue(viewisRangeSwitch.thumbMin.style.display == "none")
+      assert.isTrue(viewisRangeSwitch.positionLabelMax.style.display == "none")
+      assert.isTrue(viewisRangeSwitch.positionLabelMin.style.display == "none")
+   });
+
+}); 
+
