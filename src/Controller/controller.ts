@@ -99,8 +99,6 @@ export class Controller {
         this.view.minValue = this.model.min
         this.view.isRange = this.model.isRange
 
-
-        //this.observerData()
         
 
 
@@ -153,13 +151,6 @@ export class Controller {
         this.view.maxValue = this.model.max
         this.view.minValue = this.model.min  
     }
-
-    // setCurrentValue() {      
-    //     this.view.scaleLinesAdd()
-    //     this.view.isRangeSwitch(this.model.isRange)
-    // }
-
-
 
 
     rangeSwich(isRangeValue) {
@@ -256,27 +247,6 @@ export class Controller {
              return
         }
     }
-     //this.observerData()
-
-        // this.observerMinVert = new MutationObserver(mutationRecords1 => {
-        //     this.model.minCurrentDoubleHeandler = Number(this.view.positionLabelMax.textContent)
-        // });
-        // this.observerMaxVert = new MutationObserver(mutationRecords2 => {
-        //     this.model.maxCurrentDoubleHeandler = Number(this.view.positionLabelMin.textContent)
-        // });
-        // this.observer = new MutationObserver(mutationRecords3 => {
-        //     this.model.current = Number(this.view.positionLabel.textContent)
-        // });
-        // this.observerMin = new MutationObserver(mutationRecords4 => {
-        //     this.model.minCurrentDoubleHeandler = Number(this.view.positionLabelMin.textContent)
-        // });
-        // this.observerMax = new MutationObserver(mutationRecords5 => {
-        //     this.model.maxCurrentDoubleHeandler = Number(this.view.positionLabelMax.textContent)
-        // });
-
-        //console.log(this.model.current, this.model.minCurrentDoubleHeandler, this.model.maxCurrentDoubleHeandler)
- 
-
 
 
     

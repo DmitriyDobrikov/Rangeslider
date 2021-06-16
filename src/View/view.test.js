@@ -395,6 +395,8 @@ describe("Метод isRangeSwitch(isRange: boolean) класса View", functio
    let viewisRangeSwitch = new View
 
    it("Горизонтально", function() {
+      viewisRangeSwitch.isVerticalIdentifier = false
+
       viewisRangeSwitch.isRangeSwitch(true)
       assert.isTrue(viewisRangeSwitch.thumb.style.display == "none")
       assert.isTrue(viewisRangeSwitch.positionLabel.style.display == "none")
@@ -413,6 +415,7 @@ describe("Метод isRangeSwitch(isRange: boolean) класса View", functio
    });
 
    it("Вертикально", function() {
+      viewisRangeSwitch.isVerticalIdentifier = true
 
       viewisRangeSwitch.isRangeSwitch(true)
       assert.isTrue(viewisRangeSwitch.thumb.style.display == "none")

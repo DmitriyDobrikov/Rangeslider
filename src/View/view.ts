@@ -597,7 +597,6 @@ export class View {
             this.positionLabelMax.style.left = parseInt(this.leftOrTopPosition(this.thumbMax)) - 19 + parseInt(this.handlerFullRadius)/2 + "px"
             this.positionLabelMin.style.left = parseInt(this.leftOrTopPosition(this.thumbMin)) - 19 + parseInt(this.handlerFullRadius)/2 + "px"
         }
-
         
     }
     // двигает текст над бегунком
@@ -620,8 +619,6 @@ export class View {
             }
         }
     }
-
-
     
     leftOrTopPosition(a) {
         return this.isVerticalIdentifier?
@@ -665,25 +662,13 @@ export class View {
             this.scaleVaeInView.style.width = this.scaleLong
             this.scaleVaeInView.style.height =  this.scaleWidth
 
-            // this.thumb.style.left = this.handlerRegulLeft
-            // this.thumbMax.style.left = parseFloat(this.scaleLong) - parseFloat(this.handlerFullRadius) + "px"
-            // this.thumbMin.style.left = this.handlerRegulLeft
-
             this.thumb.style.top = this.handlerRegulTop
             this.thumbMax.style.top = this.handlerRegulTop
             this.thumbMin.style.top = this.handlerRegulTop
             this.setThumbLabelTextContentPosition()
 
-
-            // this.positionLabel.textContent = this.minV 
-            // this.positionLabelMax.textContent = this.maxV 
-            // this.positionLabelMin.textContent = this.minV 
-            
-
-
             this.markerValueSkaleView.remove()
-            this.markerSkaleView.remove()     
-            
+            this.markerSkaleView.remove()             
 
             this.scaleLinesAdd()
 
